@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
+import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
@@ -64,25 +65,12 @@ public class register extends AppCompatActivity implements View.OnClickListener 
             email = etEmail.getText().toString();
             phone = etPhone.getText().toString();
             password = etPassword.getText().toString();
-
-            Intent intent = new Intent(this, user_menu.class);
-
-            intent.putExtra("fname", fName);
-            intent.putExtra("lname", lName);
-            intent.putExtra("email", email);
-            intent.putExtra("phone", phone);
-            intent.putExtra("password", password);
-
             /// Register user
             registerUser(fName, lName, phone, email, password);
-
-
-            startActivity(intent);
         }
         else
         {
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
+            finish();
         }
     }
 
@@ -132,6 +120,11 @@ public class register extends AppCompatActivity implements View.OnClickListener 
             public void onCompleted(Void object) {
                 Log.d(TAG, "createUserInDatabase: User created successfully");
                 /// save the user to shared preferences
+
+                SharedPreferencesUtil.saveUser(register.this, user);
+
+
+
 
                 Log.d(TAG, "createUserInDatabase: Redirecting to MainActivity");
                 /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen

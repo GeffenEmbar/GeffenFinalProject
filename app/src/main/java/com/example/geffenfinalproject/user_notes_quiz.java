@@ -27,7 +27,7 @@ import java.util.Random;
 
 public class user_notes_quiz extends AppCompatActivity {
 
-    private Button btnPlay;
+    private Button btnPlay, replay;
     private Button[] noteButtons = new Button[12];
     private TextView scoreText, wrongText;
 
@@ -37,6 +37,7 @@ public class user_notes_quiz extends AppCompatActivity {
     private Button btnStop;
     private int score = 0; // session correct answers
     private int wrong = 0; // session wrong answers
+    private int index;
 
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
@@ -46,6 +47,10 @@ public class user_notes_quiz extends AppCompatActivity {
     private final String[] noteNames = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
     private final List<Note> allKeys = new ArrayList<>();
 
+
+
+    private Button btnC, btnCSharp, btnD, btnDSharp, btnE, btnF;
+    private Button btnFSharp, btnG, btnGSharp, btnA, btnASharp, btnB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +65,27 @@ public class user_notes_quiz extends AppCompatActivity {
 
 
         btnPlay = findViewById(R.id.btnPlay);
+        replay = findViewById(R.id.replay);
         btnStop = findViewById(R.id.btnStop);
         scoreText = findViewById(R.id.scoreText);
         scoreText = findViewById(R.id.scoreText);
         wrongText = findViewById(R.id.wrongText);
+
+
+        btnC = findViewById(R.id.btnC);
+        btnCSharp = findViewById(R.id.btnCSharp);
+        btnD = findViewById(R.id.btnD);
+        btnDSharp = findViewById(R.id.btnDSharp);
+        btnE = findViewById(R.id.btnE);
+        btnF = findViewById(R.id.btnF);
+        btnFSharp = findViewById(R.id.btnFSharp);
+        btnG = findViewById(R.id.btnG);
+        btnGSharp = findViewById(R.id.btnGSharp);
+        btnA = findViewById(R.id.btnA);
+        btnASharp = findViewById(R.id.btnASharp);
+        btnB = findViewById(R.id.btnB);
+
+
 
 
 
@@ -103,121 +125,50 @@ public class user_notes_quiz extends AppCompatActivity {
     }
 
     void initAllKeys() {
-        // --- A notes ---
-        allKeys.add(new Note("A", R.raw.a0));
-        allKeys.add(new Note("A", R.raw.a1));
-        allKeys.add(new Note("A", R.raw.a2));
-        allKeys.add(new Note("A", R.raw.a3));
-        allKeys.add(new Note("A", R.raw.a4));
-        allKeys.add(new Note("A", R.raw.a5));
-        allKeys.add(new Note("A", R.raw.a6));
-        allKeys.add(new Note("A", R.raw.a7));
+        addNotes("A", "a", 0, 7);
+        addNotes("A#", "asharp", 0, 7);
+        addNotes("B", "b", 0, 7);
+        addNotes("C", "c", 1, 7);
+        addNotes("C#", "csharp", 1, 7);
+        addNotes("D", "d", 1, 7);
+        addNotes("D#", "dsharp", 1, 7);
+        addNotes("E", "e", 1, 7);
+        addNotes("F", "f", 1, 7);
+        addNotes("F#", "fsharp", 1, 7);
+        addNotes("G", "g", 1, 7);
+        addNotes("G#", "gsharp", 1, 7);
 
-        // --- A# notes ---
-        allKeys.add(new Note("A#", R.raw.asharp1));
-        allKeys.add(new Note("A#", R.raw.asharp2));
-        allKeys.add(new Note("A#", R.raw.asharp3));
-        allKeys.add(new Note("A#", R.raw.asharp4));
-        allKeys.add(new Note("A#", R.raw.asharp5));
-        allKeys.add(new Note("A#", R.raw.asharp6));
-        allKeys.add(new Note("A#", R.raw.asharp7));
+    }
 
-        // --- B notes ---
-        allKeys.add(new Note("B", R.raw.b0));
-        allKeys.add(new Note("B", R.raw.b1));
-        allKeys.add(new Note("B", R.raw.b2));
-        allKeys.add(new Note("B", R.raw.b3));
-        allKeys.add(new Note("B", R.raw.b4));
-        allKeys.add(new Note("B", R.raw.b5));
-        allKeys.add(new Note("B", R.raw.b6));
-        allKeys.add(new Note("B", R.raw.b7));
+    void addNotes(String noteName, String filePrefix, int start, int end) {
 
-        // --- C notes ---
-        allKeys.add(new Note("C", R.raw.c1));
-        allKeys.add(new Note("C", R.raw.c2));
-        allKeys.add(new Note("C", R.raw.c3));
-        allKeys.add(new Note("C", R.raw.c4));
-        allKeys.add(new Note("C", R.raw.c5));
-        allKeys.add(new Note("C", R.raw.c6));
-        allKeys.add(new Note("C", R.raw.c7));
+        for (int i = start; i <= end; i++) {
 
-        // --- C# notes ---
-        allKeys.add(new Note("C#", R.raw.csharp1));
-        allKeys.add(new Note("C#", R.raw.csharp2));
-        allKeys.add(new Note("C#", R.raw.csharp3));
-        allKeys.add(new Note("C#", R.raw.csharp4));
-        allKeys.add(new Note("C#", R.raw.csharp5));
-        allKeys.add(new Note("C#", R.raw.csharp6));
-        allKeys.add(new Note("C#", R.raw.csharp7));
+            int resId = getResources().getIdentifier(
+                    filePrefix + i,
+                    "raw",
+                    getPackageName()
+            );
 
-        // --- D notes ---
-        allKeys.add(new Note("D", R.raw.d1));
-        allKeys.add(new Note("D", R.raw.d2));
-        allKeys.add(new Note("D", R.raw.d3));
-        allKeys.add(new Note("D", R.raw.d4));
-        allKeys.add(new Note("D", R.raw.d5));
-        allKeys.add(new Note("D", R.raw.d6));
-        allKeys.add(new Note("D", R.raw.d7));
+            if (resId != 0) {
+                allKeys.add(new Note(noteName, resId));
+            }
 
-        // --- D# notes ---
-        allKeys.add(new Note("D#", R.raw.dsharp1));
-        allKeys.add(new Note("D#", R.raw.dsharp2));
-        allKeys.add(new Note("D#", R.raw.dsharp3));
-        allKeys.add(new Note("D#", R.raw.dsharp4));
-        allKeys.add(new Note("D#", R.raw.dsharp5));
-        allKeys.add(new Note("D#", R.raw.dsharp6));
-        allKeys.add(new Note("D#", R.raw.dsharp7));
-
-        // --- E notes ---
-        allKeys.add(new Note("E", R.raw.e1));
-        allKeys.add(new Note("E", R.raw.e2));
-        allKeys.add(new Note("E", R.raw.e3));
-        allKeys.add(new Note("E", R.raw.e4));
-        allKeys.add(new Note("E", R.raw.e5));
-        allKeys.add(new Note("E", R.raw.e6));
-        allKeys.add(new Note("E", R.raw.e7));
-
-        // --- F notes ---
-        allKeys.add(new Note("F", R.raw.f1));
-        allKeys.add(new Note("F", R.raw.f2));
-        allKeys.add(new Note("F", R.raw.f3));
-        allKeys.add(new Note("F", R.raw.f4));
-        allKeys.add(new Note("F", R.raw.f5));
-        allKeys.add(new Note("F", R.raw.f6));
-        allKeys.add(new Note("F", R.raw.f7));
-
-        // --- F# notes ---
-        allKeys.add(new Note("F#", R.raw.fsharp1));
-        allKeys.add(new Note("F#", R.raw.fsharp2));
-        allKeys.add(new Note("F#", R.raw.fsharp3));
-        allKeys.add(new Note("F#", R.raw.fsharp4));
-        allKeys.add(new Note("F#", R.raw.fsharp5));
-        allKeys.add(new Note("F#", R.raw.fsharp6));
-        allKeys.add(new Note("F#", R.raw.fsharp7));
-
-        // --- G notes ---
-        allKeys.add(new Note("G", R.raw.g1));
-        allKeys.add(new Note("G", R.raw.g2));
-        allKeys.add(new Note("G", R.raw.g3));
-        allKeys.add(new Note("G", R.raw.g4));
-        allKeys.add(new Note("G", R.raw.g5));
-        allKeys.add(new Note("G", R.raw.g6));
-        allKeys.add(new Note("G", R.raw.g7));
-
-        // --- G# notes ---
-        allKeys.add(new Note("G#", R.raw.gsharp1));
-        allKeys.add(new Note("G#", R.raw.gsharp2));
-        allKeys.add(new Note("G#", R.raw.gsharp3));
-        allKeys.add(new Note("G#", R.raw.gsharp4));
-        allKeys.add(new Note("G#", R.raw.gsharp5));
-        allKeys.add(new Note("G#", R.raw.gsharp6));
-        allKeys.add(new Note("G#", R.raw.gsharp7));
+        }
     }
 
     private void playRandomKey(){
         if(allKeys.isEmpty()) return;
 
-        int index = new Random().nextInt(allKeys.size());
+        for (Button b : noteButtons) {
+            b.setEnabled(true);
+        }
+
+        index = new Random().nextInt(allKeys.size());
+        playNote();
+    }
+
+    private void playNote() {
         Note key = allKeys.get(index);
         correctNoteName = key.getNoteName();
 
@@ -227,11 +178,15 @@ public class user_notes_quiz extends AppCompatActivity {
     }
 
     private void checkAnswer(String userAnswer){
+        for (Button b : noteButtons) {
+            b.setEnabled(false);
+        }
         if(userAnswer.equalsIgnoreCase(correctNoteName)){
             score++;
             Toast.makeText(this,"Correct!", Toast.LENGTH_SHORT).show();
             updateUserScore(true);
         } else {
+            wrong++;
             Toast.makeText(this,"Wrong! Correct: "+correctNoteName,Toast.LENGTH_SHORT).show();
             updateUserScore(false);
         }
