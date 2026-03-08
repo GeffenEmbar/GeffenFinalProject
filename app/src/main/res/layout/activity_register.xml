@@ -23,7 +23,7 @@
             >
         </TextView>
 
-        /// שם פרטי
+
         <EditText
             android:id="@+id/etFname"
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:textSize="25dp"
             android:layout_marginBottom="2dp"
             />
-        /// שם משפחה
+
         <EditText
             android:id="@+id/etLname"
             android:layout_width="match_parent"

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.geffenfinalproject.adapters.UserAdapter;
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
