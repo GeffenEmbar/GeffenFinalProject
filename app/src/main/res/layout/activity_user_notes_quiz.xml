@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user_notes_quiz">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="8"
+        android:background="@color/black"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textColor="@color/white"
+            android:textStyle="bold|normal"
+            android:text="Notes Quiz"
+            android:gravity="center"
+            android:textSize="30sp"
+            >
+        </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:weightSum="6"
+            >
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPlay"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Play Note"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="0dp"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/scoreText"
+                android:text="Correct: 0"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:padding="12dp"/>
+            <TextView
+                android:id="@+id/wrongText"
+                android:text="Wrong: 0"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:padding="12dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                >
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnC"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="C"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCSharp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="C#"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnD"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="D"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDSharp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="D#"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnE"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="E"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnF"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="F"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                >
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFSharp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="F#"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnG"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="G"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGSharp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="G#"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnA"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="A"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnASharp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="A#"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnB"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="B"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#4CAF50"
+                    app:cornerRadius="0dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginTop="50dp"
+                android:id="@+id/btnStop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Stop Test"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="0dp"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                />
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
