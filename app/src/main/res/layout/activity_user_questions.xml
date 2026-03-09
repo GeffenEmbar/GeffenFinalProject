@@ -100,7 +100,7 @@
                 android:text=""
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                app:backgroundTint="#F9FF00"
+                app:backgroundTint="#B9BD00"
                 app:cornerRadius="0dp"
                 android:textSize="35dp"
                 android:textStyle="bold"
@@ -123,19 +123,21 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/next"
+            android:id="@+id/btnOut"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Next Question"
-            android:enabled="false"
+            android:text=""
+            android:gravity="center"
             android:textColor="#FFFFFF"
-            app:backgroundTint="#6A4CAF"
+            app:backgroundTint="#9500FF"
             app:cornerRadius="0dp"
             android:textSize="35dp"
             android:textStyle="bold"
             android:layout_margin="5dp"
+            android:visibility="gone"
             />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

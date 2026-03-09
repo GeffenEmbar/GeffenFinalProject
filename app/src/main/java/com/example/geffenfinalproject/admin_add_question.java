@@ -61,11 +61,11 @@ public class admin_add_question extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         if (v.getId() == add.getId())
         {
-            questionString = question.toString();
-            correctString = correct.toString();
-            wrong1String = wrong1.toString();
-            wrong2String = wrong2.toString();
-            wrong3String = wrong3.toString();
+            questionString = question.getText().toString();
+            correctString = correct.getText().toString();
+            wrong1String = wrong1.getText().toString();
+            wrong2String = wrong2.getText().toString();
+            wrong3String = wrong3.getText().toString();
             difficultyString = difficulty.getSelectedItem().toString();
 
             Question q = new Question(questionString, correctString, wrong1String, wrong2String, wrong3String, difficultyString, databaseService.generateQuestionId());

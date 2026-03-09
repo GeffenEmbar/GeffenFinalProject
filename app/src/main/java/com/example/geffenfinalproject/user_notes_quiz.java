@@ -122,6 +122,7 @@ public class user_notes_quiz extends AppCompatActivity {
         // Button listeners
         btnPlay.setOnClickListener(v -> playRandomKey());
         btnStop.setOnClickListener(v -> stopQuiz());
+        replay.setOnClickListener(v -> playNote());
     }
 
     void initAllKeys() {

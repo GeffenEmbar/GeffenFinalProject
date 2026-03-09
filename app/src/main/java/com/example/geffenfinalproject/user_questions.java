@@ -1,5 +1,6 @@
 package com.example.geffenfinalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import java.util.List;
 public class user_questions extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvQuestion, tvScore;
-    private Button answer1, answer2, answer3, answer4, next;
+    private Button answer1, answer2, answer3, answer4, btnOut;
     DatabaseService databaseService;
     private FirebaseAuth mAuth;
     private ArrayList<Question> questions = new ArrayList<>();
@@ -48,6 +49,7 @@ public class user_questions extends AppCompatActivity implements View.OnClickLis
 
         tvQuestion = findViewById(R.id.tvQuestion);
         tvScore = findViewById(R.id.tvScore);
+        tvScore.setText("Correct: " + 0 + " | Wrong: " + 0);
         answer1 = findViewById(R.id.answer1);
         answer1.setOnClickListener(this);
         answer2 = findViewById(R.id.answer2);
@@ -57,8 +59,9 @@ public class user_questions extends AppCompatActivity implements View.OnClickLis
         answer4 = findViewById(R.id.answer4);
         answer4.setOnClickListener(this);
 
-        next = findViewById(R.id.next);
-        next.setOnClickListener(this);
+        btnOut = findViewById(R.id.btnOut);
+        btnOut.setOnClickListener(this);
+
 
         databaseService=DatabaseService.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -88,7 +91,12 @@ public class user_questions extends AppCompatActivity implements View.OnClickLis
 
         if (currentQuestionIndex >= questions.size()) {
             Toast.makeText(this, "Finished all challenges!", Toast.LENGTH_LONG).show();
-            finish();
+            btnOut.setVisibility(View.VISIBLE);
+            btnOut.setText("Out of Questions - Back to menu");
+            answer1.setEnabled(false);
+            answer2.setEnabled(false);
+            answer3.setEnabled(false);
+            answer4.setEnabled(false);
             return;
         }
 
@@ -115,7 +123,7 @@ public class user_questions extends AppCompatActivity implements View.OnClickLis
         answer3.setOnClickListener(v -> checkAnswer(answer3.getText().toString()));
         answer4.setOnClickListener(v -> checkAnswer(answer4.getText().toString()));
 
-        next.setEnabled(true);
+
     }
 
     private void checkAnswer(String userAnswer) {
@@ -131,6 +139,8 @@ public class user_questions extends AppCompatActivity implements View.OnClickLis
         updateScore();
 
         currentQuestionIndex++;
+
+        showNextQuestion();
     }
 
     private void updateScore() {
@@ -140,10 +150,10 @@ public class user_questions extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == next.getId())
+        if (v.getId() == btnOut.getId())
         {
-            showNextQuestion();
-            next.setEnabled(false);
+            Intent intent = new Intent(this, user_menu.class);
+            startActivity(intent);
         }
     }
 }
