@@ -45,6 +45,18 @@
                 android:textSize="35dp"
                 android:textStyle="bold"
                 />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/admin_add"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Add Questions"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="0dp"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                />
 
         </LinearLayout>
 

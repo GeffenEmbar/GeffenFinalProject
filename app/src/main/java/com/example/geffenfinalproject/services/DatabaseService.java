@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.geffenfinalproject.models.Question;
 import com.example.geffenfinalproject.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -401,47 +402,46 @@ public class DatabaseService {
 
 
 
-    /*
 
-    /// create a new challenge in the database
-    /// @param challenge the challenge object to create
+    /// create a new question in the database
+    /// @param question the challenge object to create
     /// @param callback the callback to call when the operation is completed
     ///               the callback will receive void
     ///              if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
-    /// @see com.geffen.geffenproject.model.Challenge
-    public void createNewChallenge(@NotNull final Challenge challenge, @Nullable final DatabaseCallback<Void> callback) {
-        writeData(CHALLENGES_PATH + "/" + challenge.getId(), challenge, callback);
+    /// @see com.example.geffenfinalproject.models.Question
+    public void createNewQuestion(@NotNull final Question question, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(QUEST_PATH + "/" + question.getId(), question, callback);
     }
 
     /// get a challenge from the database
-    /// @param challengeId the id of the challenge to get
+    /// @param questionId the id of the challenge to get
     /// @param callback the callback to call when the operation is completed
     ///                the callback will receive the challenge object
     ///               if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
-    /// @see Challenge
-    public void getChallenge(@NotNull final String challengeId, @NotNull final DatabaseCallback<Challenge> callback) {
-        getData(CHALLENGES_PATH + "/" + challengeId, Challenge.class, callback);
+    /// @see Question
+    public void getQuestion(@NotNull final String questionId, @NotNull final DatabaseCallback<Question> callback) {
+        getData(QUEST_PATH + "/" + questionId, Question.class, callback);
     }
 
     /// get all the challenges from the database
     /// @param callback the callback to call when the operation is completed
     ///               the callback will receive a list of challenge objects
     ///
-    public void getChallengeList(@NotNull final DatabaseCallback<List<Challenge>> callback) {
-        getDataList(CHALLENGES_PATH, Challenge.class, callback);
+    public void getQuestionList(@NotNull final DatabaseCallback<List<Question>> callback) {
+        getDataList(QUEST_PATH, Question.class, callback);
     }
 
     /// get all the challenges of a specific user from the database
     /// @param uid the id of the user to get the challenges for
     /// @param callback the callback to call when the operation is completed
-    public void getUserChallengeList(@NotNull String uid, @NotNull final DatabaseCallback<List<Challenge>> callback) {
-        getChallengeList(new DatabaseCallback<>() {
+    public void getUserQuestionList(@NotNull String uid, @NotNull final DatabaseCallback<List<Question>> callback) {
+        getQuestionList(new DatabaseCallback<>() {
             @Override
-            public void onCompleted(List<Challenge> challenges) {
-                challenges.removeIf(challenge -> !Objects.equals(challenge.getId(), uid));
-                callback.onCompleted(challenges);
+            public void onCompleted(List<Question> questions) {
+                questions.removeIf(challenge -> !Objects.equals(challenge.getId(), uid));
+                callback.onCompleted(questions);
             }
 
             @Override
@@ -455,23 +455,23 @@ public class DatabaseService {
     /// generate a new id for a new challenge in the database
     /// @return a new id for the challenge
     /// @see #generateNewId(String)
-    /// @see Challenge
-    public String generateChallengeId() {
-        return generateNewId(CHALLENGES_PATH);
+    /// @see Question
+    public String generateQuestionId() {
+        return generateNewId(QUEST_PATH);
     }
 
     /// delete a challenge from the database
-    /// @param challengeId the id of the challenge to delete
+    /// @param questionId the id of the challenge to delete
     /// @param callback the callback to call when the operation is completed
-    public void deleteChallenge(@NotNull final String challengeId, @Nullable final DatabaseCallback<Void> callback) {
-        deleteData(CHALLENGES_PATH + "/" + challengeId, callback);
+    public void deleteQuestion(@NotNull final String questionId, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(QUEST_PATH + "/" + questionId, callback);
     }
 
     // endregion challenge section
 
 
 
-    */
+
 
 
 

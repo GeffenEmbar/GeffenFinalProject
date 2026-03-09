@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeffenFinalProject">
         <activity
+            android:name=".user_questions"
+            android:exported="false" />
+        <activity
+            android:name=".admin_add_question"
+            android:exported="false" />
+        <activity
             android:name=".user_notes_quiz"
             android:exported="false" />
         <activity

@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class admin_menu extends AppCompatActivity implements View.OnClickListener {
-    Button user_table;
+    Button user_table, admin_add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +27,17 @@ public class admin_menu extends AppCompatActivity implements View.OnClickListene
 
         user_table = findViewById(R.id.user_table);
         user_table.setOnClickListener(this);
+        admin_add = findViewById(R.id.admin_add);
+        admin_add.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.user_table) {
             Intent intent = new Intent(this, admin_user_table.class);
+            startActivity(intent);
+        } else if (v.getId() == admin_add.getId()) {
+            Intent intent = new Intent(this, admin_add_question.class);
             startActivity(intent);
         }
     }

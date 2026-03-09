@@ -47,11 +47,11 @@
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/guitar"
+                android:id="@+id/questionnaire"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="0dp"
-                android:text="---TEMP---"
+                android:text="Admin's Questions"
                 android:textColor="#FFFFFF"
                 app:backgroundTint="#4CAF50"
                 app:cornerRadius="0dp"
