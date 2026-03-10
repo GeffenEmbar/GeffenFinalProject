@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeffenFinalProject">
         <activity
+            android:name=".user_intervals_quiz"
+            android:exported="false" />
+        <activity
             android:name=".user_questions"
             android:exported="false" />
         <activity
