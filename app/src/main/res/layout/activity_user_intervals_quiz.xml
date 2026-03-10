@@ -66,15 +66,15 @@
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnReplayNote"
+                android:id="@+id/btnReplayInterval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Replay Note"
+                android:text="Replay Interval"
                 android:textColor="#FFFFFF"
                 app:backgroundTint="#FF0000"
                 app:cornerRadius="0dp"
-                android:textSize="29dp"
+                android:textSize="23dp"
                 android:textStyle="bold"
                 />
 

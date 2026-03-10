@@ -27,7 +27,7 @@ import java.util.Random;
 
 public class user_intervals_quiz extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnPlayInterval, btnReplay;
+    private Button btnPlayInterval, btnReplayInterval;
     private Button btnMinorSecond, btnMajorSecond, btnMinorThird, btnMajorThird;
     private Button btnPerfectFourth, btnPerfectFifth, btnOctave;
 
@@ -63,7 +63,7 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         });
 
         btnPlayInterval = findViewById(R.id.btnPlayInterval);
-        btnReplay = findViewById(R.id.btnReplayNote);
+        btnReplayInterval = findViewById(R.id.btnReplayInterval);
 
         btnMinorSecond = findViewById(R.id.btnMinorSecond);
         btnMajorSecond = findViewById(R.id.btnMajorSecond);
@@ -89,7 +89,7 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
 
         btnPlayInterval.setOnClickListener(v -> playInterval());
 
-        btnReplay.setOnClickListener(v -> {
+        btnReplayInterval.setOnClickListener(v -> {
             if(questionActive){
                 replayInterval();
             }
