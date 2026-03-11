@@ -195,7 +195,7 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         }else{
 
             wrong++;
-            Toast.makeText(this,"Wrong!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Wrong!" + correctInterval,Toast.LENGTH_SHORT).show();
             updateUserScore(false);
         }
 

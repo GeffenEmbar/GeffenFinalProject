@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class user_menu extends AppCompatActivity implements View.OnClickListener {
 
-    Button piano_notes_quiz, questionnaire, btnIntervalsQuiz;
+    Button piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,8 @@ public class user_menu extends AppCompatActivity implements View.OnClickListener
         questionnaire.setOnClickListener(this);
         btnIntervalsQuiz = findViewById(R.id.btnIntervalsQuiz);
         btnIntervalsQuiz.setOnClickListener(this);
+        btnLeaderboard = findViewById(R.id.btnLeaderboard);
+        btnLeaderboard.setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +48,10 @@ public class user_menu extends AppCompatActivity implements View.OnClickListener
         }
         else if (v.getId() == btnIntervalsQuiz.getId()) {
             Intent intent = new Intent(this, user_intervals_quiz.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == btnLeaderboard.getId()) {
+            Intent intent = new Intent(this, user_leaderboard.class);
             startActivity(intent);
         }
     }

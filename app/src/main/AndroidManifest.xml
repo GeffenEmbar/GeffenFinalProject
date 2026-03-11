@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeffenFinalProject">
         <activity
+            android:name=".item_leaderboard"
+            android:exported="false" />
+        <activity
+            android:name=".user_leaderboard"
+            android:exported="false" />
+        <activity
             android:name=".user_visual_piano"
             android:exported="false" />
         <activity
