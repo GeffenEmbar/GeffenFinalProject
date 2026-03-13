@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button registerBtn, loginBtn;
 
@@ -24,6 +26,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            // Firebase remembers the session! The user is already logged in.
+            Intent intent = new Intent(MainActivity.this, user_menu.class);
+            startActivity(intent);
+        }
+
         registerBtn = findViewById(R.id.registerBtn);
         loginBtn = findViewById(R.id.loginBtn);
         registerBtn.setOnClickListener(this);

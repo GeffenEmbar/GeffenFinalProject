@@ -5,9 +5,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.geffenfinalproject.models.Group;
 import com.example.geffenfinalproject.models.Question;
 import com.example.geffenfinalproject.models.User;
-import com.example.geffenfinalproject.models.Group;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.UnaryOperator;
 
-
 /// a service to interact with the Firebase Realtime Database.
 /// this class is a singleton, use getInstance() to get an instance of this class
 /// @see #getInstance()
@@ -31,46 +30,32 @@ import java.util.function.UnaryOperator;
 public class DatabaseService {
 
     /// tag for logging
-    /// @see Log
     private static final String TAG = "DatabaseService";
 
     /// paths for different data types in the database
-    /// @see DatabaseService#readData(String)
     private static final String USERS_PATH = "users",
-                                QUEST_PATH = "questions",
-                                GROUPS_PATH = "groups";
+            QUEST_PATH = "questions",
+            GROUPS_PATH = "groups";
 
     /// callback interface for database operations
-    /// @param <T> the type of the object to return
-    /// @see DatabaseCallback#onCompleted(Object)
-    /// @see DatabaseCallback#onFailed(Exception)
     public interface DatabaseCallback<T> {
-        /// called when the operation is completed successfully
-        public void onCompleted(T object);
-
-        /// called when the operation fails with an exception
-        public void onFailed(Exception e);
+        void onCompleted(T object);
+        void onFailed(Exception e);
     }
 
     /// the instance of this class
-    /// @see #getInstance()
     private static DatabaseService instance;
 
     /// the reference to the database
-    /// @see DatabaseReference
-    /// @see FirebaseDatabase#getReference()
     private final DatabaseReference databaseReference;
 
     /// use getInstance() to get an instance of this class
-    /// @see DatabaseService#getInstance()
     private DatabaseService() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
 
     /// get an instance of this class
-    /// @return an instance of this class
-    /// @see DatabaseService
     public static DatabaseService getInstance() {
         if (instance == null) {
             instance = new DatabaseService();
@@ -78,361 +63,280 @@ public class DatabaseService {
         return instance;
     }
 
-
     // region private generic methods
-    // to write and read data from the database
 
     /// write data to the database at a specific path
-    /// @param path the path to write the data to
-    /// @param data the data to write (can be any object, but must be serializable, i.e. must have a default constructor and all fields must have getters and setters)
-    /// @param callback the callback to call when the operation is completed
-    /// @see DatabaseCallback
-    private void writeData(@NotNull final String path, @NotNull final Object data, final @Nullable DatabaseCallback<Void> callback) {
+    private void writeData(@NotNull final String path,
+                           @NotNull final Object data,
+                           @Nullable final DatabaseCallback<Void> callback) {
         readData(path).setValue(data, (error, ref) -> {
+            if (callback == null) return;
+
             if (error != null) {
-                if (callback == null) return;
                 callback.onFailed(error.toException());
             } else {
-                if (callback == null) return;
                 callback.onCompleted(null);
-        }
-    });
+            }
+        });
     }
 
     /// remove data from the database at a specific path
-    /// @param path the path to remove the data from
-    /// @param callback the callback to call when the operation is completed
-    /// @see DatabaseCallback
-    private void deleteData(@NotNull final String path, @Nullable final DatabaseCallback<Void> callback) {
+    private void deleteData(@NotNull final String path,
+                            @Nullable final DatabaseCallback<Void> callback) {
         readData(path).removeValue((error, ref) -> {
+            if (callback == null) return;
+
             if (error != null) {
-                if (callback == null) return;
                 callback.onFailed(error.toException());
             } else {
-                if (callback == null) return;
                 callback.onCompleted(null);
-        }
-    });
+            }
+        });
     }
 
     /// read data from the database at a specific path
-    /// @param path the path to read the data from
-    /// @return a DatabaseReference object to read the data from
-    /// @see DatabaseReference
-
     private DatabaseReference readData(@NotNull final String path) {
         return databaseReference.child(path);
     }
 
-
     /// get data from the database at a specific path
-    /// @param path the path to get the data from
-    /// @param clazz the class of the object to return
-    /// @param callback the callback to call when the operation is completed
-    /// @see DatabaseCallback
-    /// @see Class
-    private <T> void getData(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull final DatabaseCallback<T> callback) {
+    private <T> void getData(@NotNull final String path,
+                             @NotNull final Class<T> clazz,
+                             @NotNull final DatabaseCallback<T> callback) {
         readData(path).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
+                Log.e(TAG, "Error getting data from path: " + path, task.getException());
+                callback.onFailed(task.getException() != null
+                        ? task.getException()
+                        : new Exception("Unknown database error"));
                 return;
             }
-            T data = task.getResult().getValue(clazz);
+
+            DataSnapshot snapshot = task.getResult();
+            if (snapshot == null || !snapshot.exists()) {
+                callback.onCompleted(null);
+                return;
+            }
+
+            T data = snapshot.getValue(clazz);
             callback.onCompleted(data);
         });
     }
 
     /// get a list of data from the database at a specific path
-    /// @param path the path to get the data from
-    /// @param clazz the class of the objects to return
-    /// @param callback the callback to call when the operation is completed
-    private <T> void getDataList(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull final DatabaseCallback<List<T>> callback) {
+    private <T> void getDataList(@NotNull final String path,
+                                 @NotNull final Class<T> clazz,
+                                 @NotNull final DatabaseCallback<List<T>> callback) {
         readData(path).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
+                Log.e(TAG, "Error getting data list from path: " + path, task.getException());
+                callback.onFailed(task.getException() != null
+                        ? task.getException()
+                        : new Exception("Unknown database error"));
                 return;
             }
+
             List<T> tList = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                T t = dataSnapshot.getValue(clazz);
-                tList.add(t);
-            });
+            DataSnapshot result = task.getResult();
+
+            if (result != null) {
+                for (DataSnapshot dataSnapshot : result.getChildren()) {
+                    T t = dataSnapshot.getValue(clazz);
+                    if (t != null) {
+                        tList.add(t);
+                    }
+                }
+            }
 
             callback.onCompleted(tList);
         });
     }
 
     /// generate a new id for a new object in the database
-    /// @param path the path to generate the id for
-    /// @return a new id for the object
-    /// @see String
-    /// @see DatabaseReference#push()
-
     private String generateNewId(@NotNull final String path) {
         return databaseReference.child(path).push().getKey();
     }
 
-
-    /// run a transaction on the data at a specific path </br>
-    /// good for incrementing a value or modifying an object in the database
-    /// @param path the path to run the transaction on
-    /// @param clazz the class of the object to return
-    /// @param function the function to apply to the current value of the data
-    /// @param callback the callback to call when the operation is completed
-    /// @see DatabaseReference#runTransaction(Transaction.Handler)
-    private <T> void runTransaction(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull UnaryOperator<T> function, @NotNull final DatabaseCallback<T> callback) {
+    /// run a transaction on the data at a specific path
+    private <T> void runTransaction(@NotNull final String path,
+                                    @NotNull final Class<T> clazz,
+                                    @NotNull UnaryOperator<T> function,
+                                    @NotNull final DatabaseCallback<T> callback) {
         readData(path).runTransaction(new Transaction.Handler() {
             @NonNull
             @Override
             public Transaction.Result doTransaction(@NonNull MutableData currentData) {
                 T currentValue = currentData.getValue(clazz);
-                if (currentValue == null) {
-                    currentValue = function.apply(null);
-                } else {
-                    currentValue = function.apply(currentValue);
-                }
+                currentValue = function.apply(currentValue);
                 currentData.setValue(currentValue);
                 return Transaction.success(currentData);
             }
 
             @Override
-            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+            public void onComplete(@Nullable DatabaseError error,
+                                   boolean committed,
+                                   @Nullable DataSnapshot currentData) {
                 if (error != null) {
                     Log.e(TAG, "Transaction failed", error.toException());
                     callback.onFailed(error.toException());
                     return;
                 }
+
                 T result = currentData != null ? currentData.getValue(clazz) : null;
                 callback.onCompleted(result);
             }
         });
-
     }
 
-    // endregion of private methods for reading and writing data
-
-    // public methods to interact with the database
+    // endregion
 
     // region User Section
 
-    /// generate a new id for a new user in the database
-    /// @return a new id for the user
-    /// @see #generateNewId(String)
-    /// @see User
     public String generateUserId() {
         return generateNewId(USERS_PATH);
     }
 
-    /// create a new user in the database
-    /// @param user the user object to create
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive void
-    ///            if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see User
-    public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
+    public void createNewUser(@NotNull final User user,
+                              @Nullable final DatabaseCallback<Void> callback) {
         writeData(USERS_PATH + "/" + user.getId(), user, callback);
     }
 
-    /// get a user from the database
-    /// @param uid the id of the user to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the user object
-    ///             if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see User
-    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
+    public void getUser(@NotNull final String uid,
+                        @NotNull final DatabaseCallback<User> callback) {
         getData(USERS_PATH + "/" + uid, User.class, callback);
     }
 
-    /// get all the users from the database
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive a list of user objects
-    ///            if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see List
-    /// @see User
     public void getUserList(@NotNull final DatabaseCallback<List<User>> callback) {
         getDataList(USERS_PATH, User.class, callback);
     }
 
-    /// delete a user from the database
-    /// @param uid the user id to delete
-    /// @param callback the callback to call when the operation is completed
-    public void deleteUser(@NotNull final String uid, @Nullable final DatabaseCallback<Void> callback) {
+    public void deleteUser(@NotNull final String uid,
+                           @Nullable final DatabaseCallback<Void> callback) {
         deleteData(USERS_PATH + "/" + uid, callback);
     }
 
-    /// get a user by email and password
-    /// @param email the email of the user
-    /// @param password the password of the user
-    /// @param callback the callback to call when the operation is completed
-    ///            the callback will receive the user object
-    ///          if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see User
-    public void getUserByEmailAndPassword(@NotNull final String email, @NotNull final String password, @NotNull final DatabaseCallback<User> callback) {
-        readData(USERS_PATH).orderByChild("email").equalTo(email).get()
-            .addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    Log.e(TAG, "Error getting data", task.getException());
-                    callback.onFailed(task.getException());
-                    return;
-                }
-                if (task.getResult().getChildrenCount() == 0) {
-                    callback.onFailed(new Exception("User not found"));
-                    return;
-                }
-                for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                    User user = dataSnapshot.getValue(User.class);
-                    if (user == null || !Objects.equals(user.getPassword(), password)) {
-                        callback.onFailed(new Exception("Invalid email or password"));
-                        return;
-                    }
-
-                    callback.onCompleted(user);
-                    return;
-
-                }
-            });
-    }
-
-    /// check if an email already exists in the database
-    /// @param email the email to check
-    /// @param callback the callback to call when the operation is completed
-    public void checkIfEmailExists(@NotNull final String email, @NotNull final DatabaseCallback<Boolean> callback) {
+    public void getUserByEmailAndPassword(@NotNull final String email,
+                                          @NotNull final String password,
+                                          @NotNull final DatabaseCallback<User> callback) {
         readData(USERS_PATH).orderByChild("email").equalTo(email).get()
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        Log.e(TAG, "Error getting data", task.getException());
-                        callback.onFailed(task.getException());
+                        Log.e(TAG, "Error getting user by email", task.getException());
+                        callback.onFailed(task.getException() != null
+                                ? task.getException()
+                                : new Exception("Unknown database error"));
                         return;
                     }
-                    boolean exists = task.getResult().getChildrenCount() > 0;
+
+                    if (task.getResult() == null || task.getResult().getChildrenCount() == 0) {
+                        callback.onFailed(new Exception("User not found"));
+                        return;
+                    }
+
+                    for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                        User user = dataSnapshot.getValue(User.class);
+
+                        if (user == null || !Objects.equals(user.getPassword(), password)) {
+                            callback.onFailed(new Exception("Invalid email or password"));
+                            return;
+                        }
+
+                        callback.onCompleted(user);
+                        return;
+                    }
+
+                    callback.onFailed(new Exception("User not found"));
+                });
+    }
+
+    public void checkIfEmailExists(@NotNull final String email,
+                                   @NotNull final DatabaseCallback<Boolean> callback) {
+        readData(USERS_PATH).orderByChild("email").equalTo(email).get()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e(TAG, "Error checking email", task.getException());
+                        callback.onFailed(task.getException() != null
+                                ? task.getException()
+                                : new Exception("Unknown database error"));
+                        return;
+                    }
+
+                    boolean exists = task.getResult() != null && task.getResult().getChildrenCount() > 0;
                     callback.onCompleted(exists);
                 });
     }
 
-    public void updateUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
-        runTransaction(USERS_PATH + "/" + user.getId(), User.class, currentUser -> user, new DatabaseCallback<User>() {
-            @Override
-            public void onCompleted(User object) {
-                if (callback != null) {
-                    callback.onCompleted(null);
-                }
-            }
+    public void updateUser(@NotNull final User user,
+                           @Nullable final DatabaseCallback<Void> callback) {
+        runTransaction(USERS_PATH + "/" + user.getId(), User.class, currentUser -> user,
+                new DatabaseCallback<User>() {
+                    @Override
+                    public void onCompleted(User object) {
+                        if (callback != null) {
+                            callback.onCompleted(null);
+                        }
+                    }
 
-            @Override
-            public void onFailed(Exception e) {
-                if (callback != null) {
-                    callback.onFailed(e);
-                }
-            }
-        });
+                    @Override
+                    public void onFailed(Exception e) {
+                        if (callback != null) {
+                            callback.onFailed(e);
+                        }
+                    }
+                });
     }
-
-
-
-
 
     // endregion User Section
 
-    // region food section
+    // region Group Section
 
-    /// create a new group in the database
-    /// @param group the group object to create
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive void
-    ///             if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see Group
-    public void createNewGroup(@NotNull final Group group, @Nullable final DatabaseCallback<Void> callback) {
+    public void createNewGroup(@NotNull final Group group,
+                               @Nullable final DatabaseCallback<Void> callback) {
         writeData(GROUPS_PATH + "/" + group.getGroupId(), group, callback);
     }
 
-    /// get a food from the database
-    /// @param groupId the id of the food to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the food object
-    ///              if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see Group
-    public void getGroup(@NotNull final String groupId, @NotNull final DatabaseCallback<Group> callback) {
+    public void getGroup(@NotNull final String groupId,
+                         @NotNull final DatabaseCallback<Group> callback) {
         getData(GROUPS_PATH + "/" + groupId, Group.class, callback);
     }
 
-    /// get all the foods from the database
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive a list of food objects
-    ///            if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see List
-    /// @see Group
     public void getGroupList(@NotNull final DatabaseCallback<List<Group>> callback) {
         getDataList(GROUPS_PATH, Group.class, callback);
     }
 
-    /// generate a new id for a new food in the database
-    /// @return a new id for the food
-    /// @see #generateNewId(String)
-    /// @see Group
     public String generateGroupId() {
         return generateNewId(GROUPS_PATH);
     }
 
-    /// delete a food from the database
-    /// @param groupId the id of the food to delete
-    /// @param callback the callback to call when the operation is completed
-    public void deleteGroup(@NotNull final String groupId, @Nullable final DatabaseCallback<Void> callback) {
+    public void deleteGroup(@NotNull final String groupId,
+                            @Nullable final DatabaseCallback<Void> callback) {
         deleteData(GROUPS_PATH + "/" + groupId, callback);
     }
 
+    // endregion Group Section
 
+    // region Question Section
 
-
-
-
-
-    /// create a new question in the database
-    /// @param question the challenge object to create
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive void
-    ///              if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see com.example.geffenfinalproject.models.Question
-    public void createNewQuestion(@NotNull final Question question, @Nullable final DatabaseCallback<Void> callback) {
+    public void createNewQuestion(@NotNull final Question question,
+                                  @Nullable final DatabaseCallback<Void> callback) {
         writeData(QUEST_PATH + "/" + question.getId(), question, callback);
     }
 
-    /// get a challenge from the database
-    /// @param questionId the id of the challenge to get
-    /// @param callback the callback to call when the operation is completed
-    ///                the callback will receive the challenge object
-    ///               if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see Question
-    public void getQuestion(@NotNull final String questionId, @NotNull final DatabaseCallback<Question> callback) {
+    public void getQuestion(@NotNull final String questionId,
+                            @NotNull final DatabaseCallback<Question> callback) {
         getData(QUEST_PATH + "/" + questionId, Question.class, callback);
     }
 
-    /// get all the challenges from the database
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive a list of challenge objects
-    ///
     public void getQuestionList(@NotNull final DatabaseCallback<List<Question>> callback) {
         getDataList(QUEST_PATH, Question.class, callback);
     }
 
-    /// get all the challenges of a specific user from the database
-    /// @param uid the id of the user to get the challenges for
-    /// @param callback the callback to call when the operation is completed
-    public void getUserQuestionList(@NotNull String uid, @NotNull final DatabaseCallback<List<Question>> callback) {
-        getQuestionList(new DatabaseCallback<>() {
+    public void getUserQuestionList(@NotNull String uid,
+                                    @NotNull final DatabaseCallback<List<Question>> callback) {
+        getQuestionList(new DatabaseCallback<List<Question>>() {
             @Override
             public void onCompleted(List<Question> questions) {
-                questions.removeIf(challenge -> !Objects.equals(challenge.getId(), uid));
+                questions.removeIf(question -> !Objects.equals(question.getId(), uid));
                 callback.onCompleted(questions);
             }
 
@@ -443,44 +347,49 @@ public class DatabaseService {
         });
     }
 
-
-    /// generate a new id for a new challenge in the database
-    /// @return a new id for the challenge
-    /// @see #generateNewId(String)
-    /// @see Question
     public String generateQuestionId() {
         return generateNewId(QUEST_PATH);
     }
 
-    /// delete a challenge from the database
-    /// @param questionId the id of the challenge to delete
-    /// @param callback the callback to call when the operation is completed
-    public void deleteQuestion(@NotNull final String questionId, @Nullable final DatabaseCallback<Void> callback) {
+    public void deleteQuestion(@NotNull final String questionId,
+                               @Nullable final DatabaseCallback<Void> callback) {
         deleteData(QUEST_PATH + "/" + questionId, callback);
     }
 
-    // endregion challenge section
+    // endregion Question Section
 
-    public void LoginUser(@NotNull final String email,final String password,
+    public void LoginUser(@NotNull final String email,
+                          @NotNull final String password,
                           @Nullable final DatabaseCallback<String> callback) {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        mAuth.signInWithEmailAndPassword(email,password)
-
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-
                     if (task.isSuccessful()) {
-                        Log.d("TAG", "createUserWithEmail:success");
+                        Log.d(TAG, "signInWithEmail:success");
+
+                        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                            if (callback != null) {
+                                callback.onFailed(new Exception("Login succeeded but current user is null"));
+                            }
+                            return;
+                        }
 
                         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        callback.onCompleted(uid);
+
+                        if (callback != null) {
+                            callback.onCompleted(uid);
+                        }
 
                     } else {
-                        Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
 
-                        if (callback != null)
-                            callback.onFailed(task.getException());
+                        if (callback != null) {
+                            callback.onFailed(task.getException() != null
+                                    ? task.getException()
+                                    : new Exception("Unknown login error"));
+                        }
                     }
                 });
     }

@@ -195,7 +195,20 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         }else{
 
             wrong++;
-            Toast.makeText(this,"Wrong!" + correctInterval,Toast.LENGTH_SHORT).show();
+            if (correctInterval == 1)
+                Toast.makeText(this,"Wrong! Minor Second",Toast.LENGTH_SHORT).show();
+            else if (correctInterval == 2)
+                Toast.makeText(this,"Wrong! Major Second",Toast.LENGTH_SHORT).show();
+            else if (correctInterval == 3)
+                Toast.makeText(this,"Wrong! Minor Third",Toast.LENGTH_SHORT).show();
+            else if (correctInterval == 4)
+                Toast.makeText(this,"Wrong! Major Third",Toast.LENGTH_SHORT).show();
+            else if (correctInterval == 5)
+                Toast.makeText(this,"Wrong! Perfect Fourth",Toast.LENGTH_SHORT).show();
+            else if (correctInterval == 7)
+                Toast.makeText(this,"Wrong! Perfect Fifth",Toast.LENGTH_SHORT).show();
+            else if (correctInterval == 12)
+                Toast.makeText(this,"Wrong! Octave",Toast.LENGTH_SHORT).show();
             updateUserScore(false);
         }
 
