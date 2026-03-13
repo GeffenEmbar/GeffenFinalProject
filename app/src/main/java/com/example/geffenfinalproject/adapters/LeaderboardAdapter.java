@@ -17,6 +17,7 @@ import java.util.List;
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
 
     private List<User> userList = new ArrayList<>();
+    private int startRank = 1;
 
     public void setUserList(List<User> users){
         this.userList = users;
@@ -38,7 +39,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
         User user = userList.get(position);
 
-        holder.tvRank.setText("#" + (position + 1));
+        holder.tvRank.setText("#" + (startRank + position));
         holder.tvUsername.setText(user.getFname());
         holder.tvScore.setText(String.valueOf(user.getCorrect_answers()));
 
@@ -77,5 +78,8 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             tvUsername = itemView.findViewById(R.id.tv_username);
             tvScore = itemView.findViewById(R.id.tv_score);
         }
+    }
+    public void setStartRank(int startRank) {
+        this.startRank = startRank;
     }
 }

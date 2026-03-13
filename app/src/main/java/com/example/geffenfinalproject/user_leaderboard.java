@@ -81,6 +81,7 @@ public class user_leaderboard extends AppCompatActivity {
 
                 // Remaining players
                 if(users.size() > 3){
+                    adapter.setStartRank(4);
                     adapter.setUserList(users.subList(3, users.size()));
                 }
             }
