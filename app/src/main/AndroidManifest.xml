@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeffenFinalProject">
         <activity
+            android:name=".item_group"
+            android:exported="false" />
+        <activity
+            android:name=".group_table"
+            android:exported="false" />
+        <activity
+            android:name=".user_group"
+            android:exported="false" />
+        <activity
             android:name=".create_group"
             android:exported="false" />
         <activity

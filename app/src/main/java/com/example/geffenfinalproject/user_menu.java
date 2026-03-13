@@ -57,7 +57,7 @@ public class user_menu extends AppCompatActivity implements View.OnClickListener
             startActivity(intent);
         }
         else if (v.getId() == btnGroups.getId()) {
-            Intent intent = new Intent(this, create_group.class);
+            Intent intent = new Intent(this, user_group.class);
             startActivity(intent);
         }
     }
