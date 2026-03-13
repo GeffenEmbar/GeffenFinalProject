@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeffenFinalProject">
         <activity
+            android:name=".create_group"
+            android:exported="false" />
+        <activity
             android:name=".item_leaderboard"
             android:exported="false" />
         <activity

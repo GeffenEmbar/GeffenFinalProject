@@ -29,9 +29,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:orientation="vertical"
-            android:weightSum="4"
+            android:weightSum="5"
             >
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/piano_notes_quiz"
@@ -84,11 +84,21 @@
                 android:textStyle="bold"
                 />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGroups"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="Groups"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="0dp"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                />
+
+
         </LinearLayout>
-
-
-
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

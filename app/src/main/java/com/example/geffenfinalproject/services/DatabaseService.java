@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.example.geffenfinalproject.models.Question;
 import com.example.geffenfinalproject.models.User;
+import com.example.geffenfinalproject.models.Group;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +38,7 @@ public class DatabaseService {
     /// @see DatabaseService#readData(String)
     private static final String USERS_PATH = "users",
                                 QUEST_PATH = "questions",
-                                CHALLENGES_PATH = "challenges";
+                                GROUPS_PATH = "groups";
 
     /// callback interface for database operations
     /// @param <T> the type of the object to return
@@ -334,32 +335,32 @@ public class DatabaseService {
 
 
 
-    /*
+
 
     // endregion User Section
 
     // region food section
 
-    /// create a new food in the database
-    /// @param food the food object to create
+    /// create a new group in the database
+    /// @param group the group object to create
     /// @param callback the callback to call when the operation is completed
     ///              the callback will receive void
     ///             if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
-    /// @see Food
-    public void createNewFood(@NotNull final Food food, @Nullable final DatabaseCallback<Void> callback) {
-        writeData(FOODS_PATH + "/" + food.getId(), food, callback);
+    /// @see Group
+    public void createNewGroup(@NotNull final Group group, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(GROUPS_PATH + "/" + group.getGroupId(), group, callback);
     }
 
     /// get a food from the database
-    /// @param foodId the id of the food to get
+    /// @param groupId the id of the food to get
     /// @param callback the callback to call when the operation is completed
     ///               the callback will receive the food object
     ///              if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
-    /// @see Food
-    public void getFood(@NotNull final String foodId, @NotNull final DatabaseCallback<Food> callback) {
-        getData(FOODS_PATH + "/" + foodId, Food.class, callback);
+    /// @see Group
+    public void getGroup(@NotNull final String groupId, @NotNull final DatabaseCallback<Group> callback) {
+        getData(GROUPS_PATH + "/" + groupId, Group.class, callback);
     }
 
     /// get all the foods from the database
@@ -368,34 +369,25 @@ public class DatabaseService {
     ///            if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see List
-    /// @see Food
-    public void getFoodList(@NotNull final DatabaseCallback<List<Food>> callback) {
-        getDataList(FOODS_PATH, Food.class, callback);
+    /// @see Group
+    public void getGroupList(@NotNull final DatabaseCallback<List<Group>> callback) {
+        getDataList(GROUPS_PATH, Group.class, callback);
     }
 
     /// generate a new id for a new food in the database
     /// @return a new id for the food
     /// @see #generateNewId(String)
-    /// @see Food
-    public String generateFoodId() {
-        return generateNewId(FOODS_PATH);
+    /// @see Group
+    public String generateGroupId() {
+        return generateNewId(GROUPS_PATH);
     }
 
     /// delete a food from the database
-    /// @param foodId the id of the food to delete
+    /// @param groupId the id of the food to delete
     /// @param callback the callback to call when the operation is completed
-    public void deleteFood(@NotNull final String foodId, @Nullable final DatabaseCallback<Void> callback) {
-        deleteData(FOODS_PATH + "/" + foodId, callback);
+    public void deleteGroup(@NotNull final String groupId, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(GROUPS_PATH + "/" + groupId, callback);
     }
-
-
-
-
-
-     */
-    // endregion food section
-
-    // region challenge section
 
 
 
@@ -469,13 +461,6 @@ public class DatabaseService {
 
     // endregion challenge section
 
-
-
-
-
-
-
-
     public void LoginUser(@NotNull final String email,final String password,
                           @Nullable final DatabaseCallback<String> callback) {
 
@@ -499,6 +484,4 @@ public class DatabaseService {
                     }
                 });
     }
-
-
 }

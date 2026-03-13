@@ -5,6 +5,9 @@ public class User {
     private boolean admin;
     private int correct_answers, wrong_answers;
 
+    private String groupId;
+
+
 
     public User(String id, String fname, String lname, String email, String phone, String password, boolean admin, int correct_answers, int wrong_answers) {
         this.id = id;
@@ -94,6 +97,10 @@ public class User {
         this.wrong_answers = wrong_answers;
     }
 
+    public String getGroupId() { return groupId; }
+
+    public void setGroupId(String groupId) { this.groupId = groupId; }
+
     @Override
     public String toString() {
         return "User{" +
@@ -106,6 +113,7 @@ public class User {
                 ", admin=" + admin +
                 ", correct_answers=" + correct_answers +
                 ", wrong_answers=" + wrong_answers +
+                ", groupId='" + groupId + '\'' +
                 '}';
     }
 }

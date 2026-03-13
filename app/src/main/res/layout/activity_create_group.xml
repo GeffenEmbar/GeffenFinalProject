@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".create_group">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,32 +13,45 @@
         android:orientation="vertical"
         android:weightSum="8"
         android:background="@color/black"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:textColor="@color/white"
             android:textStyle="bold|normal"
-            android:text="Welcome to Geffen's Final Project!"
+            android:text="Create Group"
             android:gravity="center"
             android:textSize="30sp"
             >
         </TextView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:orientation="horizontal"
-            android:weightSum="2"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:weightSum="8"
             >
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/registerBtn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <EditText
+                android:id="@+id/etGroupName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:ems="10"
+                android:inputType="text"
+                android:hint=" Group Name"
                 android:layout_weight="1"
-                android:text="Register"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:layout_margin="5dp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreateGroup"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="Create Group"
                 android:textColor="#FFFFFF"
                 app:backgroundTint="#4CAF50"
                 app:cornerRadius="0dp"
@@ -46,24 +59,7 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginBtn"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="Log In"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                />
-
         </LinearLayout>
-
-
 
 
     </LinearLayout>
