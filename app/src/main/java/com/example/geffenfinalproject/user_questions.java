@@ -129,9 +129,16 @@ public class user_questions extends AppCompatActivity implements View.OnClickLis
     private void checkAnswer(String userAnswer) {
 
         if (currentQuestion.checkAnswer(userAnswer)) {
+
             correctCount++;
+
+            // ⭐ NEW – update user + group score
+            databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid());
+
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+
         } else {
+
             wrongCount++;
             Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show();
         }

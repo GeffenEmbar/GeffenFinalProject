@@ -15,11 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.models.Note;
-import com.example.geffenfinalproject.models.User;
+import com.example.geffenfinalproject.services.DatabaseService; // ⭐ GROUP DATABASE UPDATE
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +43,9 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
     private final List<Note> allKeys = new ArrayList<>();
 
     private FirebaseAuth mAuth;
-    private DatabaseReference usersRef;
     private String currentUserId;
+
+    private DatabaseService databaseService; // ⭐ GROUP DATABASE UPDATE
 
     private final Random random = new Random();
 
@@ -56,6 +54,7 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user_intervals_quiz);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -82,8 +81,9 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
 
         if (mAuth.getCurrentUser() != null) {
             currentUserId = mAuth.getCurrentUser().getUid();
-            usersRef = FirebaseDatabase.getInstance().getReference("users");
         }
+
+        databaseService = DatabaseService.getInstance(); // ⭐ GROUP DATABASE UPDATE
 
         updateScore();
 
@@ -135,7 +135,6 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         }
     }
 
-
     private void playInterval() {
 
         if(questionActive){
@@ -156,13 +155,9 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         questionActive = true;
     }
 
-
     private void replayInterval(){
-
         playNotes(baseIndex, baseIndex + correctInterval);
-
     }
-
 
     private void playNotes(int first, int second){
 
@@ -189,13 +184,19 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         if(userInterval == correctInterval){
 
             score++;
+
+            // ⭐ GROUP DATABASE UPDATE
+            if(currentUserId != null){
+                databaseService.userAnsweredCorrectly(currentUserId);
+            }
+
             Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show();
-            updateUserScore(true);
 
         }
         else{
 
             wrong++;
+
             if (correctInterval == 1)
                 Toast.makeText(this,"Wrong! Minor Second",Toast.LENGTH_SHORT).show();
             else if (correctInterval == 2)
@@ -210,7 +211,6 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
                 Toast.makeText(this,"Wrong! Perfect Fifth",Toast.LENGTH_SHORT).show();
             else if (correctInterval == 12)
                 Toast.makeText(this,"Wrong! Octave",Toast.LENGTH_SHORT).show();
-            updateUserScore(false);
         }
 
         updateScore();
@@ -218,48 +218,12 @@ public class user_intervals_quiz extends AppCompatActivity implements View.OnCli
         questionActive = false;
     }
 
-
     private void updateScore(){
 
         scoreText.setText("Correct: " + score);
         wrongText.setText("Wrong: " + wrong);
 
     }
-
-
-    private void updateUserScore(boolean isCorrect){
-
-        if(currentUserId == null) return;
-
-        DatabaseReference userRef = usersRef.child(currentUserId);
-
-        userRef.runTransaction(new com.google.firebase.database.Transaction.Handler() {
-
-            @Override
-            public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
-
-                User user = currentData.getValue(User.class);
-
-                if(user != null){
-
-                    if(isCorrect){
-                        user.setCorrect_answers(user.getCorrect_answers() + 1);
-                    }else{
-                        user.setWrong_answers(user.getWrong_answers() + 1);
-                    }
-
-                    currentData.setValue(user);
-                }
-
-                return com.google.firebase.database.Transaction.success(currentData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError error, boolean committed, com.google.firebase.database.DataSnapshot currentData) {
-            }
-        });
-    }
-
 
     @Override
     protected void onDestroy(){

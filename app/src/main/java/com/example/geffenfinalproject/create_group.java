@@ -47,6 +47,7 @@ public class create_group extends AppCompatActivity {
     }
 
     private void createGroup() {
+
         String groupName = editGroupName.getText().toString().trim();
 
         if (groupName.isEmpty()) {
@@ -63,19 +64,23 @@ public class create_group extends AppCompatActivity {
         String uid = auth.getCurrentUser().getUid();
 
         databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+
             @Override
             public void onCompleted(User user) {
+
                 if (user == null) {
                     Toast.makeText(create_group.this, "User data not found in database", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String groupId = databaseService.generateGroupId();
+
                 if (groupId == null || groupId.isEmpty()) {
                     Toast.makeText(create_group.this, "Failed to generate group ID", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                // Create Group
                 Group group = new Group();
                 group.setGroupId(groupId);
                 group.setGroupName(groupName);
@@ -87,29 +92,58 @@ public class create_group extends AppCompatActivity {
 
                 group.setTotalQuestions(user.getCorrect_answers());
 
+                // Save group to database
                 databaseService.createNewGroup(group, new DatabaseService.DatabaseCallback<Void>() {
+
                     @Override
                     public void onCompleted(Void object) {
-                        Toast.makeText(create_group.this, "Group Created!", Toast.LENGTH_SHORT).show();
-                        finish();
+
+                        // Update user with groupId
+                        user.setGroupId(groupId);
+
+                        databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+
+                            @Override
+                            public void onCompleted(Void object) {
+
+                                Toast.makeText(create_group.this, "Group Created!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailed(Exception e) {
+
+                                Toast.makeText(create_group.this,
+                                        "Group created but failed to update user",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override
                     public void onFailed(Exception e) {
+
                         String message = (e != null && e.getMessage() != null)
                                 ? e.getMessage()
                                 : "Unknown error";
-                        Toast.makeText(create_group.this, "Failed: " + message, Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(create_group.this,
+                                "Failed: " + message,
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }
 
             @Override
             public void onFailed(Exception e) {
+
                 String message = (e != null && e.getMessage() != null)
                         ? e.getMessage()
                         : "Unknown error";
-                Toast.makeText(create_group.this, "User load failed: " + message, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(create_group.this,
+                        "User load failed: " + message,
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

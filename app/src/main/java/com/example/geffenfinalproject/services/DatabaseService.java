@@ -286,6 +286,72 @@ public class DatabaseService {
                 });
     }
 
+    ///  not used yet
+    public void userAnsweredCorrectly(String uid) {
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(uid);
+
+        userRef.runTransaction(new Transaction.Handler() {
+
+            @Override
+            public Transaction.Result doTransaction(MutableData currentData) {
+
+                User user = currentData.getValue(User.class);
+
+                if(user == null)
+                    return Transaction.success(currentData);
+
+                user.setCorrect_answers(user.getCorrect_answers() + 1);
+                currentData.setValue(user);
+
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError error, boolean committed, DataSnapshot currentData) {
+
+                if(currentData.getValue(User.class) != null){
+
+                    User user = currentData.getValue(User.class);
+
+                    if(user.getGroupId() != null){
+
+                        DatabaseReference groupRef = FirebaseDatabase.getInstance()
+                                .getReference("groups")
+                                .child(user.getGroupId())
+                                .child("totalQuestions");
+
+                        groupRef.runTransaction(new Transaction.Handler() {
+
+                            @Override
+                            public Transaction.Result doTransaction(MutableData currentData) {
+
+                                Integer value = currentData.getValue(Integer.class);
+
+                                if(value == null)
+                                    value = 0;
+
+                                currentData.setValue(value + 1);
+
+                                return Transaction.success(currentData);
+                            }
+
+                            @Override
+                            public void onComplete(DatabaseError error, boolean committed, DataSnapshot currentData) {
+
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+    ///
+
+
+
     // endregion User Section
 
     // region Group Section
