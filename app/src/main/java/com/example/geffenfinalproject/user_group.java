@@ -6,12 +6,11 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class user_group extends AppCompatActivity implements View.OnClickListener {
+public class user_group extends BaseActivity implements View.OnClickListener {
 
     Button btnGroupTable, btnCreate;
 

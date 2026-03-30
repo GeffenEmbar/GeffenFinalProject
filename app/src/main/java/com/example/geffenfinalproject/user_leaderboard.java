@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +14,7 @@ import com.example.geffenfinalproject.services.DatabaseService;
 import java.util.Collections;
 import java.util.List;
 
-public class user_leaderboard extends AppCompatActivity {
+public class user_leaderboard extends BaseActivity {
 
     private static final String TAG = "leaderboard";
 

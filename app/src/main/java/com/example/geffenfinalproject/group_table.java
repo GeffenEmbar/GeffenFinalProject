@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,7 +17,7 @@ import com.example.geffenfinalproject.services.DatabaseService;
 
 import java.util.List;
 
-public class group_table extends AppCompatActivity {
+public class group_table extends BaseActivity {
 
     private static final String TAG = "group_table";
 

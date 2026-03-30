@@ -1,0 +1,58 @@
+package com.example.geffenfinalproject;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class BaseActivity extends AppCompatActivity {
+
+    protected Button btn1, btn2, btn3, btn4, btn5;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        // Load the base layout
+        View baseView = getLayoutInflater().inflate(R.layout.activity_base, null);
+        FrameLayout contentFrame = baseView.findViewById(R.id.base_content_frame);
+
+        // Inflate the child activity's layout into the frame
+        getLayoutInflater().inflate(layoutResID, contentFrame, true);
+
+        // Set the combined view as the content
+        super.setContentView(baseView);
+
+        // Initialize toolbar buttons
+        btn1 = findViewById(R.id.btn1);
+        btn2 = findViewById(R.id.btn2);
+        btn3 = findViewById(R.id.btn3);
+        btn4 = findViewById(R.id.btn4);
+        btn5 = findViewById(R.id.btn5);
+
+        // Basic listeners for now
+        View.OnClickListener listener = v -> {
+            int id = v.getId();
+            if (id == R.id.btn1) Toast.makeText(this, "Button 1", Toast.LENGTH_SHORT).show();
+            else if (id == R.id.btn2) Toast.makeText(this, "Button 2", Toast.LENGTH_SHORT).show();
+            else if (id == R.id.btn3) Toast.makeText(this, "Button 3", Toast.LENGTH_SHORT).show();
+            else if (id == R.id.btn4) Toast.makeText(this, "Button 4", Toast.LENGTH_SHORT).show();
+            else if (id == R.id.btn5) Toast.makeText(this, "Button 5", Toast.LENGTH_SHORT).show();
+        };
+
+        btn1.setOnClickListener(listener);
+        btn2.setOnClickListener(listener);
+        btn3.setOnClickListener(listener);
+        btn4.setOnClickListener(listener);
+        btn5.setOnClickListener(listener);
+    }
+}

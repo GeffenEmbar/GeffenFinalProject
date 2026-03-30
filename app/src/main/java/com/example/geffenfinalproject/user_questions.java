@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class user_questions extends AppCompatActivity implements View.OnClickListener {
+public class user_questions extends BaseActivity implements View.OnClickListener {
 
     private TextView tvQuestion, tvScore;
     private Button answer1, answer2, answer3, answer4, btnOut;

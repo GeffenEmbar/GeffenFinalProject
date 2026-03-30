@@ -10,7 +10,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -19,7 +18,7 @@ import com.example.geffenfinalproject.models.Question;
 import com.example.geffenfinalproject.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class admin_add_question extends AppCompatActivity implements View.OnClickListener {
+public class admin_add_question extends BaseActivity implements View.OnClickListener {
 
     EditText question, correct, wrong1, wrong2, wrong3;
     Spinner difficulty;

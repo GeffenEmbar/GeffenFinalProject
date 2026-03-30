@@ -6,7 +6,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class admin_user_table extends AppCompatActivity {
+public class admin_user_table extends BaseActivity {
 
     private static final String TAG = "admin_user_table";
     private UserAdapter userAdapter;

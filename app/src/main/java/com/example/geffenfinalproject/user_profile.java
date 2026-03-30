@@ -13,7 +13,6 @@ import android.widget.*;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.geffenfinalproject.adapters.ImageSourceAdapter;
 import com.example.geffenfinalproject.models.Group;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class user_profile extends AppCompatActivity {
+public class user_profile extends BaseActivity {
 
     private EditText etFirstName, etLastName, etPhone;
     private TextView right_answers, wrong_answers, tvGroupName, tvRank;

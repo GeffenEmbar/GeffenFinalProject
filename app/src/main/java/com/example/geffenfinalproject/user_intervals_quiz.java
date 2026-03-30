@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class user_intervals_quiz extends AppCompatActivity implements View.OnClickListener {
+public class user_intervals_quiz extends BaseActivity implements View.OnClickListener {
 
     private Button btnPlayInterval, btnReplayInterval;
     private Button btnMinorSecond, btnMajorSecond, btnMinorThird, btnMajorThird;
