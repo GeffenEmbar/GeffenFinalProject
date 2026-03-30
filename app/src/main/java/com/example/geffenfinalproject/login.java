@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
+import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
@@ -96,6 +97,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                         } else {
                             intent = new Intent(login.this, user_menu.class);
                         }
+
+                        SharedPreferencesUtil.saveUser(login.this, user);
 
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

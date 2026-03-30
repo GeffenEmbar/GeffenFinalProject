@@ -36,16 +36,6 @@
                 android:src="@android:drawable/ic_menu_camera"
                 android:layout_marginBottom="16dp" />
 
-            <!-- IMAGE URL -->
-            <EditText
-                android:id="@+id/etImageUrl"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Profile Image URL"
-                android:textColor="@color/white"
-                android:textColorHint="#888"
-                android:layout_marginBottom="8dp"/>
-
             <!-- FIRST NAME -->
             <EditText
                 android:id="@+id/etFirstName"

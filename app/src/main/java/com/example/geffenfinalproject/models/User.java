@@ -4,9 +4,8 @@ public class User {
     private String id, fname, lname, email, phone, password;
     private boolean admin;
     private int correct_answers, wrong_answers;
-    private String imageUrl;
     private String groupId;
-    private String profileImageUrl;
+    private String profileImage;
 
 
     public User(String id, String fname, String lname, String email, String phone, String password, boolean admin, int correct_answers, int wrong_answers) {
@@ -101,13 +100,8 @@ public class User {
 
     public void setGroupId(String groupId) { this.groupId = groupId; }
 
-    public String getImageUrl() { return imageUrl; }
-
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-
-
-    public String getProfileImageUrl() { return profileImageUrl; }
-    public void setProfileImageUrl(String profileImageUrl) { this.profileImageUrl = profileImageUrl; }
+    public String getProfileImage() { return profileImage; }
+    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
 
     @Override
     public String toString() {

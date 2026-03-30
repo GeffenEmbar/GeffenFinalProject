@@ -11,9 +11,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.geffenfinalproject.models.User;
+import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+
 public class user_menu extends AppCompatActivity implements View.OnClickListener {
 
-    Button piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard, btnGroups;
+    Button piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard, btnGroups, btnProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class user_menu extends AppCompatActivity implements View.OnClickListener
         btnLeaderboard.setOnClickListener(this);
         btnGroups = findViewById(R.id.btnGroups);
         btnGroups.setOnClickListener(this);
+        btnProfile = findViewById(R.id.btnProfile);
+        btnProfile.setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +63,12 @@ public class user_menu extends AppCompatActivity implements View.OnClickListener
         }
         else if (v.getId() == btnGroups.getId()) {
             Intent intent = new Intent(this, user_group.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == btnProfile.getId()) {
+            User user = SharedPreferencesUtil.getUser(this);
+            Intent intent = new Intent(this, user_profile.class);
+            intent.putExtra("USER_UID", user.getId());
             startActivity(intent);
         }
     }
