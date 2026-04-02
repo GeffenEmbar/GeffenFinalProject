@@ -76,7 +76,13 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
             startActivity(intent);
         }
         else if (v.getId() == btnGroups.getId()) {
-            Intent intent = new Intent(this, user_group.class);
+            User user = SharedPreferencesUtil.getUser(this);
+            Intent intent;
+            if (user == null || user.getGroupId() == null) {
+                intent = new Intent(this, user_group.class);
+            } else {
+                intent = new Intent(this, group_page.class);
+            }
             startActivity(intent);
         }
         else if (v.getId() == btnProfile.getId()) {

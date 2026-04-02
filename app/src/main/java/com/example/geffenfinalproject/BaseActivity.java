@@ -11,9 +11,14 @@ import android.widget.Toast;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.google.firebase.auth.FirebaseAuth;
+
+import android.content.Intent;
+
 public class BaseActivity extends AppCompatActivity {
 
-    protected Button btn1, btn2, btn3, btn4, btn5;
+    protected Button btn1, btn2, btn3, btn4, btn5, btnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class BaseActivity extends AppCompatActivity {
         btn3 = findViewById(R.id.btn3);
         btn4 = findViewById(R.id.btn4);
         btn5 = findViewById(R.id.btn5);
+        btnSignOut = findViewById(R.id.btnSignOut);
 
         // Basic listeners for now
         View.OnClickListener listener = v -> {
@@ -46,7 +52,20 @@ public class BaseActivity extends AppCompatActivity {
             else if (id == R.id.btn2) Toast.makeText(this, "Button 2", Toast.LENGTH_SHORT).show();
             else if (id == R.id.btn3) Toast.makeText(this, "Button 3", Toast.LENGTH_SHORT).show();
             else if (id == R.id.btn4) Toast.makeText(this, "Button 4", Toast.LENGTH_SHORT).show();
-            else if (id == R.id.btn5) Toast.makeText(this, "Button 5", Toast.LENGTH_SHORT).show();
+            else if (id == R.id.btn5) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Intent intent = new Intent(this, user_profile.class);
+                intent.putExtra("USER_UID", uid);
+                startActivity(intent);
+            }
+            else if (id == R.id.btnSignOut) {
+                FirebaseAuth.getInstance().signOut();
+                SharedPreferencesUtil.signOutUser(this);
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
         };
 
         btn1.setOnClickListener(listener);
@@ -54,5 +73,6 @@ public class BaseActivity extends AppCompatActivity {
         btn3.setOnClickListener(listener);
         btn4.setOnClickListener(listener);
         btn5.setOnClickListener(listener);
+        btnSignOut.setOnClickListener(listener);
     }
 }

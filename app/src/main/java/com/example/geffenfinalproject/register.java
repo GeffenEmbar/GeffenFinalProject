@@ -16,12 +16,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class register extends BaseActivity implements View.OnClickListener {
+public class register extends AppCompatActivity implements View.OnClickListener {
 
     EditText etFname, etLname, etEmail, etPhone, etPassword;
     String fName, lName, email, phone, password;

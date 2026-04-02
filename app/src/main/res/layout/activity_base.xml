@@ -64,5 +64,14 @@
             style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/white" />
 
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Sign Out"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 </LinearLayout>
