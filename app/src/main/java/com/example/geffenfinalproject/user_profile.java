@@ -100,9 +100,6 @@ public class user_profile extends BaseActivity {
                 if (bitmap != null) {
                     profileImage.setImageBitmap(bitmap);
                 }
-            } else {
-                // fallback icon
-                profileImage.setImageResource(android.R.drawable.ic_menu_myplaces);
             }
 
             // GROUP
@@ -134,11 +131,16 @@ public class user_profile extends BaseActivity {
                         Integer.compare(u2.getCorrect_answers(), u1.getCorrect_answers())
                 );
 
-                // Find rank
+                // Find rank with tie handling
                 int rank = -1;
+                int currentRank = 1;
                 for (int i = 0; i < groupUsers.size(); i++) {
+                    if (i > 0 && groupUsers.get(i).getCorrect_answers() < groupUsers.get(i - 1).getCorrect_answers()) {
+                        currentRank = i + 1;
+                    }
+                    
                     if (groupUsers.get(i).getId().equals(currentUserId)) {
-                        rank = i + 1;
+                        rank = currentRank;
                         break;
                     }
                 }
@@ -165,22 +167,24 @@ public class user_profile extends BaseActivity {
 
         tvGroupName.setText("Group...");
 
-        com.google.firebase.database.FirebaseDatabase.getInstance()
-                .getReference("groups")
-                .child(groupId)
-                .get()
-                .addOnSuccessListener(snapshot -> {
-                    Group guild = snapshot.getValue(Group.class);
-                    String groupName = guild != null ? guild.getGroupName() : null;
+        DatabaseService.getInstance().getGroup(groupId, new DatabaseService.DatabaseCallback<Group>() {
+            @Override
+            public void onCompleted(Group guild) {
+                String groupName = guild != null ? guild.getGroupName() : null;
 
-                    if (groupName == null || groupName.trim().isEmpty()) {
-                        tvGroupName.setText("Unknown Group");
-                        return;
-                    }
+                if (groupName == null || groupName.trim().isEmpty()) {
+                    tvGroupName.setText("Unknown Group");
+                    return;
+                }
 
-                    tvGroupName.setText(groupName.trim());
-                })
-                .addOnFailureListener(e -> tvGroupName.setText("Unknown Group"));
+                tvGroupName.setText(groupName.trim());
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                tvGroupName.setText("Unknown Group");
+            }
+        });
     }
 
     private void saveUser() {

@@ -13,8 +13,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.geffenfinalproject.models.Group;
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
+import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
+import android.content.Intent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,6 +108,13 @@ public class create_group extends BaseActivity {
                             public void onCompleted(Void object) {
 
                                 Toast.makeText(create_group.this, "Group Created!", Toast.LENGTH_SHORT).show();
+                                
+                                // Save the updated user (with groupId) to SharedPreferences
+                                SharedPreferencesUtil.saveUser(create_group.this, user);
+                                
+                                // Redirect to group page
+                                Intent intent = new Intent(create_group.this, group_page.class);
+                                startActivity(intent);
                                 finish();
                             }
 

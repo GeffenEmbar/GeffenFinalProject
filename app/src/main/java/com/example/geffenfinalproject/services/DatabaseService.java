@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.geffenfinalproject.models.Group;
+import com.example.geffenfinalproject.models.GroupMessage;
 import com.example.geffenfinalproject.models.Question;
 import com.example.geffenfinalproject.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +37,8 @@ public class DatabaseService {
     /// paths for different data types in the database
     private static final String USERS_PATH = "users",
             QUEST_PATH = "questions",
-            GROUPS_PATH = "groups";
+            GROUPS_PATH = "groups",
+            MESSAGES_PATH = "messages";
 
     /// callback interface for database operations
     public interface DatabaseCallback<T> {
@@ -290,7 +293,7 @@ public class DatabaseService {
     public void userAnsweredCorrectly(String uid) {
 
         DatabaseReference userRef = FirebaseDatabase.getInstance()
-                .getReference("users")
+                .getReference(USERS_PATH)
                 .child(uid);
 
         userRef.runTransaction(new Transaction.Handler() {
@@ -319,7 +322,7 @@ public class DatabaseService {
                     if(user.getGroupId() != null){
 
                         DatabaseReference groupRef = FirebaseDatabase.getInstance()
-                                .getReference("groups")
+                                .getReference(GROUPS_PATH)
                                 .child(user.getGroupId())
                                 .child("totalQuestions");
 
@@ -379,6 +382,60 @@ public class DatabaseService {
         deleteData(GROUPS_PATH + "/" + groupId, callback);
     }
 
+    public void joinGroup(@NotNull final String uid,
+                          @NotNull final String groupId,
+                          @Nullable final DatabaseCallback<Void> callback) {
+
+        getUser(uid, new DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User user) {
+                if (user == null) {
+                    if (callback != null) callback.onFailed(new Exception("User not found"));
+                    return;
+                }
+
+                String oldGroupId = user.getGroupId();
+
+                // if user is already in this group, do nothing
+                if (groupId.equals(oldGroupId)) {
+                    if (callback != null) callback.onCompleted(null);
+                    return;
+                }
+
+                // update user's groupId
+                user.setGroupId(groupId);
+                updateUser(user, new DatabaseCallback<Void>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        // remove from old group members
+                        if (oldGroupId != null) {
+                            readData(GROUPS_PATH + "/" + oldGroupId + "/members/" + uid).removeValue();
+                        }
+
+                        // add to new group members
+                        readData(GROUPS_PATH + "/" + groupId + "/members/" + uid).setValue(true, (error, ref) -> {
+                            if (error != null) {
+                                if (callback != null) callback.onFailed(error.toException());
+                            } else {
+                                if (callback != null) callback.onCompleted(null);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        if (callback != null) callback.onFailed(e);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) callback.onFailed(e);
+            }
+        });
+    }
+
     // endregion Group Section
 
     // region Question Section
@@ -423,6 +480,39 @@ public class DatabaseService {
     }
 
     // endregion Question Section
+
+    // region GroupMessage Section
+
+    public String generateMessageId(String groupId) {
+        return generateNewId(GROUPS_PATH + "/" + groupId + "/" + MESSAGES_PATH);
+    }
+
+    public void sendGroupMessage(String groupId, GroupMessage message, DatabaseCallback<Void> callback) {
+        writeData(GROUPS_PATH + "/" + groupId + "/" + MESSAGES_PATH + "/" + message.getMessageId(), message, callback);
+    }
+
+    public void listenForGroupMessages(String groupId, DatabaseCallback<List<GroupMessage>> callback) {
+        readData(GROUPS_PATH + "/" + groupId + "/" + MESSAGES_PATH).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<GroupMessage> messages = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    GroupMessage message = dataSnapshot.getValue(GroupMessage.class);
+                    if (message != null) {
+                        messages.add(message);
+                    }
+                }
+                callback.onCompleted(messages);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onFailed(error.toException());
+            }
+        });
+    }
+
+    // endregion GroupMessage Section
 
     public void LoginUser(@NotNull final String email,
                           @NotNull final String password,

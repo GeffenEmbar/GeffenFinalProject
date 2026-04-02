@@ -26,6 +26,14 @@
             app:cardElevation="0dp"
             app:cardBackgroundColor="?attr/colorSurfaceVariant">
 
+            <ImageView
+                android:id="@+id/iv_user_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                tools:src="@tools:sample/avatars" />
+
             <TextView
                 android:id="@+id/tv_user_initials"
                 android:layout_width="match_parent"

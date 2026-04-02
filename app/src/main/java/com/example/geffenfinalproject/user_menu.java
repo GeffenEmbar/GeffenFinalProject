@@ -19,8 +19,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.models.User;
+import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.services.ReminderReceiver;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
 
@@ -76,14 +78,35 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
             startActivity(intent);
         }
         else if (v.getId() == btnGroups.getId()) {
-            User user = SharedPreferencesUtil.getUser(this);
-            Intent intent;
-            if (user == null || user.getGroupId() == null) {
-                intent = new Intent(this, user_group.class);
-            } else {
-                intent = new Intent(this, group_page.class);
-            }
-            startActivity(intent);
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseService.getInstance().getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+                @Override
+                public void onCompleted(User user) {
+                    if (user != null) {
+                        SharedPreferencesUtil.saveUser(user_menu.this, user);
+                        Intent intent;
+                        if (user.getGroupId() == null || user.getGroupId().isEmpty()) {
+                            intent = new Intent(user_menu.this, user_group.class);
+                        } else {
+                            intent = new Intent(user_menu.this, group_page.class);
+                        }
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    // Fallback to shared preferences if database fetch fails
+                    User user = SharedPreferencesUtil.getUser(user_menu.this);
+                    Intent intent;
+                    if (user == null || user.getGroupId() == null) {
+                        intent = new Intent(user_menu.this, user_group.class);
+                    } else {
+                        intent = new Intent(user_menu.this, group_page.class);
+                    }
+                    startActivity(intent);
+                }
+            });
         }
         else if (v.getId() == btnProfile.getId()) {
             User user = SharedPreferencesUtil.getUser(this);

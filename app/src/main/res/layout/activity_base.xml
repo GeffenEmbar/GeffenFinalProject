@@ -20,24 +20,6 @@
         android:elevation="8dp">
 
         <Button
-            android:id="@+id/btn1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="1"
-            style="?android:attr/borderlessButtonStyle"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="2"
-            style="?android:attr/borderlessButtonStyle"
-            android:textColor="@color/white" />
-
-        <Button
             android:id="@+id/btn3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -60,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="5"
+            android:text="Profile"
             style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/white" />
 

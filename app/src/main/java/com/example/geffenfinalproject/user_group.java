@@ -10,6 +10,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.geffenfinalproject.models.User;
+import com.example.geffenfinalproject.services.DatabaseService;
+import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class user_group extends BaseActivity implements View.OnClickListener {
 
     Button btnGroupTable, btnCreate;
@@ -30,6 +35,34 @@ public class user_group extends BaseActivity implements View.OnClickListener {
         btnCreate = findViewById(R.id.btnCreate);
         btnCreate.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkUserGroup();
+    }
+
+    private void checkUserGroup() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseService.getInstance().getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User user) {
+                if (user != null) {
+                    SharedPreferencesUtil.saveUser(user_group.this, user);
+                    if (user.getGroupId() != null && !user.getGroupId().isEmpty()) {
+                        Intent intent = new Intent(user_group.this, group_page.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                // Ignore failure here, user can still use the page
+            }
+        });
     }
 
     @Override

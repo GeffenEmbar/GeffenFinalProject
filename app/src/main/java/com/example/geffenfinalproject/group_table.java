@@ -13,7 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.geffenfinalproject.adapters.GroupAdapter;
 import com.example.geffenfinalproject.models.Group;
+import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
+import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.google.firebase.auth.FirebaseAuth;
+
+import android.content.Intent;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -46,6 +52,43 @@ public class group_table extends BaseActivity {
 
         groupAdapter = new GroupAdapter();
         groupList.setAdapter(groupAdapter);
+
+        groupAdapter.setOnItemClickListener(group -> {
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            databaseService.joinGroup(uid, group.getGroupId(), new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void object) {
+                    Toast.makeText(group_table.this, "Joined " + group.getGroupName(), Toast.LENGTH_SHORT).show();
+                    
+                    // Fetch the updated user to get the new groupId
+                    databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+                        @Override
+                        public void onCompleted(User updatedUser) {
+                            if (updatedUser != null) {
+                                // Update local shared preferences
+                                SharedPreferencesUtil.saveUser(group_table.this, updatedUser);
+                                
+                                // Redirect to group page
+                                Intent intent = new Intent(group_table.this, group_page.class);
+                                startActivity(intent);
+                                finish(); // Optional: close group_table so back button doesn't return here
+                            }
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+                            Log.e(TAG, "Failed to fetch updated user", e);
+                            onResume(); // Fallback to refreshing the list
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(group_table.this, "Failed to join group: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 
     @Override

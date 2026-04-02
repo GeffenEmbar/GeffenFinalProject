@@ -3,14 +3,17 @@ package com.example.geffenfinalproject.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.geffenfinalproject.R;
 import com.example.geffenfinalproject.models.User;
+import com.example.geffenfinalproject.utils.ImageUtil;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
@@ -47,15 +50,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.tvEmail.setText(user.getEmail());
         holder.tvPhone.setText(user.getPhone());
         
-        // Set initials
-        String initials = "";
-        if (user.getFname() != null && !user.getFname().isEmpty()) {
-            initials += user.getFname().charAt(0);
+        // Handle profile image
+        if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
+            android.graphics.Bitmap bitmap = ImageUtil.convertFrom64base(user.getProfileImage());
+            if (bitmap != null) {
+                holder.ivProfile.setVisibility(View.VISIBLE);
+                holder.tvInitials.setVisibility(View.GONE);
+                Glide.with(holder.itemView.getContext())
+                        .load(bitmap)
+                        .circleCrop()
+                        .into(holder.ivProfile);
+            } else {
+                showInitials(holder, user);
+            }
+        } else {
+            showInitials(holder, user);
         }
-        if (user.getLname() != null && !user.getLname().isEmpty()) {
-            initials += user.getLname().charAt(0);
-        }
-        holder.tvInitials.setText(initials.toUpperCase());
         
         // Show admin chip if user is admin
         if (user.isAdmin()) {
@@ -78,6 +88,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             return true;
         });
 
+    }
+
+    private void showInitials(ViewHolder holder, User user) {
+        holder.ivProfile.setVisibility(View.GONE);
+        holder.tvInitials.setVisibility(View.VISIBLE);
+
+        // Set initials
+        String initials = "";
+        if (user.getFname() != null && !user.getFname().isEmpty()) {
+            initials += user.getFname().charAt(0);
+        }
+        if (user.getLname() != null && !user.getLname().isEmpty()) {
+            initials += user.getLname().charAt(0);
+        }
+        holder.tvInitials.setText(initials.toUpperCase());
     }
 
     @Override
@@ -111,6 +136,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvEmail, tvPhone, tvInitials;
+        ImageView ivProfile;
         Chip chipRole;
 
         public ViewHolder(@NonNull View itemView) {
@@ -119,6 +145,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             tvEmail = itemView.findViewById(R.id.tv_item_user_email);
             tvPhone = itemView.findViewById(R.id.tv_item_user_phone);
             tvInitials = itemView.findViewById(R.id.tv_user_initials);
+            ivProfile = itemView.findViewById(R.id.iv_user_profile);
             chipRole = itemView.findViewById(R.id.chip_user_role);
         }
     }

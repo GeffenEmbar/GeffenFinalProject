@@ -18,7 +18,7 @@ import android.content.Intent;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected Button btn1, btn2, btn3, btn4, btn5, btnSignOut;
+    protected Button btn3, btn4, btn5, btnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,6 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(baseView);
 
         // Initialize toolbar buttons
-        btn1 = findViewById(R.id.btn1);
-        btn2 = findViewById(R.id.btn2);
         btn3 = findViewById(R.id.btn3);
         btn4 = findViewById(R.id.btn4);
         btn5 = findViewById(R.id.btn5);
@@ -48,9 +46,7 @@ public class BaseActivity extends AppCompatActivity {
         // Basic listeners for now
         View.OnClickListener listener = v -> {
             int id = v.getId();
-            if (id == R.id.btn1) Toast.makeText(this, "Button 1", Toast.LENGTH_SHORT).show();
-            else if (id == R.id.btn2) Toast.makeText(this, "Button 2", Toast.LENGTH_SHORT).show();
-            else if (id == R.id.btn3) Toast.makeText(this, "Button 3", Toast.LENGTH_SHORT).show();
+            if (id == R.id.btn3) Toast.makeText(this, "Button 3", Toast.LENGTH_SHORT).show();
             else if (id == R.id.btn4) Toast.makeText(this, "Button 4", Toast.LENGTH_SHORT).show();
             else if (id == R.id.btn5) {
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -68,8 +64,6 @@ public class BaseActivity extends AppCompatActivity {
             }
         };
 
-        btn1.setOnClickListener(listener);
-        btn2.setOnClickListener(listener);
         btn3.setOnClickListener(listener);
         btn4.setOnClickListener(listener);
         btn5.setOnClickListener(listener);
