@@ -4,27 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp"
+    app:strokeWidth="0dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content">
+
+        <!-- Left Accent Panel -->
+        <View
+            android:id="@+id/view_accent"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:background="#3949AB"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            app:cardCornerRadius="28dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="?attr/colorSurfaceVariant">
+            android:id="@+id/card_avatar"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            app:cardCornerRadius="34dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="3dp"
+            app:strokeColor="#FFFFFF"
+            app:cardBackgroundColor="#E8EAF6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/view_accent"
+            app:layout_constraintStart_toStartOf="@id/view_accent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_user_profile"
@@ -40,108 +55,125 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="JD"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="#3949AB"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
+        <!-- Right Content Panel -->
+        <TextView
+            android:id="@+id/tv_item_user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:text="John Doe"
+            android:textColor="#3949AB"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chip_user_role"
+            app:layout_constraintStart_toEndOf="@id/view_accent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/full_names" />
+
+        <LinearLayout
+            android:id="@+id/layout_email_pill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="#F5F5F5"
+            android:backgroundTint="#F0F4FF"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_user_name">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@android:drawable/ic_dialog_email"
+                app:tint="#3949AB" />
 
             <TextView
-                android:id="@+id/tv_item_user_name"
+                android:id="@+id/tv_item_user_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="John Doe"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_marginBottom="4dp"
-                tools:text="@tools:sample/full_names" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="2dp">
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/ic_dialog_email"
-                    app:tint="#666666"
-                    android:layout_marginEnd="6dp" />
-
-                <TextView
-                    android:id="@+id/tv_item_user_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="john.doe@example.com"
-                    android:textSize="14sp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="user@example.com" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/sym_action_call"
-                    app:tint="#666666"
-                    android:layout_marginEnd="6dp" />
-
-                <TextView
-                    android:id="@+id/tv_item_user_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+1 234 567 8900"
-                    android:textSize="14sp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="@tools:sample/us_phones" />
-
-            </LinearLayout>
-
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="john.doe@example.com"
+                android:textColor="#5C6BC0"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/layout_phone_pill"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center|end"
-            android:orientation="vertical">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_user_role"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="Admin"
-                android:textSize="12sp"
-                android:visibility="gone"
-                app:chipBackgroundColor="?attr/colorSecondary"
-                app:chipStrokeWidth="0dp"
-                tools:visibility="visible" />
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="#F5F5F5"
+            android:backgroundTint="#F0F4FF"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
+            app:layout_constraintTop_toBottomOf="@id/layout_email_pill">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:src="@android:drawable/ic_menu_more"
-                app:tint="#999999" />
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@android:drawable/sym_action_call"
+                app:tint="#3949AB" />
 
+            <TextView
+                android:id="@+id/tv_item_user_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="+1 234 567 8900"
+                android:textColor="#5C6BC0"
+                android:textSize="13sp" />
         </LinearLayout>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/chip_user_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#FF4081"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="ADMIN"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@android:drawable/ic_menu_more"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="#BDBDBD" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

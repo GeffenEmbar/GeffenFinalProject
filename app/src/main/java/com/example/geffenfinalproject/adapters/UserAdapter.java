@@ -135,9 +135,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvEmail, tvPhone, tvInitials;
+        TextView tvName, tvEmail, tvPhone, tvInitials, chipRole;
         ImageView ivProfile;
-        Chip chipRole;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

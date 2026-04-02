@@ -35,7 +35,7 @@ public class group_page extends BaseActivity {
     private GroupChatAdapter chatAdapter;
     private DatabaseService databaseService;
     private EditText etChatMessage;
-    private Button btnSendMessage;
+    private Button btnSendMessage, btnLeaveGroup, btnDeleteGroup;
     private String currentGroupId;
     private User currentUser;
 
@@ -63,14 +63,64 @@ public class group_page extends BaseActivity {
         rvChat = findViewById(R.id.rv_chat);
         etChatMessage = findViewById(R.id.et_chat_message);
         btnSendMessage = findViewById(R.id.btn_send_message);
+        btnLeaveGroup = findViewById(R.id.btn_leave_group);
+        btnDeleteGroup = findViewById(R.id.btn_delete_group);
 
         rvChat.setLayoutManager(new LinearLayoutManager(this));
         chatAdapter = new GroupChatAdapter(currentUser != null ? currentUser.getId() : "");
         rvChat.setAdapter(chatAdapter);
 
         btnSendMessage.setOnClickListener(v -> sendMessage());
+        btnLeaveGroup.setOnClickListener(v -> leaveGroup());
+        btnDeleteGroup.setOnClickListener(v -> deleteGroup());
 
         databaseService = DatabaseService.getInstance();
+    }
+
+    private void leaveGroup() {
+        if (currentUser == null || currentGroupId == null) return;
+
+        databaseService.leaveGroup(currentUser.getId(), currentGroupId, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                currentUser.setGroupId(null);
+                SharedPreferencesUtil.saveUser(group_page.this, currentUser);
+                Toast.makeText(group_page.this, "Left group successfully", Toast.LENGTH_SHORT).show();
+                
+                Intent intent = new Intent(group_page.this, user_menu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(group_page.this, "Failed to leave group: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deleteGroup() {
+        if (currentGroupId == null) return;
+
+        databaseService.deleteGroup(currentGroupId, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                currentUser.setGroupId(null);
+                SharedPreferencesUtil.saveUser(group_page.this, currentUser);
+                Toast.makeText(group_page.this, "Group deleted successfully", Toast.LENGTH_SHORT).show();
+                
+                Intent intent = new Intent(group_page.this, user_menu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(group_page.this, "Failed to delete group: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -93,10 +143,22 @@ public class group_page extends BaseActivity {
             public void onCompleted(Group group) {
                 if (group != null) {
                     tvGroupName.setText(group.getGroupName());
+                    
+                    // Show delete button only for owner
+                    if (currentUser.getId().equals(group.getOwnerUid())) {
+                        btnDeleteGroup.setVisibility(android.view.View.VISIBLE);
+                    } else {
+                        btnDeleteGroup.setVisibility(android.view.View.GONE);
+                    }
+
                     loadMembers(currentGroupId);
                     startChatListener(currentGroupId);
                 } else {
                     Log.w(TAG, "Group not found for ID: " + currentGroupId);
+                    // If group doesn't exist anymore, clear local user data and finish
+                    currentUser.setGroupId(null);
+                    SharedPreferencesUtil.saveUser(group_page.this, currentUser);
+                    finish();
                 }
             }
 

@@ -21,7 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.UnaryOperator;
 
@@ -379,7 +381,144 @@ public class DatabaseService {
 
     public void deleteGroup(@NotNull final String groupId,
                             @Nullable final DatabaseCallback<Void> callback) {
-        deleteData(GROUPS_PATH + "/" + groupId, callback);
+        // First, get all users to clear their groupId
+        getUserList(new DatabaseCallback<List<User>>() {
+            @Override
+            public void onCompleted(List<User> users) {
+                for (User user : users) {
+                    if (groupId.equals(user.getGroupId())) {
+                        user.setGroupId(null);
+                        updateUser(user, null);
+                    }
+                }
+                // Finally delete the group itself
+                deleteData(GROUPS_PATH + "/" + groupId, callback);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) callback.onFailed(e);
+            }
+        });
+    }
+
+    public void leaveGroup(@NotNull final String uid,
+                           @NotNull final String groupId,
+                           @Nullable final DatabaseCallback<Void> callback) {
+        getGroup(groupId, new DatabaseCallback<Group>() {
+            @Override
+            public void onCompleted(Group group) {
+                if (group == null) {
+                    if (callback != null) callback.onFailed(new Exception("Group not found"));
+                    return;
+                }
+
+                if (uid.equals(group.getOwnerUid())) {
+                    // Current user is owner
+                    Map<String, Boolean> members = group.getMembers();
+                    if (members != null && members.size() > 1) {
+                        // Transfer ownership to someone else
+                        String newOwnerUid = null;
+                        for (String memberUid : members.keySet()) {
+                            if (!memberUid.equals(uid)) {
+                                newOwnerUid = memberUid;
+                                break;
+                            }
+                        }
+
+                        if (newOwnerUid != null) {
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("ownerUid", newOwnerUid);
+                            updates.put("members/" + uid, null);
+                            
+                            readData(GROUPS_PATH + "/" + groupId).updateChildren(updates, (error, ref) -> {
+                                if (error != null) {
+                                    if (callback != null) callback.onFailed(error.toException());
+                                    return;
+                                }
+                                // Clear user's group ID
+                                getUser(uid, new DatabaseCallback<User>() {
+                                    @Override
+                                    public void onCompleted(User user) {
+                                        if (user != null) {
+                                            user.setGroupId(null);
+                                            updateUser(user, callback);
+                                        } else if (callback != null) {
+                                            callback.onCompleted(null);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailed(Exception e) {
+                                        if (callback != null) callback.onFailed(e);
+                                    }
+                                });
+                            });
+                        }
+                    } else {
+                        // Only owner was in group, delete it
+                        deleteGroup(groupId, new DatabaseCallback<Void>() {
+                            @Override
+                            public void onCompleted(Void object) {
+                                getUser(uid, new DatabaseCallback<User>() {
+                                    @Override
+                                    public void onCompleted(User user) {
+                                        if (user != null) {
+                                            user.setGroupId(null);
+                                            updateUser(user, callback);
+                                        } else if (callback != null) {
+                                            callback.onCompleted(null);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailed(Exception e) {
+                                        if (callback != null) callback.onFailed(e);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFailed(Exception e) {
+                                if (callback != null) callback.onFailed(e);
+                            }
+                        });
+                    }
+                } else {
+                    // Not owner, just leave
+                    if (group.getMembers() != null) {
+                        group.getMembers().remove(uid);
+                    }
+                    readData(GROUPS_PATH + "/" + groupId + "/members/" + uid).removeValue((error, ref) -> {
+                        if (error != null) {
+                            if (callback != null) callback.onFailed(error.toException());
+                            return;
+                        }
+                        getUser(uid, new DatabaseCallback<User>() {
+                            @Override
+                            public void onCompleted(User user) {
+                                if (user != null) {
+                                    user.setGroupId(null);
+                                    updateUser(user, callback);
+                                } else if (callback != null) {
+                                    callback.onCompleted(null);
+                                }
+                            }
+
+                            @Override
+                            public void onFailed(Exception e) {
+                                if (callback != null) callback.onFailed(e);
+                            }
+                        });
+                    });
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) callback.onFailed(e);
+            }
+        });
     }
 
     public void joinGroup(@NotNull final String uid,
