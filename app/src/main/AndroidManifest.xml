@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeffenFinalProject">
         <activity
+            android:name=".user_chords_quiz"
+            android:exported="false" />
+        <activity
             android:name=".group_page"
             android:exported="false" />
 
@@ -50,6 +53,9 @@
             android:exported="false" />
         <activity
             android:name=".user_profile"
+            android:exported="false" />
+        <activity
+            android:name=".user_update_profile"
             android:exported="false" />
         <activity
             android:name=".admin_user_table"

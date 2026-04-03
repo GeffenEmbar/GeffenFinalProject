@@ -132,13 +132,17 @@ public class user_questions extends BaseActivity implements View.OnClickListener
             correctCount++;
 
             // ⭐ NEW – update user + group score
-            databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid());
+            databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.QUIZ);
 
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
 
         } else {
 
             wrongCount++;
+            // ⭐ NEW – update user wrong score
+            if (mAuth.getCurrentUser() != null) {
+                databaseService.userAnsweredWrongly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.QUIZ);
+            }
             Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show();
         }
 

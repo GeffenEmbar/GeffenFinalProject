@@ -12,19 +12,17 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         android:orientation="vertical"
-        android:weightSum="8"
+        android:weightSum="10"
         >
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textColor="@color/white"
-            android:textStyle="bold|normal"
-            android:text=""
-            android:gravity="center"
-            android:textSize="30sp"
             android:id="@+id/tvGroupName"
-            >
-        </TextView>
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Group Name"
+            android:gravity="center"
+            android:textSize="28sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,16 +51,76 @@
                 android:visibility="gone"/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_total_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notes Correct: 0"
+                android:textColor="#4CAF50"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_total_intervals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Intervals Correct: 0"
+                android:textColor="#4CAF50"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_total_chords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chords Correct: 0"
+                android:textColor="#4CAF50"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_total_quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General Quiz Correct: 0"
+                android:textColor="#4CAF50"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_total_correct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Correct: 0"
+                android:textColor="#4CAF50"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_total_wrong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Wrong: 0"
+                android:textColor="#F44336"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:text="Members:"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="25sp"
-            >
-        </TextView>
+            android:textSize="22sp"
+            android:paddingStart="8dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_users_list"
             android:layout_width="match_parent"
@@ -73,13 +131,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:text="Chat:"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="25sp"
-            >
-        </TextView>
+            android:textSize="22sp"
+            android:paddingStart="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_chat"
@@ -110,7 +167,6 @@
 
         </LinearLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

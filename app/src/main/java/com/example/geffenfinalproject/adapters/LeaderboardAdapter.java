@@ -16,11 +16,21 @@ import java.util.List;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
 
+    public enum Mode {
+        TOTAL, NOTES, INTERVALS, QUIZ
+    }
+
     private List<User> userList = new ArrayList<>();
     private int startRank = 1;
+    private Mode currentMode = Mode.TOTAL;
 
     public void setUserList(List<User> users){
         this.userList = users;
+        notifyDataSetChanged();
+    }
+
+    public void setMode(Mode mode) {
+        this.currentMode = mode;
         notifyDataSetChanged();
     }
 
@@ -41,7 +51,15 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
         holder.tvRank.setText("#" + (startRank + position));
         holder.tvUsername.setText(user.getFname());
-        holder.tvScore.setText(String.valueOf(user.getCorrect_answers()));
+        
+        int score = 0;
+        switch (currentMode) {
+            case TOTAL: score = user.getCorrect_answers(); break;
+            case NOTES: score = user.getNotesCorrect(); break;
+            case INTERVALS: score = user.getIntervalsCorrect(); break;
+            case QUIZ: score = user.getQuizCorrect(); break;
+        }
+        holder.tvScore.setText(String.valueOf(score));
 
 
     }

@@ -1,5 +1,6 @@
 package com.example.geffenfinalproject;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,12 +13,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.models.Note;
+import com.example.geffenfinalproject.services.DatabaseService;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.*;
 
 public class user_intervals_quiz extends BaseActivity {
 
-    private Button btnPlayInterval, btnReplayInterval;
+    private Button btnPlayInterval, btnReplayInterval, btnStop;
     private TextView scoreText, wrongText;
 
     private MediaPlayer mp;
@@ -35,6 +38,9 @@ public class user_intervals_quiz extends BaseActivity {
 
     private final Map<Integer, String> intervalNames = new HashMap<>();
 
+    private FirebaseAuth mAuth;
+    private DatabaseService databaseService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +49,13 @@ public class user_intervals_quiz extends BaseActivity {
 
         btnPlayInterval = findViewById(R.id.btnPlayInterval);
         btnReplayInterval = findViewById(R.id.btnReplayInterval);
+        btnStop = findViewById(R.id.btnStop);
 
         scoreText = findViewById(R.id.scoreText);
         wrongText = findViewById(R.id.wrongText);
+
+        mAuth = FirebaseAuth.getInstance();
+        databaseService = DatabaseService.getInstance();
 
         initIntervals();
         initAllKeys();
@@ -56,6 +66,8 @@ public class user_intervals_quiz extends BaseActivity {
         btnReplayInterval.setOnClickListener(v -> {
             if (questionActive) replayInterval();
         });
+
+        btnStop.setOnClickListener(v -> stopQuiz());
 
         updateScore();
     }
@@ -120,9 +132,15 @@ public class user_intervals_quiz extends BaseActivity {
 
         if (userInterval == correctInterval) {
             score++;
+            if (mAuth.getCurrentUser() != null) {
+                databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.INTERVALS);
+            }
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
         } else {
             wrong++;
+            if (mAuth.getCurrentUser() != null) {
+                databaseService.userAnsweredWrongly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.INTERVALS);
+            }
             Toast.makeText(this,
                     "Wrong! It was " + intervalNames.get(correctInterval),
                     Toast.LENGTH_SHORT).show();
@@ -135,6 +153,14 @@ public class user_intervals_quiz extends BaseActivity {
     private void updateScore() {
         scoreText.setText("Correct: " + score);
         wrongText.setText("Wrong: " + wrong);
+    }
+
+    private void stopQuiz() {
+        if (mp != null) {
+            mp.release();
+        }
+        startActivity(new Intent(this, user_menu.class));
+        finish();
     }
 
     void initAllKeys() {

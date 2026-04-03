@@ -291,8 +291,11 @@ public class DatabaseService {
                 });
     }
 
-    ///  not used yet
-    public void userAnsweredCorrectly(String uid) {
+    public enum GameType {
+        NOTES, INTERVALS, QUIZ, CHORDS
+    }
+
+    public void userAnsweredCorrectly(String uid, GameType gameType) {
 
         DatabaseReference userRef = FirebaseDatabase.getInstance()
                 .getReference(USERS_PATH)
@@ -309,11 +312,42 @@ public class DatabaseService {
                     return Transaction.success(currentData);
 
                 user.setCorrect_answers(user.getCorrect_answers() + 1);
+
+                switch (gameType) {
+                    case NOTES:
+                        user.setNotesCorrect(user.getNotesCorrect() + 1);
+                        user.setNotesStreak(user.getNotesStreak() + 1);
+                        if (user.getNotesStreak() > user.getMaxNotesStreak()) {
+                            user.setMaxNotesStreak(user.getNotesStreak());
+                        }
+                        break;
+                    case INTERVALS:
+                        user.setIntervalsCorrect(user.getIntervalsCorrect() + 1);
+                        user.setIntervalsStreak(user.getIntervalsStreak() + 1);
+                        if (user.getIntervalsStreak() > user.getMaxIntervalsStreak()) {
+                            user.setMaxIntervalsStreak(user.getIntervalsStreak());
+                        }
+                        break;
+                    case CHORDS:
+                        user.setChordsCorrect(user.getChordsCorrect() + 1);
+                        user.setChordsStreak(user.getChordsStreak() + 1);
+                        if (user.getChordsStreak() > user.getMaxChordsStreak()) {
+                            user.setMaxChordsStreak(user.getChordsStreak());
+                        }
+                        break;
+                    case QUIZ:
+                        user.setQuizCorrect(user.getQuizCorrect() + 1);
+                        user.setQuizStreak(user.getQuizStreak() + 1);
+                        if (user.getQuizStreak() > user.getMaxQuizStreak()) {
+                            user.setMaxQuizStreak(user.getQuizStreak());
+                        }
+                        break;
+                }
+
                 currentData.setValue(user);
 
                 return Transaction.success(currentData);
             }
-
             @Override
             public void onComplete(DatabaseError error, boolean committed, DataSnapshot currentData) {
 
@@ -353,7 +387,57 @@ public class DatabaseService {
             }
         });
     }
+
+    public void userAnsweredWrongly(String uid, GameType gameType) {
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance()
+                .getReference(USERS_PATH)
+                .child(uid);
+
+        userRef.runTransaction(new Transaction.Handler() {
+
+            @Override
+            public Transaction.Result doTransaction(MutableData currentData) {
+
+                User user = currentData.getValue(User.class);
+
+                if (user == null)
+                    return Transaction.success(currentData);
+
+                user.setWrong_answers(user.getWrong_answers() + 1);
+
+                switch (gameType) {
+                    case NOTES:
+                        user.setNotesWrong(user.getNotesWrong() + 1);
+                        user.setNotesStreak(0);
+                        break;
+                    case INTERVALS:
+                        user.setIntervalsWrong(user.getIntervalsWrong() + 1);
+                        user.setIntervalsStreak(0);
+                        break;
+                    case CHORDS:
+                        user.setChordsWrong(user.getChordsWrong() + 1);
+                        user.setChordsStreak(0);
+                        break;
+                    case QUIZ:
+                        user.setQuizWrong(user.getQuizWrong() + 1);
+                        user.setQuizStreak(0);
+                        break;
+                }
+
+                currentData.setValue(user);
+
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError error, boolean committed, DataSnapshot currentData) {
+            }
+        });
+    }
+
     ///
+
 
 
 

@@ -37,33 +37,39 @@
                 android:layout_marginBottom="16dp" />
 
             <!-- FIRST NAME -->
-            <EditText
+            <TextView
                 android:id="@+id/etFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="First Name"
                 android:textColor="@color/white"
                 android:textColorHint="#888"
+                android:textSize="18sp"
+                android:gravity="center_vertical"
                 android:layout_marginBottom="8dp"/>
 
             <!-- LAST NAME -->
-            <EditText
+            <TextView
                 android:id="@+id/etLastName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Last Name"
                 android:textColor="@color/white"
                 android:textColorHint="#888"
+                android:textSize="18sp"
+                android:gravity="center_vertical"
                 android:layout_marginBottom="8dp"/>
 
             <!-- PHONE -->
-            <EditText
+            <TextView
                 android:id="@+id/etPhoneNum"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Phone"
                 android:textColor="@color/white"
                 android:textColorHint="#888"
+                android:textSize="18sp"
+                android:gravity="center_vertical"
                 android:layout_marginBottom="12dp"/>
 
             <!-- GROUP LABEL -->
@@ -88,62 +94,133 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rank in Group:"
+                android:text="Ranks in Group:"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_marginTop="8dp"/>
 
-            <!-- RANK -->
             <TextView
-                android:id="@+id/tvRank"
+                android:id="@+id/tvNotesRank"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:text="Notes Rank: N/A"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:gravity="center_vertical"/>
+                android:textSize="18sp"
+                android:layout_marginBottom="4dp"/>
 
-            <!-- CORRECT LABEL -->
+            <TextView
+                android:id="@+id/tvIntervalsRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Intervals Rank: N/A"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tvChordsRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chords Rank: N/A"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tvQuizRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="General Quiz Rank: N/A"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- NOTES STATS -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Correct Answers:"
+                android:text="Notes Quiz (C/W | Streak | Max):"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_marginTop="8dp"/>
-
-            <!-- CORRECT VALUE -->
             <TextView
-                android:id="@+id/right_answers"
+                android:id="@+id/tvNotesStats"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:gravity="center_vertical"/>
 
-            <!-- WRONG LABEL -->
+            <!-- INTERVALS STATS -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wrong Answers:"
+                android:text="Intervals Quiz (C/W | Streak | Max):"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_marginTop="8dp"/>
-
-            <!-- WRONG VALUE -->
             <TextView
-                android:id="@+id/wrong_answers"
+                android:id="@+id/tvIntervalsStats"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:gravity="center_vertical"/>
 
-            <!-- SAVE BUTTON -->
+            <!-- CHORDS STATS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chords Quiz (C/W | Streak | Max):"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/tvChordsStats"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:gravity="center_vertical"/>
+
+            <!-- QUIZ STATS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="General Quiz (C/W | Streak | Max):"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/tvQuizStats"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:gravity="center_vertical"/>
+
+            <!-- TOTAL STATS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total (Correct/Wrong):"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/tvTotalStats"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:gravity="center_vertical"/>
+
+            <!-- UPDATE BUTTON -->
             <Button
-                android:id="@+id/btnSave"
+                android:id="@+id/btnGoToUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Save Changes"
+                android:text="Update Profile"
                 android:layout_marginTop="16dp"/>
 
         </LinearLayout>

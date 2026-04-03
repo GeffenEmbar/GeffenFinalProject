@@ -145,12 +145,16 @@ public class user_notes_quiz extends BaseActivity {
             score++;
 
             // ⭐ GROUP SCORE UPDATE CHANGE
-            databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid());
+            databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.NOTES);
 
             Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show();
         }
         else{
             wrong++;
+            // ⭐ NEW – update user wrong score
+            if (mAuth.getCurrentUser() != null) {
+                databaseService.userAnsweredWrongly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.NOTES);
+            }
             Toast.makeText(this,"Wrong! Correct: "+correctNoteName,Toast.LENGTH_SHORT).show();
         }
 

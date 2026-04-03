@@ -24,12 +24,14 @@ import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class group_page extends BaseActivity {
 
     private static final String TAG = "group_page";
-    private TextView tvGroupName;
+    private TextView tvGroupName, tvTotalCorrect, tvTotalWrong;
+    private TextView tvTotalNotes, tvTotalIntervals, tvTotalChords, tvTotalQuiz;
     private RecyclerView rvMembers, rvChat;
     private UserAdapter userAdapter;
     private GroupChatAdapter chatAdapter;
@@ -51,6 +53,13 @@ public class group_page extends BaseActivity {
         });
 
         tvGroupName = findViewById(R.id.tvGroupName);
+        tvTotalCorrect = findViewById(R.id.tv_total_correct);
+        tvTotalWrong = findViewById(R.id.tv_total_wrong);
+        tvTotalNotes = findViewById(R.id.tv_total_notes);
+        tvTotalIntervals = findViewById(R.id.tv_total_intervals);
+        tvTotalChords = findViewById(R.id.tv_total_chords);
+        tvTotalQuiz = findViewById(R.id.tv_total_quiz);
+        
         rvMembers = findViewById(R.id.rv_users_list);
         rvMembers.setLayoutManager(new LinearLayoutManager(this));
 
@@ -174,12 +183,35 @@ public class group_page extends BaseActivity {
             @Override
             public void onCompleted(List<User> users) {
                 List<User> groupMembers = new ArrayList<>();
+                int totalCorrect = 0;
+                int totalWrong = 0;
+                int totalNotes = 0;
+                int totalIntervals = 0;
+                int totalChords = 0;
+                int totalQuiz = 0;
+                
                 for (User user : users) {
                     if (groupId.equals(user.getGroupId())) {
                         groupMembers.add(user);
+                        totalCorrect += user.getCorrect_answers();
+                        totalWrong += user.getWrong_answers();
+                        totalNotes += user.getNotesCorrect();
+                        totalIntervals += user.getIntervalsCorrect();
+                        totalChords += user.getChordsCorrect();
+                        totalQuiz += user.getQuizCorrect();
                     }
                 }
+                
+                // Sort by total correct descending
+                Collections.sort(groupMembers, (u1, u2) -> Integer.compare(u2.getCorrect_answers(), u1.getCorrect_answers()));
+                
                 userAdapter.setUserList(groupMembers);
+                tvTotalCorrect.setText("Total Correct: " + totalCorrect);
+                tvTotalWrong.setText("Total Wrong: " + totalWrong);
+                tvTotalNotes.setText("Notes Correct: " + totalNotes);
+                tvTotalIntervals.setText("Intervals Correct: " + totalIntervals);
+                tvTotalChords.setText("Chords Correct: " + totalChords);
+                tvTotalQuiz.setText("General Quiz Correct: " + totalQuiz);
             }
 
             @Override

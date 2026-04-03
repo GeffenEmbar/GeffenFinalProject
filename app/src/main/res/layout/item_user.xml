@@ -164,15 +164,46 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+        <LinearLayout
+            android:id="@+id/layout_stats_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@android:drawable/ic_menu_more"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="#BDBDBD" />
+            app:layout_constraintTop_toBottomOf="@id/layout_phone_pill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/tv_item_user_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N: 0"
+                android:textColor="#3949AB"
+                android:textSize="11sp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_item_user_intervals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I: 0"
+                android:textColor="#3949AB"
+                android:textSize="11sp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_item_user_quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Q: 0"
+                android:textColor="#3949AB"
+                android:textSize="11sp"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -28,7 +28,7 @@ import java.util.Calendar;
 
 public class user_menu extends BaseActivity implements View.OnClickListener {
 
-    Button piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard, btnGroups, btnProfile;
+    Button btnChordsQuiz, piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard, btnGroups, btnProfile;
 
     private static final int PERMISSION_REQUEST_CODE = 101;
 
@@ -45,6 +45,8 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
 
         checkPermissionsAndScheduleAlarm();
 
+        btnChordsQuiz = findViewById(R.id.btnChordsQuiz);
+        btnChordsQuiz.setOnClickListener(this);
         piano_notes_quiz = findViewById(R.id.piano_notes_quiz);
         piano_notes_quiz.setOnClickListener(this);
         questionnaire = findViewById(R.id.questionnaire);
@@ -61,7 +63,11 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.piano_notes_quiz) {
+        if (v.getId() == R.id.btnChordsQuiz) {
+            Intent intent = new Intent(this, user_chords_quiz.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.piano_notes_quiz) {
             Intent intent = new Intent(this, user_notes_quiz.class);
             startActivity(intent);
         }

@@ -50,6 +50,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.tvEmail.setText(user.getEmail());
         holder.tvPhone.setText(user.getPhone());
         
+        // Handle stats
+        holder.tvNotes.setText("N: " + user.getNotesCorrect());
+        holder.tvIntervals.setText("I: " + user.getIntervalsCorrect());
+        holder.tvQuiz.setText("Q: " + user.getQuizCorrect());
+        
         // Handle profile image
         if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
             android.graphics.Bitmap bitmap = ImageUtil.convertFrom64base(user.getProfileImage());
@@ -136,6 +141,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvEmail, tvPhone, tvInitials, chipRole;
+        TextView tvNotes, tvIntervals, tvQuiz;
         ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
@@ -146,6 +152,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             tvInitials = itemView.findViewById(R.id.tv_user_initials);
             ivProfile = itemView.findViewById(R.id.iv_user_profile);
             chipRole = itemView.findViewById(R.id.chip_user_role);
+            
+            tvNotes = itemView.findViewById(R.id.tv_item_user_notes);
+            tvIntervals = itemView.findViewById(R.id.tv_item_user_intervals);
+            tvQuiz = itemView.findViewById(R.id.tv_item_user_quiz);
         }
     }
 }
