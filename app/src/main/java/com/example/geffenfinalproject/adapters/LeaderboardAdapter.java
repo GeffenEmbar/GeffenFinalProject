@@ -43,19 +43,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         holder.tvUsername.setText(user.getFname());
         holder.tvScore.setText(String.valueOf(user.getCorrect_answers()));
 
-        // Medal logic
-        if(position == 0){
-            holder.tvMedal.setText("🥇");
-        }
-        else if(position == 1){
-            holder.tvMedal.setText("🥈");
-        }
-        else if(position == 2){
-            holder.tvMedal.setText("🥉");
-        }
-        else{
-            holder.tvMedal.setText("");
-        }
+
     }
 
     @Override
@@ -74,7 +62,6 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             super(itemView);
 
             tvRank = itemView.findViewById(R.id.tv_rank);
-            tvMedal = itemView.findViewById(R.id.tv_medal);
             tvUsername = itemView.findViewById(R.id.tv_username);
             tvScore = itemView.findViewById(R.id.tv_score);
         }

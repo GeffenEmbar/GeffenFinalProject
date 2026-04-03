@@ -3,30 +3,21 @@ package com.example.geffenfinalproject;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.models.Note;
-import com.example.geffenfinalproject.services.DatabaseService; // ⭐ GROUP DATABASE UPDATE
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public class user_intervals_quiz extends BaseActivity implements View.OnClickListener {
+public class user_intervals_quiz extends BaseActivity {
 
     private Button btnPlayInterval, btnReplayInterval;
-    private Button btnMinorSecond, btnMajorSecond, btnMinorThird, btnMajorThird;
-    private Button btnPerfectFourth, btnPerfectFifth, btnOctave;
-
     private TextView scoreText, wrongText;
 
     private MediaPlayer mp;
@@ -40,13 +31,9 @@ public class user_intervals_quiz extends BaseActivity implements View.OnClickLis
     private boolean questionActive = false;
 
     private final List<Note> allKeys = new ArrayList<>();
-
-    private FirebaseAuth mAuth;
-    private String currentUserId;
-
-    private DatabaseService databaseService; // ⭐ GROUP DATABASE UPDATE
-
     private final Random random = new Random();
+
+    private final Map<Integer, String> intervalNames = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,59 +41,103 @@ public class user_intervals_quiz extends BaseActivity implements View.OnClickLis
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user_intervals_quiz);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
         btnPlayInterval = findViewById(R.id.btnPlayInterval);
         btnReplayInterval = findViewById(R.id.btnReplayInterval);
-
-        btnMinorSecond = findViewById(R.id.btnMinorSecond);
-        btnMajorSecond = findViewById(R.id.btnMajorSecond);
-        btnMinorThird = findViewById(R.id.btnMinorThird);
-        btnMajorThird = findViewById(R.id.btnMajorThird);
-        btnPerfectFourth = findViewById(R.id.btnPerfectFourth);
-        btnPerfectFifth = findViewById(R.id.btnPerfectFifth);
-        btnOctave = findViewById(R.id.btnOctave);
 
         scoreText = findViewById(R.id.scoreText);
         wrongText = findViewById(R.id.wrongText);
 
+        initIntervals();
         initAllKeys();
-
-        mAuth = FirebaseAuth.getInstance();
-
-        if (mAuth.getCurrentUser() != null) {
-            currentUserId = mAuth.getCurrentUser().getUid();
-        }
-
-        databaseService = DatabaseService.getInstance(); // ⭐ GROUP DATABASE UPDATE
-
-        updateScore();
+        setupButtons();
 
         btnPlayInterval.setOnClickListener(v -> playInterval());
 
         btnReplayInterval.setOnClickListener(v -> {
-            if(questionActive){
-                replayInterval();
-            }
+            if (questionActive) replayInterval();
         });
 
-        btnMinorSecond.setOnClickListener(v -> checkAnswer(1));
-        btnMajorSecond.setOnClickListener(v -> checkAnswer(2));
-        btnMinorThird.setOnClickListener(v -> checkAnswer(3));
-        btnMajorThird.setOnClickListener(v -> checkAnswer(4));
-        btnPerfectFourth.setOnClickListener(v -> checkAnswer(5));
-        btnPerfectFifth.setOnClickListener(v -> checkAnswer(7));
-        btnOctave.setOnClickListener(v -> checkAnswer(12));
+        updateScore();
+    }
+
+    private void initIntervals() {
+        intervalNames.put(0, "Unison");
+        intervalNames.put(1, "Minor Second");
+        intervalNames.put(2, "Major Second");
+        intervalNames.put(3, "Minor Third");
+        intervalNames.put(4, "Major Third");
+        intervalNames.put(5, "Perfect Fourth");
+        intervalNames.put(6, "Tritone");
+        intervalNames.put(7, "Perfect Fifth");
+        intervalNames.put(8, "Minor Sixth");
+        intervalNames.put(9, "Major Sixth");
+        intervalNames.put(10, "Minor Seventh");
+        intervalNames.put(11, "Major Seventh");
+        intervalNames.put(12, "Octave");
+    }
+
+    private void setupButtons() {
+        for (int i = 0; i <= 12; i++) {
+            int resId = getResources().getIdentifier("btn" + i, "id", getPackageName());
+            Button btn = findViewById(resId);
+
+            int finalI = i;
+            btn.setOnClickListener(v -> checkAnswer(finalI));
+        }
+    }
+
+    private void playInterval() {
+        if (questionActive) {
+            Toast.makeText(this, "Answer first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        baseIndex = random.nextInt(allKeys.size() - 12);
+        correctInterval = random.nextInt(13); // 0–12
+
+        playNotes(baseIndex, baseIndex + correctInterval);
+        questionActive = true;
+    }
+
+    private void replayInterval() {
+        playNotes(baseIndex, baseIndex + correctInterval);
+    }
+
+    private void playNotes(int first, int second) {
+        if (mp != null) mp.release();
+
+        mp = MediaPlayer.create(this, allKeys.get(first).getAudioResId());
+        mp.start();
+
+        new Handler().postDelayed(() -> {
+            MediaPlayer mp2 = MediaPlayer.create(this, allKeys.get(second).getAudioResId());
+            mp2.start();
+        }, 700);
+    }
+
+    private void checkAnswer(int userInterval) {
+        if (!questionActive) return;
+
+        if (userInterval == correctInterval) {
+            score++;
+            Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+        } else {
+            wrong++;
+            Toast.makeText(this,
+                    "Wrong! It was " + intervalNames.get(correctInterval),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        updateScore();
+        questionActive = false;
+    }
+
+    private void updateScore() {
+        scoreText.setText("Correct: " + score);
+        wrongText.setText("Wrong: " + wrong);
     }
 
     void initAllKeys() {
-        addNotes("A", "a", 0, 7);
-        addNotes("A#", "asharp", 0, 7);
-        addNotes("B", "b", 0, 7);
         addNotes("C", "c", 1, 7);
         addNotes("C#", "csharp", 1, 7);
         addNotes("D", "d", 1, 7);
@@ -116,12 +147,13 @@ public class user_intervals_quiz extends BaseActivity implements View.OnClickLis
         addNotes("F#", "fsharp", 1, 7);
         addNotes("G", "g", 1, 7);
         addNotes("G#", "gsharp", 1, 7);
+        addNotes("A", "a", 0, 7);
+        addNotes("A#", "asharp", 0, 7);
+        addNotes("B", "b", 0, 7);
     }
 
     void addNotes(String noteName, String filePrefix, int start, int end) {
-
         for (int i = start; i <= end; i++) {
-
             int resId = getResources().getIdentifier(
                     filePrefix + i,
                     "raw",
@@ -134,106 +166,9 @@ public class user_intervals_quiz extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void playInterval() {
-
-        if(questionActive){
-            Toast.makeText(this,"Answer the current interval first!",Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(allKeys.size() < 20) return;
-
-        baseIndex = random.nextInt(allKeys.size() - 12);
-
-        int[] intervals = {1,2,3,4,5,7,12};
-
-        correctInterval = intervals[random.nextInt(intervals.length)];
-
-        playNotes(baseIndex, baseIndex + correctInterval);
-
-        questionActive = true;
-    }
-
-    private void replayInterval(){
-        playNotes(baseIndex, baseIndex + correctInterval);
-    }
-
-    private void playNotes(int first, int second){
-
-        Note note1 = allKeys.get(first);
-        Note note2 = allKeys.get(second);
-
-        if(mp != null) mp.release();
-
-        mp = MediaPlayer.create(this, note1.getAudioResId());
-        mp.start();
-
-        new Handler().postDelayed(() -> {
-
-            MediaPlayer mp2 = MediaPlayer.create(this, note2.getAudioResId());
-            mp2.start();
-
-        },700);
-    }
-
-    private void checkAnswer(int userInterval){
-
-        if(!questionActive) return;
-
-        if(userInterval == correctInterval){
-
-            score++;
-
-            // ⭐ GROUP DATABASE UPDATE
-            if(currentUserId != null){
-                databaseService.userAnsweredCorrectly(currentUserId);
-            }
-
-            Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show();
-
-        }
-        else{
-
-            wrong++;
-
-            if (correctInterval == 1)
-                Toast.makeText(this,"Wrong! Minor Second",Toast.LENGTH_SHORT).show();
-            else if (correctInterval == 2)
-                Toast.makeText(this,"Wrong! Major Second",Toast.LENGTH_SHORT).show();
-            else if (correctInterval == 3)
-                Toast.makeText(this,"Wrong! Minor Third",Toast.LENGTH_SHORT).show();
-            else if (correctInterval == 4)
-                Toast.makeText(this,"Wrong! Major Third",Toast.LENGTH_SHORT).show();
-            else if (correctInterval == 5)
-                Toast.makeText(this,"Wrong! Perfect Fourth",Toast.LENGTH_SHORT).show();
-            else if (correctInterval == 7)
-                Toast.makeText(this,"Wrong! Perfect Fifth",Toast.LENGTH_SHORT).show();
-            else if (correctInterval == 12)
-                Toast.makeText(this,"Wrong! Octave",Toast.LENGTH_SHORT).show();
-        }
-
-        updateScore();
-
-        questionActive = false;
-    }
-
-    private void updateScore(){
-
-        scoreText.setText("Correct: " + score);
-        wrongText.setText("Wrong: " + wrong);
-
-    }
-
     @Override
-    protected void onDestroy(){
-
-        if(mp != null) mp.release();
-
+    protected void onDestroy() {
+        if (mp != null) mp.release();
         super.onDestroy();
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }

@@ -31,14 +31,6 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/tv_medal"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:text="🏆"
-            android:textSize="22sp"
-            android:gravity="center"/>
-
-        <TextView
             android:id="@+id/tv_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
