@@ -65,6 +65,8 @@ public class user_leaderboard extends BaseActivity {
                     case 1: currentMode = LeaderboardAdapter.Mode.NOTES; break;
                     case 2: currentMode = LeaderboardAdapter.Mode.INTERVALS; break;
                     case 3: currentMode = LeaderboardAdapter.Mode.QUIZ; break;
+                    case 4: currentMode = LeaderboardAdapter.Mode.CHORDS; break;
+                    case 5: currentMode = LeaderboardAdapter.Mode.COMPLEX_CHORDS; break;
                 }
                 updateLeaderboardUI();
             }
@@ -152,6 +154,8 @@ public class user_leaderboard extends BaseActivity {
             case NOTES: return u.getNotesCorrect();
             case INTERVALS: return u.getIntervalsCorrect();
             case QUIZ: return u.getQuizCorrect();
+            case CHORDS: return u.getChordsCorrect();
+            case COMPLEX_CHORDS: return u.getComplexChordsCorrect();
             default: return 0;
         }
     }

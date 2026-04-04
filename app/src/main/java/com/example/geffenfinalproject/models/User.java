@@ -9,12 +9,14 @@ public class User {
     private int notesCorrect, notesWrong;
     private int intervalsCorrect, intervalsWrong;
     private int chordsCorrect, chordsWrong;
+    private int complexChordsCorrect, complexChordsWrong;
     private int quizCorrect, quizWrong;
 
     // Streaks
     private int notesStreak, maxNotesStreak;
     private int intervalsStreak, maxIntervalsStreak;
     private int chordsStreak, maxChordsStreak;
+    private int complexChordsStreak, maxComplexChordsStreak;
     private int quizStreak, maxQuizStreak;
     
     private String groupId;
@@ -140,6 +142,12 @@ public class User {
     public int getChordsWrong() { return chordsWrong; }
     public void setChordsWrong(int chordsWrong) { this.chordsWrong = chordsWrong; }
 
+    public int getComplexChordsCorrect() { return complexChordsCorrect; }
+    public void setComplexChordsCorrect(int complexChordsCorrect) { this.complexChordsCorrect = complexChordsCorrect; }
+
+    public int getComplexChordsWrong() { return complexChordsWrong; }
+    public void setComplexChordsWrong(int complexChordsWrong) { this.complexChordsWrong = complexChordsWrong; }
+
     public int getNotesStreak() { return notesStreak; }
     public void setNotesStreak(int notesStreak) { this.notesStreak = notesStreak; }
 
@@ -157,6 +165,12 @@ public class User {
 
     public int getMaxChordsStreak() { return maxChordsStreak; }
     public void setMaxChordsStreak(int maxChordsStreak) { this.maxChordsStreak = maxChordsStreak; }
+
+    public int getComplexChordsStreak() { return complexChordsStreak; }
+    public void setComplexChordsStreak(int complexChordsStreak) { this.complexChordsStreak = complexChordsStreak; }
+
+    public int getMaxComplexChordsStreak() { return maxComplexChordsStreak; }
+    public void setMaxComplexChordsStreak(int maxComplexChordsStreak) { this.maxComplexChordsStreak = maxComplexChordsStreak; }
 
     public int getQuizStreak() { return quizStreak; }
     public void setQuizStreak(int quizStreak) { this.quizStreak = quizStreak; }

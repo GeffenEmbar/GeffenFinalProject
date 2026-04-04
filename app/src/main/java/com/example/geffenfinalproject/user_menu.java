@@ -28,7 +28,7 @@ import java.util.Calendar;
 
 public class user_menu extends BaseActivity implements View.OnClickListener {
 
-    Button btnChordsQuiz, piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard, btnGroups, btnProfile;
+    Button btnChordsQuiz, btnComplexChordsQuiz, piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard, btnGroups, btnProfile;
 
     private static final int PERMISSION_REQUEST_CODE = 101;
 
@@ -47,6 +47,8 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
 
         btnChordsQuiz = findViewById(R.id.btnChordsQuiz);
         btnChordsQuiz.setOnClickListener(this);
+        btnComplexChordsQuiz = findViewById(R.id.btnComplexChordsQuiz);
+        btnComplexChordsQuiz.setOnClickListener(this);
         piano_notes_quiz = findViewById(R.id.piano_notes_quiz);
         piano_notes_quiz.setOnClickListener(this);
         questionnaire = findViewById(R.id.questionnaire);
@@ -65,6 +67,10 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.btnChordsQuiz) {
             Intent intent = new Intent(this, user_chords_quiz.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.btnComplexChordsQuiz) {
+            Intent intent = new Intent(this, user_complex_chords_quiz.class);
             startActivity(intent);
         }
         else if (v.getId() == R.id.piano_notes_quiz) {

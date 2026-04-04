@@ -14,15 +14,33 @@
         android:orientation="vertical"
         android:weightSum="10"
         >
-        <TextView
-            android:id="@+id/tvGroupName"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="Group Name"
-            android:gravity="center"
-            android:textSize="28sp" />
+            android:layout_height="80dp">
+
+            <TextView
+                android:id="@+id/tvGroupName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Group Name"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btn_edit_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/tvGroupName"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_edit"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,6 +106,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="General Quiz Correct: 0"
+                android:textColor="#4CAF50"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_total_complex_chords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complex Chords Correct: 0"
                 android:textColor="#4CAF50"
                 android:textSize="14sp" />
 

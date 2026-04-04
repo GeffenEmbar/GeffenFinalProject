@@ -25,13 +25,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public interface OnUserClickListener {
         void onUserClick(User user);
         void onLongUserClick(User user);
+        void onKickClick(User user);
     }
 
     private final List<User> userList;
     private final OnUserClickListener onUserClickListener;
+    private String currentUserId;
+    private String ownerId;
+
     public UserAdapter(@Nullable final OnUserClickListener onUserClickListener) {
         userList = new ArrayList<>();
         this.onUserClickListener = onUserClickListener;
+    }
+
+    public void setIds(String currentUserId, String ownerId) {
+        this.currentUserId = currentUserId;
+        this.ownerId = ownerId;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -49,11 +59,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.tvName.setText(user.getFname());
         holder.tvEmail.setText(user.getEmail());
         holder.tvPhone.setText(user.getPhone());
+        holder.tvRank.setText("#" + (position + 1));
         
         // Handle stats
         holder.tvNotes.setText("N: " + user.getNotesCorrect());
         holder.tvIntervals.setText("I: " + user.getIntervalsCorrect());
         holder.tvQuiz.setText("Q: " + user.getQuizCorrect());
+        holder.tvChords.setText("C: " + user.getChordsCorrect());
+        holder.tvComplexChords.setText("CC: " + user.getComplexChordsCorrect());
         
         // Handle profile image
         if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
@@ -78,6 +91,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             holder.chipRole.setText("Admin");
         } else {
             holder.chipRole.setVisibility(View.GONE);
+        }
+
+        // Show kick button if current user is owner and this user is NOT the owner
+        if (currentUserId != null && currentUserId.equals(ownerId) && !user.getId().equals(ownerId)) {
+            holder.btnKick.setVisibility(View.VISIBLE);
+            holder.btnKick.setOnClickListener(v -> {
+                if (onUserClickListener != null) {
+                    onUserClickListener.onKickClick(user);
+                }
+            });
+        } else {
+            holder.btnKick.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -126,23 +151,36 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         notifyItemInserted(userList.size() - 1);
     }
     public void updateUser(User user) {
-        int index = userList.indexOf(user);
+        int index = -1;
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getId().equals(user.getId())) {
+                index = i;
+                break;
+            }
+        }
         if (index == -1) return;
         userList.set(index, user);
         notifyItemChanged(index);
     }
 
     public void removeUser(User user) {
-        int index = userList.indexOf(user);
+        int index = -1;
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getId().equals(user.getId())) {
+                index = i;
+                break;
+            }
+        }
         if (index == -1) return;
         userList.remove(index);
         notifyItemRemoved(index);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvEmail, tvPhone, tvInitials, chipRole;
-        TextView tvNotes, tvIntervals, tvQuiz;
+        TextView tvName, tvEmail, tvPhone, tvInitials, chipRole, tvRank;
+        TextView tvNotes, tvIntervals, tvQuiz, tvChords, tvComplexChords;
         ImageView ivProfile;
+        View btnKick;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -152,10 +190,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             tvInitials = itemView.findViewById(R.id.tv_user_initials);
             ivProfile = itemView.findViewById(R.id.iv_user_profile);
             chipRole = itemView.findViewById(R.id.chip_user_role);
+            tvRank = itemView.findViewById(R.id.tv_rank);
             
             tvNotes = itemView.findViewById(R.id.tv_item_user_notes);
             tvIntervals = itemView.findViewById(R.id.tv_item_user_intervals);
             tvQuiz = itemView.findViewById(R.id.tv_item_user_quiz);
+            tvChords = itemView.findViewById(R.id.tv_item_user_chords);
+            tvComplexChords = itemView.findViewById(R.id.tv_item_user_complex_chords);
+            btnKick = itemView.findViewById(R.id.btn_kick);
         }
     }
 }

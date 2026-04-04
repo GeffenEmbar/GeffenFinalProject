@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".user_chords_quiz">
+    tools:context=".user_complex_chords_quiz">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chords Quiz"
+            android:text="Complex Chords Quiz"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -212,7 +212,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Major"
+                android:text="Diminished"
                 android:textColor="@color/white"
                 android:layout_marginEnd="8dp"/>
 
@@ -226,7 +226,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Minor"
+                android:text="Augmented"
                 android:textColor="@color/white"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>

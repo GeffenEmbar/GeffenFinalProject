@@ -127,6 +127,15 @@
                 android:layout_marginBottom="4dp"/>
 
             <TextView
+                android:id="@+id/tvComplexChordsRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Complex Chords Rank: N/A"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
                 android:id="@+id/tvQuizRank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -177,6 +186,22 @@
                 android:layout_marginTop="8dp"/>
             <TextView
                 android:id="@+id/tvChordsStats"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:gravity="center_vertical"/>
+
+            <!-- COMPLEX CHORDS STATS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Complex Chords Quiz (C/W | Streak | Max):"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/tvComplexChordsStats"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textColor="@color/white"

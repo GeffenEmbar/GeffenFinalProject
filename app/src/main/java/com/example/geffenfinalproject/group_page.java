@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -27,17 +29,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class group_page extends BaseActivity {
+public class group_page extends BaseActivity implements UserAdapter.OnUserClickListener {
 
     private static final String TAG = "group_page";
     private TextView tvGroupName, tvTotalCorrect, tvTotalWrong;
-    private TextView tvTotalNotes, tvTotalIntervals, tvTotalChords, tvTotalQuiz;
+    private TextView tvTotalNotes, tvTotalIntervals, tvTotalChords, tvTotalQuiz, tvTotalComplexChords;
     private RecyclerView rvMembers, rvChat;
     private UserAdapter userAdapter;
     private GroupChatAdapter chatAdapter;
     private DatabaseService databaseService;
     private EditText etChatMessage;
     private Button btnSendMessage, btnLeaveGroup, btnDeleteGroup;
+    private ImageButton btnEditGroupName;
     private String currentGroupId;
     private User currentUser;
 
@@ -59,13 +62,14 @@ public class group_page extends BaseActivity {
         tvTotalIntervals = findViewById(R.id.tv_total_intervals);
         tvTotalChords = findViewById(R.id.tv_total_chords);
         tvTotalQuiz = findViewById(R.id.tv_total_quiz);
+        tvTotalComplexChords = findViewById(R.id.tv_total_complex_chords);
         
         rvMembers = findViewById(R.id.rv_users_list);
         rvMembers.setLayoutManager(new LinearLayoutManager(this));
 
         currentUser = SharedPreferencesUtil.getUser(this);
         
-        userAdapter = new UserAdapter(null);
+        userAdapter = new UserAdapter(this);
         rvMembers.setAdapter(userAdapter);
 
         // Chat initialization
@@ -74,6 +78,7 @@ public class group_page extends BaseActivity {
         btnSendMessage = findViewById(R.id.btn_send_message);
         btnLeaveGroup = findViewById(R.id.btn_leave_group);
         btnDeleteGroup = findViewById(R.id.btn_delete_group);
+        btnEditGroupName = findViewById(R.id.btn_edit_group_name);
 
         rvChat.setLayoutManager(new LinearLayoutManager(this));
         chatAdapter = new GroupChatAdapter(currentUser != null ? currentUser.getId() : "");
@@ -82,8 +87,87 @@ public class group_page extends BaseActivity {
         btnSendMessage.setOnClickListener(v -> sendMessage());
         btnLeaveGroup.setOnClickListener(v -> leaveGroup());
         btnDeleteGroup.setOnClickListener(v -> deleteGroup());
+        btnEditGroupName.setOnClickListener(v -> showEditGroupNameDialog());
 
         databaseService = DatabaseService.getInstance();
+    }
+
+    private void showEditGroupNameDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change Group Name");
+
+        final EditText input = new EditText(this);
+        input.setHint("Enter new group name");
+        input.setText(tvGroupName.getText().toString());
+        input.setPadding(50, 20, 50, 20);
+        builder.setView(input);
+
+        builder.setPositiveButton("Change", (dialog, which) -> {
+            String newName = input.getText().toString().trim();
+            if (!newName.isEmpty()) {
+                confirmGroupNameChange(newName);
+            } else {
+                Toast.makeText(this, "Group name cannot be empty", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
+    private void confirmGroupNameChange(String newName) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Name Change")
+                .setMessage("Are you sure you want to change the group name to \"" + newName + "\"?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    databaseService.updateGroupName(currentGroupId, newName, new DatabaseService.DatabaseCallback<Void>() {
+                        @Override
+                        public void onCompleted(Void object) {
+                            tvGroupName.setText(newName);
+                            Toast.makeText(group_page.this, "Group name updated successfully", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+                            Toast.makeText(group_page.this, "Failed to update group name: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    @Override
+    public void onUserClick(User user) {
+        // Option to view profile or something
+    }
+
+    @Override
+    public void onLongUserClick(User user) {
+        // Maybe another way to kick
+    }
+
+    @Override
+    public void onKickClick(User user) {
+        new AlertDialog.Builder(this)
+                .setTitle("Kick Member")
+                .setMessage("Are you sure you want to kick " + user.getFname() + " " + user.getLname() + " from the group?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    databaseService.kickUser(user.getId(), currentGroupId, new DatabaseService.DatabaseCallback<Void>() {
+                        @Override
+                        public void onCompleted(Void object) {
+                            Toast.makeText(group_page.this, user.getFname() + " has been kicked", Toast.LENGTH_SHORT).show();
+                            loadMembers(currentGroupId); // Refresh the list
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+                            Toast.makeText(group_page.this, "Failed to kick user: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private void leaveGroup() {
@@ -153,13 +237,16 @@ public class group_page extends BaseActivity {
                 if (group != null) {
                     tvGroupName.setText(group.getGroupName());
                     
-                    // Show delete button only for owner
+                    // Show delete and edit buttons only for owner
                     if (currentUser.getId().equals(group.getOwnerUid())) {
                         btnDeleteGroup.setVisibility(android.view.View.VISIBLE);
+                        btnEditGroupName.setVisibility(android.view.View.VISIBLE);
                     } else {
                         btnDeleteGroup.setVisibility(android.view.View.GONE);
+                        btnEditGroupName.setVisibility(android.view.View.GONE);
                     }
 
+                    userAdapter.setIds(currentUser.getId(), group.getOwnerUid());
                     loadMembers(currentGroupId);
                     startChatListener(currentGroupId);
                 } else {
@@ -189,6 +276,7 @@ public class group_page extends BaseActivity {
                 int totalIntervals = 0;
                 int totalChords = 0;
                 int totalQuiz = 0;
+                int totalComplexChords = 0;
                 
                 for (User user : users) {
                     if (groupId.equals(user.getGroupId())) {
@@ -199,6 +287,7 @@ public class group_page extends BaseActivity {
                         totalIntervals += user.getIntervalsCorrect();
                         totalChords += user.getChordsCorrect();
                         totalQuiz += user.getQuizCorrect();
+                        totalComplexChords += user.getComplexChordsCorrect();
                     }
                 }
                 
@@ -212,6 +301,7 @@ public class group_page extends BaseActivity {
                 tvTotalIntervals.setText("Intervals Correct: " + totalIntervals);
                 tvTotalChords.setText("Chords Correct: " + totalChords);
                 tvTotalQuiz.setText("General Quiz Correct: " + totalQuiz);
+                tvTotalComplexChords.setText("Complex Chords Correct: " + totalComplexChords);
             }
 
             @Override

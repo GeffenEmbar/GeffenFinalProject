@@ -58,6 +58,11 @@ public class admin_user_table extends BaseActivity {
                 intent.putExtra("USER_UID", user.getId());
                 startActivity(intent);
             }
+            @Override
+            public void onKickClick(User user) {
+                // Admins might want to kick users from the entire system, but for now just leave it empty or log it
+                Log.d(TAG, "Admin requested kick for user: " + user.getId());
+            }
         });
         usersList.setAdapter(userAdapter);
     }

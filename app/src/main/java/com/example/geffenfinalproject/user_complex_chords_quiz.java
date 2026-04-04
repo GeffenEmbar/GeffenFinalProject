@@ -3,7 +3,6 @@ package com.example.geffenfinalproject;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Random;
 
-public class user_chords_quiz extends BaseActivity {
+public class user_complex_chords_quiz extends BaseActivity {
 
     private Button btnPlayChord, btnCheckAnswer, btnStop, btnReplay;
     private TextView scoreText, wrongText;
@@ -30,7 +29,7 @@ public class user_chords_quiz extends BaseActivity {
     private int wrong = 0;
 
     private int correctRootIndex; // 0-11
-    private boolean correctIsMinor;
+    private boolean correctIsAugmented;
     private int currentOctave;
     private int selectedRootIndex = -1;
 
@@ -47,7 +46,7 @@ public class user_chords_quiz extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_user_chords_quiz);
+        setContentView(R.layout.activity_user_complex_chords_quiz);
 
         mAuth = FirebaseAuth.getInstance();
         databaseService = DatabaseService.getInstance();
@@ -65,7 +64,7 @@ public class user_chords_quiz extends BaseActivity {
         btnPlayChord.setOnClickListener(v -> generateAndPlayChord());
         btnReplay.setOnClickListener(v -> {
             if (questionActive) {
-                playChord(correctRootIndex, correctIsMinor, currentOctave);
+                playChord(correctRootIndex, correctIsAugmented, currentOctave);
             } else {
                 Toast.makeText(this, "Play a chord first!", Toast.LENGTH_SHORT).show();
             }
@@ -113,19 +112,21 @@ public class user_chords_quiz extends BaseActivity {
 
     private void generateAndPlayChord() {
         correctRootIndex = random.nextInt(12);
-        correctIsMinor = random.nextBoolean();
+        correctIsAugmented = random.nextBoolean();
         currentOctave = 3 + random.nextInt(2); // Store octave for replay
         questionActive = true;
         
-        playChord(correctRootIndex, correctIsMinor, currentOctave);
+        playChord(correctRootIndex, correctIsAugmented, currentOctave);
     }
 
-    private void playChord(int rootIdx, boolean isMinor, int octave) {
+    private void playChord(int rootIdx, boolean isAugmented, int octave) {
         stopAudio();
 
         int rootRes = getNoteResId(rootIdx, octave);
         
-        int thirdIdx = rootIdx + (isMinor ? 3 : 4);
+        // Diminished: Root, m3 (3), d5 (6)
+        // Augmented: Root, M3 (4), A5 (8)
+        int thirdIdx = rootIdx + (isAugmented ? 4 : 3);
         int thirdOctave = octave;
         if (thirdIdx >= 12) {
             thirdIdx -= 12;
@@ -133,19 +134,19 @@ public class user_chords_quiz extends BaseActivity {
         }
         int thirdRes = getNoteResId(thirdIdx, thirdOctave);
         
-        int fifthIdx = rootIdx + 7;
+        int fifthIdx = rootIdx + (isAugmented ? 8 : 6);
         int fifthOctave = octave;
-        if (fifthIdx >= 12) {
+        while (fifthIdx >= 12) {
             fifthIdx -= 12;
             fifthOctave++;
         }
         int fifthRes = getNoteResId(fifthIdx, fifthOctave);
 
-        // Play all at once
+        // Play all together
         mpRoot = MediaPlayer.create(this, rootRes);
         mpThird = MediaPlayer.create(this, thirdRes);
         mpFifth = MediaPlayer.create(this, fifthRes);
-
+        
         if (mpRoot != null) mpRoot.start();
         if (mpThird != null) mpThird.start();
         if (mpFifth != null) mpFifth.start();
@@ -171,20 +172,20 @@ public class user_chords_quiz extends BaseActivity {
             return;
         }
 
-        boolean userIsMinor = switchType.isChecked();
+        boolean userIsAugmented = switchType.isChecked();
 
-        if (selectedRootIndex == correctRootIndex && userIsMinor == correctIsMinor) {
+        if (selectedRootIndex == correctRootIndex && userIsAugmented == correctIsAugmented) {
             score++;
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
             if (mAuth.getCurrentUser() != null) {
-                databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.CHORDS);
+                databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.COMPLEX_CHORDS);
             }
         } else {
             wrong++;
-            String correctName = noteNames[correctRootIndex] + (correctIsMinor ? " Minor" : " Major");
+            String correctName = noteNames[correctRootIndex] + (correctIsAugmented ? " Augmented" : " Diminished");
             Toast.makeText(this, "Wrong! It was " + correctName, Toast.LENGTH_SHORT).show();
             if (mAuth.getCurrentUser() != null) {
-                databaseService.userAnsweredWrongly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.CHORDS);
+                databaseService.userAnsweredWrongly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.COMPLEX_CHORDS);
             }
         }
 

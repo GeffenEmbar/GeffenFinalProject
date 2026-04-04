@@ -32,8 +32,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class user_profile extends BaseActivity {
 
     private TextView etFirstName, etLastName, etPhone;
-    private TextView tvNotesStats, tvIntervalsStats, tvChordsStats, tvQuizStats, tvTotalStats;
-    private TextView tvGroupName, tvNotesRank, tvIntervalsRank, tvChordsRank, tvQuizRank;
+    private TextView tvNotesStats, tvIntervalsStats, tvChordsStats, tvQuizStats, tvComplexChordsStats, tvTotalStats;
+    private TextView tvGroupName, tvNotesRank, tvIntervalsRank, tvChordsRank, tvQuizRank, tvComplexChordsRank;
     private ImageView profileImage;
     private Button btnUpdate;
 
@@ -65,6 +65,7 @@ public class user_profile extends BaseActivity {
         tvIntervalsStats = findViewById(R.id.tvIntervalsStats);
         tvChordsStats = findViewById(R.id.tvChordsStats);
         tvQuizStats = findViewById(R.id.tvQuizStats);
+        tvComplexChordsStats = findViewById(R.id.tvComplexChordsStats);
         tvTotalStats = findViewById(R.id.tvTotalStats);
 
         tvGroupName = findViewById(R.id.tvGroupName);
@@ -72,6 +73,7 @@ public class user_profile extends BaseActivity {
         tvIntervalsRank = findViewById(R.id.tvIntervalsRank);
         tvChordsRank = findViewById(R.id.tvChordsRank);
         tvQuizRank = findViewById(R.id.tvQuizRank);
+        tvComplexChordsRank = findViewById(R.id.tvComplexChordsRank);
 
         profileImage = findViewById(R.id.profileImage);
         btnUpdate = findViewById(R.id.btnGoToUpdate);
@@ -115,6 +117,7 @@ public class user_profile extends BaseActivity {
             tvNotesStats.setText(user.getNotesCorrect() + "/" + user.getNotesWrong() + " | " + user.getNotesStreak() + " | " + user.getMaxNotesStreak());
             tvIntervalsStats.setText(user.getIntervalsCorrect() + "/" + user.getIntervalsWrong() + " | " + user.getIntervalsStreak() + " | " + user.getMaxIntervalsStreak());
             tvChordsStats.setText(user.getChordsCorrect() + "/" + user.getChordsWrong() + " | " + user.getChordsStreak() + " | " + user.getMaxChordsStreak());
+            tvComplexChordsStats.setText(user.getComplexChordsCorrect() + "/" + user.getComplexChordsWrong() + " | " + user.getComplexChordsStreak() + " | " + user.getMaxComplexChordsStreak());
             tvQuizStats.setText(user.getQuizCorrect() + "/" + user.getQuizWrong() + " | " + user.getQuizStreak() + " | " + user.getMaxQuizStreak());
             tvTotalStats.setText(user.getCorrect_answers() + " / " + user.getWrong_answers());
 
@@ -158,6 +161,8 @@ public class user_profile extends BaseActivity {
                 tvIntervalsRank.setText("Intervals Rank: " + calculateRank(groupUsers, currentUserId, "INTERVALS"));
                 // Rank for Chords
                 tvChordsRank.setText("Chords Rank: " + calculateRank(groupUsers, currentUserId, "CHORDS"));
+                // Rank for Complex Chords
+                tvComplexChordsRank.setText("Complex Chords Rank: " + calculateRank(groupUsers, currentUserId, "COMPLEX_CHORDS"));
                 // Rank for Quiz
                 tvQuizRank.setText("General Quiz Rank: " + calculateRank(groupUsers, currentUserId, "QUIZ"));
             }
@@ -167,6 +172,7 @@ public class user_profile extends BaseActivity {
                 tvNotesRank.setText("Error");
                 tvIntervalsRank.setText("Error");
                 tvChordsRank.setText("Error");
+                tvComplexChordsRank.setText("Error");
                 tvQuizRank.setText("Error");
             }
         });
@@ -197,10 +203,11 @@ public class user_profile extends BaseActivity {
 
     private int getScoreByType(User user, String type) {
         switch (type) {
-            case "NOTES": return user.getNotesCorrect();
-            case "INTERVALS": return user.getIntervalsCorrect();
-            case "CHORDS": return user.getChordsCorrect();
-            case "QUIZ": return user.getQuizCorrect();
+            case "NOTES": return user.getMaxNotesStreak();
+            case "INTERVALS": return user.getMaxIntervalsStreak();
+            case "CHORDS": return user.getMaxChordsStreak();
+            case "COMPLEX_CHORDS": return user.getMaxComplexChordsStreak();
+            case "QUIZ": return user.getMaxQuizStreak();
             default: return user.getCorrect_answers();
         }
     }

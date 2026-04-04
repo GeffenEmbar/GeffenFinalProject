@@ -31,7 +31,7 @@
             android:layout_height="0dp"
             android:layout_weight="7"
             android:orientation="vertical"
-            android:weightSum="7"
+            android:weightSum="8"
             >
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnChordsQuiz"
@@ -39,6 +39,18 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="Chords Quiz"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="0dp"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnComplexChordsQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Complex Chords Quiz"
                 android:textColor="#FFFFFF"
                 app:backgroundTint="#4CAF50"
                 app:cornerRadius="0dp"

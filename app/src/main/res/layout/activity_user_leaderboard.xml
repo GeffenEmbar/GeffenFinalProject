@@ -30,7 +30,7 @@
             app:tabTextColor="@color/white"
             app:tabSelectedTextColor="#4CAF50"
             app:tabIndicatorColor="#4CAF50"
-            app:tabMode="fixed">
+            app:tabMode="scrollable">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -51,6 +51,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quiz" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chords" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complex Chords" />
 
         </com.google.android.material.tabs.TabLayout>
 

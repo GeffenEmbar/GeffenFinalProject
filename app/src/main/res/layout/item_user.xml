@@ -17,6 +17,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Rank Display -->
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:elevation="10dp"
+            android:text="#1"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!-- Left Accent Panel -->
         <View
             android:id="@+id/view_accent"
@@ -202,8 +217,39 @@
                 android:layout_height="wrap_content"
                 android:text="Q: 0"
                 android:textColor="#3949AB"
+                android:textSize="11sp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_item_user_chords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C: 0"
+                android:textColor="#3949AB"
+                android:textSize="11sp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_item_user_complex_chords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CC: 0"
+                android:textColor="#3949AB"
                 android:textSize="11sp"/>
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_kick"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kick"
+            android:textColor="#D32F2F"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

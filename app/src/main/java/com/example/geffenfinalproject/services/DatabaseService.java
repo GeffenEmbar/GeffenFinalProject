@@ -292,7 +292,7 @@ public class DatabaseService {
     }
 
     public enum GameType {
-        NOTES, INTERVALS, QUIZ, CHORDS
+        NOTES, INTERVALS, QUIZ, CHORDS, COMPLEX_CHORDS
     }
 
     public void userAnsweredCorrectly(String uid, GameType gameType) {
@@ -333,6 +333,13 @@ public class DatabaseService {
                         user.setChordsStreak(user.getChordsStreak() + 1);
                         if (user.getChordsStreak() > user.getMaxChordsStreak()) {
                             user.setMaxChordsStreak(user.getChordsStreak());
+                        }
+                        break;
+                    case COMPLEX_CHORDS:
+                        user.setComplexChordsCorrect(user.getComplexChordsCorrect() + 1);
+                        user.setComplexChordsStreak(user.getComplexChordsStreak() + 1);
+                        if (user.getComplexChordsStreak() > user.getMaxComplexChordsStreak()) {
+                            user.setMaxComplexChordsStreak(user.getComplexChordsStreak());
                         }
                         break;
                     case QUIZ:
@@ -418,6 +425,10 @@ public class DatabaseService {
                     case CHORDS:
                         user.setChordsWrong(user.getChordsWrong() + 1);
                         user.setChordsStreak(0);
+                        break;
+                    case COMPLEX_CHORDS:
+                        user.setComplexChordsWrong(user.getComplexChordsWrong() + 1);
+                        user.setComplexChordsStreak(0);
                         break;
                     case QUIZ:
                         user.setQuizWrong(user.getQuizWrong() + 1);
@@ -655,6 +666,47 @@ public class DatabaseService {
             @Override
             public void onFailed(Exception e) {
                 if (callback != null) callback.onFailed(e);
+            }
+        });
+    }
+
+    public void kickUser(@NotNull final String uid,
+                         @NotNull final String groupId,
+                         @Nullable final DatabaseCallback<Void> callback) {
+        // Remove from group members
+        readData(GROUPS_PATH + "/" + groupId + "/members/" + uid).removeValue((error, ref) -> {
+            if (error != null) {
+                if (callback != null) callback.onFailed(error.toException());
+                return;
+            }
+            // Clear user's group ID
+            getUser(uid, new DatabaseCallback<User>() {
+                @Override
+                public void onCompleted(User user) {
+                    if (user != null) {
+                        user.setGroupId(null);
+                        updateUser(user, callback);
+                    } else if (callback != null) {
+                        callback.onCompleted(null);
+                    }
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    if (callback != null) callback.onFailed(e);
+                }
+            });
+        });
+    }
+
+    public void updateGroupName(@NotNull final String groupId,
+                                @NotNull final String newName,
+                                @Nullable final DatabaseCallback<Void> callback) {
+        readData(GROUPS_PATH + "/" + groupId + "/groupName").setValue(newName, (error, ref) -> {
+            if (error != null) {
+                if (callback != null) callback.onFailed(error.toException());
+            } else {
+                if (callback != null) callback.onCompleted(null);
             }
         });
     }

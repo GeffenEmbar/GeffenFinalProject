@@ -17,7 +17,7 @@ import java.util.List;
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
 
     public enum Mode {
-        TOTAL, NOTES, INTERVALS, QUIZ
+        TOTAL, NOTES, INTERVALS, QUIZ, CHORDS, COMPLEX_CHORDS
     }
 
     private List<User> userList = new ArrayList<>();
@@ -58,6 +58,8 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             case NOTES: score = user.getNotesCorrect(); break;
             case INTERVALS: score = user.getIntervalsCorrect(); break;
             case QUIZ: score = user.getQuizCorrect(); break;
+            case CHORDS: score = user.getChordsCorrect(); break;
+            case COMPLEX_CHORDS: score = user.getComplexChordsCorrect(); break;
         }
         holder.tvScore.setText(String.valueOf(score));
 
