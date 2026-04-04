@@ -47,26 +47,31 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tv_group_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Group Name"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:maxLines="1"
+                android:ellipsize="end" />
 
             <TextView
                 android:id="@+id/tv_group_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Correct Answers: 0"
+                android:text="Score: 0"
                 android:textSize="14sp"
                 android:textColor="#BDBDBD"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginHorizontal="8dp"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tv_group_members"
@@ -74,7 +79,8 @@
                 android:layout_height="wrap_content"
                 android:text="Members: 0"
                 android:textSize="14sp"
-                android:textColor="#BDBDBD" />
+                android:textColor="#BDBDBD"
+                android:maxLines="1" />
 
         </LinearLayout>
 

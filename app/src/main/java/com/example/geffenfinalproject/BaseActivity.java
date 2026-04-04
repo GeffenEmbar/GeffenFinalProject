@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.geffenfinalproject.models.User;
+import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,7 +24,7 @@ import android.content.Intent;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected Button btn3, btn4, btn5, btnSignOut;
+    protected Button btnLeaderboard, btnGroups, btn5, btnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +52,48 @@ public class BaseActivity extends AppCompatActivity {
         });
 
         // Initialize toolbar buttons
-        btn3 = findViewById(R.id.btn3);
-        btn4 = findViewById(R.id.btn4);
+        btnLeaderboard = findViewById(R.id.btnLeaderboard);
+        btnGroups = findViewById(R.id.btnGroups);
         btn5 = findViewById(R.id.btn5);
         btnSignOut = findViewById(R.id.btnSignOut);
 
         // Basic listeners for now
         View.OnClickListener listener = v -> {
             int id = v.getId();
-            if (id == R.id.btn3) Toast.makeText(this, "Button 3", Toast.LENGTH_SHORT).show();
-            else if (id == R.id.btn4) Toast.makeText(this, "Button 4", Toast.LENGTH_SHORT).show();
+            if (id == R.id.btnLeaderboard) {
+                Intent intent = new Intent(this, user_leaderboard.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.btnGroups) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseService.getInstance().getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+                    @Override
+                    public void onCompleted(User user) {
+                        if (user != null) {
+                            SharedPreferencesUtil.saveUser(BaseActivity.this, user);
+                            Intent intent;
+                            if (user.getGroupId() == null || user.getGroupId().isEmpty()) {
+                                intent = new Intent(BaseActivity.this, user_group.class);
+                            } else {
+                                intent = new Intent(BaseActivity.this, group_page.class);
+                            }
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        User user = SharedPreferencesUtil.getUser(BaseActivity.this);
+                        Intent intent;
+                        if (user == null || user.getGroupId() == null) {
+                            intent = new Intent(BaseActivity.this, user_group.class);
+                        } else {
+                            intent = new Intent(BaseActivity.this, group_page.class);
+                        }
+                        startActivity(intent);
+                    }
+                });
+            }
             else if (id == R.id.btn5) {
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 Intent intent = new Intent(this, user_profile.class);
@@ -76,8 +110,8 @@ public class BaseActivity extends AppCompatActivity {
             }
         };
 
-        btn3.setOnClickListener(listener);
-        btn4.setOnClickListener(listener);
+        btnLeaderboard.setOnClickListener(listener);
+        btnGroups.setOnClickListener(listener);
         btn5.setOnClickListener(listener);
         btnSignOut.setOnClickListener(listener);
     }

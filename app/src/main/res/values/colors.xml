@@ -7,8 +7,14 @@
     <color name="secondary_dark">#018786</color>
     <color name="accent">#FF4081</color>
     
-    <color name="bg_start">#1A237E</color>
-    <color name="bg_end">#121212</color>
+    <color name="bg_start">#121212</color>
+    <color name="bg_end">#000000</color>
+    
+    <color name="button_bg_start">#3949AB</color>
+    <color name="button_bg_end">#1A237E</color>
+
+    <color name="nav_bg_start">#121212</color>
+    <color name="nav_bg_end">#000000</color>
     
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>

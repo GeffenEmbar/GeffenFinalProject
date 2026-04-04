@@ -28,7 +28,7 @@ import java.util.Calendar;
 
 public class user_menu extends BaseActivity implements View.OnClickListener {
 
-    Button btnChordsQuiz, btnComplexChordsQuiz, piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnLeaderboard, btnGroups, btnProfile;
+    Button btnChordsQuiz, btnComplexChordsQuiz, piano_notes_quiz, questionnaire, btnIntervalsQuiz;
 
     private static final int PERMISSION_REQUEST_CODE = 101;
 
@@ -55,12 +55,6 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
         questionnaire.setOnClickListener(this);
         btnIntervalsQuiz = findViewById(R.id.btnIntervalsQuiz);
         btnIntervalsQuiz.setOnClickListener(this);
-        btnLeaderboard = findViewById(R.id.btnLeaderboard);
-        btnLeaderboard.setOnClickListener(this);
-        btnGroups = findViewById(R.id.btnGroups);
-        btnGroups.setOnClickListener(this);
-        btnProfile = findViewById(R.id.btnProfile);
-        btnProfile.setOnClickListener(this);
     }
 
     @Override
@@ -83,47 +77,6 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
         }
         else if (v.getId() == btnIntervalsQuiz.getId()) {
             Intent intent = new Intent(this, user_intervals_quiz.class);
-            startActivity(intent);
-        }
-        else if (v.getId() == btnLeaderboard.getId()) {
-            Intent intent = new Intent(this, user_leaderboard.class);
-            startActivity(intent);
-        }
-        else if (v.getId() == btnGroups.getId()) {
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseService.getInstance().getUser(uid, new DatabaseService.DatabaseCallback<User>() {
-                @Override
-                public void onCompleted(User user) {
-                    if (user != null) {
-                        SharedPreferencesUtil.saveUser(user_menu.this, user);
-                        Intent intent;
-                        if (user.getGroupId() == null || user.getGroupId().isEmpty()) {
-                            intent = new Intent(user_menu.this, user_group.class);
-                        } else {
-                            intent = new Intent(user_menu.this, group_page.class);
-                        }
-                        startActivity(intent);
-                    }
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    // Fallback to shared preferences if database fetch fails
-                    User user = SharedPreferencesUtil.getUser(user_menu.this);
-                    Intent intent;
-                    if (user == null || user.getGroupId() == null) {
-                        intent = new Intent(user_menu.this, user_group.class);
-                    } else {
-                        intent = new Intent(user_menu.this, group_page.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-        }
-        else if (v.getId() == btnProfile.getId()) {
-            User user = SharedPreferencesUtil.getUser(this);
-            Intent intent = new Intent(this, user_profile.class);
-            intent.putExtra("USER_UID", user.getId());
             startActivity(intent);
         }
     }
