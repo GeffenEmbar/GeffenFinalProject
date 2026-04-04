@@ -5,137 +5,159 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
+    android:padding="24dp"
     tools:context=".user_menu">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="8"
-        android:background="@color/black"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textColor="@color/white"
-            android:textStyle="bold|normal"
-            android:text="User Menu"
-            android:gravity="center"
-            android:textSize="30sp"
-            >
-        </TextView>
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"
-            android:orientation="vertical"
-            android:weightSum="8"
-            >
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnChordsQuiz"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Chords Quiz"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnComplexChordsQuiz"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Complex Chords Quiz"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/piano_notes_quiz"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Piano Notes Quiz"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/questionnaire"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:text="Admin's Questions"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnIntervalsQuiz"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:text="Intervals Quiz"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:text="User Menu"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLeaderboard"
+            <GridLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:text="Leaderboard"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnGroups"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:text="Groups"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnChordsQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Chords Quiz"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnProfile"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:text="Profile"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnComplexChordsQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Complex Chords"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/piano_notes_quiz"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Piano Notes"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnIntervalsQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Intervals Quiz"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/questionnaire"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Admin's Qs"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLeaderboard"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Leaderboard"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGroups"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Groups"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_primary"
+                    android:text="Profile"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="16dp" />
+
+            </GridLayout>
 
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

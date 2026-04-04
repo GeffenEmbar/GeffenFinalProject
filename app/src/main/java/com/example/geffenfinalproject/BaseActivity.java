@@ -11,6 +11,9 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +41,13 @@ public class BaseActivity extends AppCompatActivity {
 
         // Set the combined view as the content
         super.setContentView(baseView);
+
+        // Apply window insets to keep the layout above the navigation bar and below the status bar
+        ViewCompat.setOnApplyWindowInsetsListener(baseView, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // Initialize toolbar buttons
         btn3 = findViewById(R.id.btn3);

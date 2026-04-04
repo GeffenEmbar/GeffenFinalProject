@@ -5,66 +5,53 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
+    android:padding="24dp"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="8"
-        android:background="@color/black"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        >
+        android:gravity="center"
+        android:orientation="vertical">
+
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textColor="@color/white"
-            android:textStyle="bold|normal"
-            android:text="Welcome to Geffen's Final Project!"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
             android:gravity="center"
-            android:textSize="30sp"
-            >
-        </TextView>
-        <LinearLayout
+            android:text="Geffen's Music Quiz"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginBtn"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            >
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/registerBtn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Register"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                />
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_primary"
+            android:text="Log In"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:cornerRadius="12dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginBtn"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="Log In"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                />
-
-        </LinearLayout>
-
-
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/button_secondary"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 

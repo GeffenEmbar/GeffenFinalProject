@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:padding="20dp"
     android:gravity="center_vertical"
-    android:background="?attr/selectableItemBackground"
+    android:background="@color/primary_dark"
     android:clickable="true"
     android:focusable="true">
 
@@ -17,7 +17,7 @@
         android:layout_height="56dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#2A2A2A">
+        app:cardBackgroundColor="#2AFFFFFF">
 
         <ImageView
             android:id="@+id/icon_dialog_item"
@@ -25,6 +25,7 @@
             android:layout_height="32dp"
             android:layout_gravity="center"
             android:contentDescription="@null"
+            app:tint="@color/white"
             tools:src="@drawable/photo_camera" />
 
     </androidx.cardview.widget.CardView>
@@ -44,7 +45,7 @@
             android:text="@string/camera_title"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#000000" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/text_dialog_item_description"
@@ -53,7 +54,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/camera_description"
             android:textSize="14sp"
-            android:textColor="#BBBBBB" />
+            android:textColor="#BDBDBD" />
 
     </LinearLayout>
 

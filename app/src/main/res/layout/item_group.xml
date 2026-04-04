@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#1AFFFFFF"
+    app:strokeWidth="1dp"
+    app:strokeColor="#33FFFFFF"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
@@ -17,8 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:gravity="center_vertical"
-        tools:ignore="MissingConstraints">
+        android:gravity="center_vertical">
 
         <!-- Group Icon -->
         <com.google.android.material.card.MaterialCardView
@@ -26,7 +28,7 @@
             android:layout_height="56dp"
             app:cardCornerRadius="28dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="?attr/colorSurfaceVariant">
+            app:cardBackgroundColor="@color/primary">
 
             <TextView
                 android:id="@+id/tv_group_initial"
@@ -36,7 +38,7 @@
                 android:text="G"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorPrimary"/>
+                android:textColor="@color/white"/>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -53,22 +55,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Group Name"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/tv_group_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Correct Answers: 0"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:textColor="#BDBDBD"
+                android:layout_marginTop="2dp"/>
 
             <TextView
                 android:id="@+id/tv_group_members"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Members: 0"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:textColor="#BDBDBD" />
 
         </LinearLayout>
 

@@ -5,18 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
     tools:context=".user_intervals_quiz">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/black"
-        android:weightSum="8">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:text="Intervals Quiz"
             android:textColor="@color/white"
             android:textSize="28sp"
@@ -26,97 +28,93 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPlayInterval"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="64dp"
             android:text="Play Interval"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#4CAF50"
-            app:cornerRadius="0dp"
-            android:textSize="35dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_primary"
+            app:backgroundTint="@null"
+            app:cornerRadius="12dp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_margin="5dp"
-            />
+            android:layout_marginBottom="12dp"
+            android:textAllCaps="false" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReplayInterval"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:text="Replay Interval"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:strokeColor="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:id="@+id/scoreText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Correct: 0"
-                android:textColor="@android:color/holo_green_dark"
-                android:textStyle="bold"
-                android:padding="10dp"/>
+                android:textColor="#4CAF50"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/wrongText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Wrong: 0"
-                android:textColor="@android:color/holo_red_dark"
-                android:textStyle="bold"
-                android:padding="10dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnReplayInterval"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Replay"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#FF0000"
-                app:cornerRadius="0dp"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                />
+                android:textColor="#F44336"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- GRID FOR ALL INTERVALS -->
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:columnCount="4"
-            android:rowCount="3"
-            android:padding="5dp">
+            android:layout_weight="1"
+            android:columnCount="3"
+            android:padding="4dp">
 
-
-            <Button android:id="@+id/btn0" android:text="Unison"/>
-
-            <Button android:id="@+id/btn1" android:text="m2"/>
-            <Button android:id="@+id/btn2" android:text="M2"/>
-            <Button android:id="@+id/btn3" android:text="m3"/>
-
-            <Button android:id="@+id/btn4" android:text="M3"/>
-            <Button android:id="@+id/btn5" android:text="P4"/>
-            <Button android:id="@+id/btn6" android:text="TT"/>
-            <Button android:id="@+id/btn7" android:text="P5"/>
-
-            <Button android:id="@+id/btn8" android:text="m6"/>
-            <Button android:id="@+id/btn9" android:text="M6"/>
-            <Button android:id="@+id/btn10" android:text="m7"/>
-            <Button android:id="@+id/btn11" android:text="M7"/>
-
-            <Button android:id="@+id/btn12" android:text="Octave"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn0" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="Unison" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn1" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="m2" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn2" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="M2" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn3" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="m3" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn4" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="M3" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn5" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="P4" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn6" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="TT" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn7" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="P5" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn8" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="m6" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn9" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="M6" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn10" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="m7" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn11" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:text="M7" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn12" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="3" android:layout_columnSpan="3" android:text="Octave" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:textColor="@color/white" app:strokeColor="@color/white" android:layout_margin="4dp"/>
 
         </GridLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnStop"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="64dp"
             android:text="Stop Test"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#4CAF50"
-            app:cornerRadius="0dp"
-            android:textSize="35dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_primary"
+            app:backgroundTint="@null"
+            app:cornerRadius="12dp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            />
+            android:layout_marginTop="16dp"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 

@@ -5,248 +5,187 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
     tools:context=".user_profile">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@color/black">
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
-            <!-- TITLE -->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
                 android:text="User Profile"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="32sp"
+                android:textStyle="bold"
                 android:gravity="center" />
 
-            <!-- PROFILE IMAGE -->
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:src="@android:drawable/ic_menu_camera"
-                android:layout_marginBottom="16dp" />
-
-            <!-- FIRST NAME -->
-            <TextView
-                android:id="@+id/etFirstName"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="First Name"
-                android:textColor="@color/white"
-                android:textColorHint="#888"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="32dp">
 
-            <!-- LAST NAME -->
-            <TextView
-                android:id="@+id/etLastName"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="4dp">
+                    <ImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@android:drawable/ic_menu_camera" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="24dp">
+
+                    <TextView
+                        android:id="@+id/etFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:text="First Name" />
+
+                    <TextView
+                        android:id="@+id/etLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        tools:text="Last Name" />
+
+                    <TextView
+                        android:id="@+id/etPhoneNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#BDBDBD"
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"
+                        tools:text="050-1234567" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Last Name"
-                android:textColor="@color/white"
-                android:textColorHint="#888"
-                android:textSize="18sp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp"/>
+                android:layout_height="1dp"
+                android:background="#40FFFFFF"
+                android:layout_marginBottom="24dp" />
 
-            <!-- PHONE -->
-            <TextView
-                android:id="@+id/etPhoneNum"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Phone"
-                android:textColor="@color/white"
-                android:textColorHint="#888"
-                android:textSize="18sp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp"/>
-
-            <!-- GROUP LABEL -->
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Group:"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="vertical"
+                android:gravity="start">
 
-            <!-- GROUP NAME -->
-            <TextView
-                android:id="@+id/tvGroupName"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Group"
+                    android:textColor="@color/secondary"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"/>
 
-            <!-- RANK LABEL -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ranks in Group:"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
+                <TextView
+                    android:id="@+id/tvGroupName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="16dp"/>
 
-            <TextView
-                android:id="@+id/tvNotesRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notes Rank: N/A"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ranks in Group"
+                    android:textColor="@color/secondary"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
 
-            <TextView
-                android:id="@+id/tvIntervalsRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Intervals Rank: N/A"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tvNotesRank" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Notes Rank: N/A" android:textColor="@color/white" android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tvIntervalsRank" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Intervals Rank: N/A" android:textColor="@color/white" android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tvChordsRank" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Chords Rank: N/A" android:textColor="@color/white" android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tvComplexChordsRank" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Complex Chords Rank: N/A" android:textColor="@color/white" android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tvQuizRank" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="General Quiz Rank: N/A" android:textColor="@color/white" android:layout_marginBottom="16dp"/>
 
-            <TextView
-                android:id="@+id/tvChordsRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Chords Rank: N/A"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Statistics (C/W | Streak | Max)"
+                    android:textColor="@color/secondary"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
 
-            <TextView
-                android:id="@+id/tvComplexChordsRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Complex Chords Rank: N/A"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginBottom="4dp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Notes Quiz:" android:textColor="@color/secondary" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvNotesStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="N/A" android:textColor="@color/white" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvQuizRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="General Quiz Rank: N/A"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginBottom="8dp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Intervals Quiz:" android:textColor="@color/secondary" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvIntervalsStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="N/A" android:textColor="@color/white" />
+                </LinearLayout>
 
-            <!-- NOTES STATS -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notes Quiz (C/W | Streak | Max):"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:id="@+id/tvNotesStats"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:gravity="center_vertical"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Chords Quiz:" android:textColor="@color/secondary" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvChordsStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="N/A" android:textColor="@color/white" />
+                </LinearLayout>
 
-            <!-- INTERVALS STATS -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Intervals Quiz (C/W | Streak | Max):"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:id="@+id/tvIntervalsStats"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:gravity="center_vertical"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Complex Chords:" android:textColor="@color/secondary" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvComplexChordsStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="N/A" android:textColor="@color/white" />
+                </LinearLayout>
 
-            <!-- CHORDS STATS -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Chords Quiz (C/W | Streak | Max):"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:id="@+id/tvChordsStats"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:gravity="center_vertical"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="General Quiz:" android:textColor="@color/secondary" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvQuizStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="N/A" android:textColor="@color/white" />
+                </LinearLayout>
 
-            <!-- COMPLEX CHORDS STATS -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Complex Chords Quiz (C/W | Streak | Max):"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:id="@+id/tvComplexChordsStats"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:gravity="center_vertical"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="8dp" android:layout_marginBottom="24dp">
+                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Total Score:" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvTotalStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 / 0" android:textColor="@color/white" android:textStyle="bold" />
+                </LinearLayout>
 
-            <!-- QUIZ STATS -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="General Quiz (C/W | Streak | Max):"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:id="@+id/tvQuizStats"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:gravity="center_vertical"/>
+            </LinearLayout>
 
-            <!-- TOTAL STATS -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total (Correct/Wrong):"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:id="@+id/tvTotalStats"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:gravity="center_vertical"/>
-
-            <!-- UPDATE BUTTON -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGoToUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Update Profile"
-                android:layout_marginTop="16dp"/>
+                android:textColor="@color/white"
+                android:background="@drawable/button_primary"
+                app:backgroundTint="@null"
+                app:cornerRadius="12dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:layout_marginBottom="24dp"/>
 
         </LinearLayout>
 

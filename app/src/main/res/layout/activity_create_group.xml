@@ -5,62 +5,50 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
+    android:padding="24dp"
     tools:context=".create_group">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="8"
-        android:background="@color/black"
-        >
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textColor="@color/white"
-            android:textStyle="bold|normal"
-            android:text="Create Group"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
             android:gravity="center"
-            android:textSize="30sp"
-            >
-        </TextView>
+            android:text="Create Group"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/etGroupName"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
-            android:orientation="vertical"
-            android:weightSum="8"
-            >
-            <EditText
-                android:id="@+id/etGroupName"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:ems="10"
-                android:inputType="text"
-                android:hint=" Group Name"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                android:background="@color/white"
-                android:layout_margin="5dp"
-                />
+            android:layout_height="56dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/edit_text_background"
+            android:hint="Group Name"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/black" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCreateGroup"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:text="Create Group"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="0dp"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                />
-        </LinearLayout>
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateGroup"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/button_primary"
+            android:text="Create Group"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 

@@ -4,56 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="6dp"
-    app:strokeWidth="0dp"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#1AFFFFFF"
+    app:strokeWidth="1dp"
+    app:strokeColor="#33FFFFFF"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!-- Rank Display -->
-        <TextView
-            android:id="@+id/tv_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:elevation="10dp"
-            android:text="#1"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Left Accent Panel -->
-        <View
-            android:id="@+id/view_accent"
-            android:layout_width="100dp"
-            android:layout_height="0dp"
-            android:background="#3949AB"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_avatar"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            app:cardCornerRadius="34dp"
-            app:cardElevation="4dp"
-            app:strokeWidth="3dp"
-            app:strokeColor="#FFFFFF"
-            app:cardBackgroundColor="#E8EAF6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/view_accent"
-            app:layout_constraintStart_toStartOf="@id/view_accent"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -70,172 +44,152 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="JD"
-                android:textColor="#3949AB"
-                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Right Content Panel -->
+        <!-- Rank Badge -->
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/button_primary"
+            android:backgroundTint="@color/secondary"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/primary_dark"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/card_avatar"
+            app:layout_constraintEnd_toEndOf="@id/card_avatar" />
+
         <TextView
             android:id="@+id/tv_item_user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
             android:text="John Doe"
-            android:textColor="#3949AB"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/chip_user_role"
-            app:layout_constraintStart_toEndOf="@id/view_accent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_avatar"
+            app:layout_constraintTop_toTopOf="@id/card_avatar"
             tools:text="@tools:sample/full_names" />
-
-        <LinearLayout
-            android:id="@+id/layout_email_pill"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="#F5F5F5"
-            android:backgroundTint="#F0F4FF"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_user_name">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@android:drawable/ic_dialog_email"
-                app:tint="#3949AB" />
-
-            <TextView
-                android:id="@+id/tv_item_user_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="john.doe@example.com"
-                android:textColor="#5C6BC0"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_phone_pill"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp"
-            android:background="#F5F5F5"
-            android:backgroundTint="#F0F4FF"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
-            app:layout_constraintTop_toBottomOf="@id/layout_email_pill">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@android:drawable/sym_action_call"
-                app:tint="#3949AB" />
-
-            <TextView
-                android:id="@+id/tv_item_user_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="+1 234 567 8900"
-                android:textColor="#5C6BC0"
-                android:textSize="13sp" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/chip_user_role"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="#FF4081"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
+            android:background="@drawable/button_primary"
+            android:backgroundTint="@color/accent"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="1dp"
             android:text="ADMIN"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:textSize="8sp"
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_item_user_name"
             tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_item_user_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="john.doe@example.com"
+            android:textColor="#BDBDBD"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_user_name" />
+
+        <TextView
+            android:id="@+id/tv_item_user_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="+1 234 567 8900"
+            android:textColor="#BDBDBD"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_user_email" />
 
         <LinearLayout
             android:id="@+id/layout_stats_row"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            app:layout_constraintStart_toStartOf="@id/tv_item_user_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_phone_pill"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="10dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_kick"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_user_phone"
+            app:layout_goneMarginTop="6dp">
 
             <TextView
                 android:id="@+id/tv_item_user_notes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="N: 0"
-                android:textColor="#3949AB"
-                android:textSize="11sp"
-                android:layout_marginEnd="8dp"/>
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:background="#1AFFFFFF"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="1dp"
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:id="@+id/tv_item_user_intervals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="I: 0"
-                android:textColor="#3949AB"
-                android:textSize="11sp"
-                android:layout_marginEnd="8dp"/>
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:background="#1AFFFFFF"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="1dp"
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:id="@+id/tv_item_user_quiz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Q: 0"
-                android:textColor="#3949AB"
-                android:textSize="11sp"
-                android:layout_marginEnd="8dp"/>
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:background="#1AFFFFFF"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="1dp"
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:id="@+id/tv_item_user_chords"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="C: 0"
-                android:textColor="#3949AB"
-                android:textSize="11sp"
-                android:layout_marginEnd="8dp"/>
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:background="#1AFFFFFF"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="1dp"
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:id="@+id/tv_item_user_complex_chords"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CC: 0"
-                android:textColor="#3949AB"
-                android:textSize="11sp"/>
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:background="#1AFFFFFF"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="1dp"/>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -243,12 +197,17 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="4dp"
             android:text="Kick"
-            android:textColor="#D32F2F"
-            android:textSize="12sp"
+            android:textColor="@color/error"
+            android:textSize="10sp"
+            android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_stats_row"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

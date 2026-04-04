@@ -5,38 +5,43 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
+    android:padding="16dp"
     tools:context=".group_table">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/black">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="All Groups"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:textSize="30sp"/>
+            android:text="All Groups"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_group_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:textColor="@color/white"
-            android:text="Groups: 0"
             android:textSize="18sp"
             android:textStyle="bold"
-            />
+            android:text="Groups: 0" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_groups_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_group"/>
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            tools:listitem="@layout/item_group" />
 
     </LinearLayout>
 

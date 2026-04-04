@@ -29,17 +29,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 public class group_page extends BaseActivity implements UserAdapter.OnUserClickListener {
 
     private static final String TAG = "group_page";
     private TextView tvGroupName, tvTotalCorrect, tvTotalWrong;
     private TextView tvTotalNotes, tvTotalIntervals, tvTotalChords, tvTotalQuiz, tvTotalComplexChords;
-    private RecyclerView rvMembers, rvChat;
+    private RecyclerView rvChat;
     private UserAdapter userAdapter;
     private GroupChatAdapter chatAdapter;
     private DatabaseService databaseService;
     private EditText etChatMessage;
-    private Button btnSendMessage, btnLeaveGroup, btnDeleteGroup;
+    private Button btnSendMessage, btnLeaveGroup, btnDeleteGroup, btnShowMembers;
     private ImageButton btnEditGroupName;
     private String currentGroupId;
     private User currentUser;
@@ -64,13 +66,8 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
         tvTotalQuiz = findViewById(R.id.tv_total_quiz);
         tvTotalComplexChords = findViewById(R.id.tv_total_complex_chords);
         
-        rvMembers = findViewById(R.id.rv_users_list);
-        rvMembers.setLayoutManager(new LinearLayoutManager(this));
-
         currentUser = SharedPreferencesUtil.getUser(this);
-        
         userAdapter = new UserAdapter(this);
-        rvMembers.setAdapter(userAdapter);
 
         // Chat initialization
         rvChat = findViewById(R.id.rv_chat);
@@ -79,6 +76,7 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
         btnLeaveGroup = findViewById(R.id.btn_leave_group);
         btnDeleteGroup = findViewById(R.id.btn_delete_group);
         btnEditGroupName = findViewById(R.id.btn_edit_group_name);
+        btnShowMembers = findViewById(R.id.btn_show_members);
 
         rvChat.setLayoutManager(new LinearLayoutManager(this));
         chatAdapter = new GroupChatAdapter(currentUser != null ? currentUser.getId() : "");
@@ -88,8 +86,22 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
         btnLeaveGroup.setOnClickListener(v -> leaveGroup());
         btnDeleteGroup.setOnClickListener(v -> deleteGroup());
         btnEditGroupName.setOnClickListener(v -> showEditGroupNameDialog());
+        btnShowMembers.setOnClickListener(v -> showMembersDialog());
 
         databaseService = DatabaseService.getInstance();
+    }
+
+    private void showMembersDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        android.view.View dialogView = getLayoutInflater().inflate(R.layout.dialog_group_members, null);
+        dialog.setContentView(dialogView);
+
+        RecyclerView rvMembers = dialogView.findViewById(R.id.rv_members_dialog);
+        rvMembers.setLayoutManager(new LinearLayoutManager(this));
+        rvMembers.setAdapter(userAdapter);
+
+        dialogView.findViewById(R.id.btn_close_members).setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 
     private void showEditGroupNameDialog() {

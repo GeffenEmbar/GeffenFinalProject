@@ -5,25 +5,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
     tools:context=".group_page">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         android:orientation="vertical"
-        android:weightSum="10"
-        >
+        android:padding="16dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:id="@+id/tvGroupName"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:gravity="center"
                 android:text="Group Name"
                 android:textColor="@color/white"
                 android:textSize="28sp"
@@ -31,166 +31,215 @@
 
             <ImageButton
                 android:id="@+id/btn_edit_group_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/tvGroupName"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_edit"
+                app:tint="@color/white"
                 android:visibility="gone"
                 tools:visibility="visible" />
         </RelativeLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#1AFFFFFF"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#40FFFFFF"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_total_correct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="C: 0"
+                        android:textColor="#4CAF50"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_total_wrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="W: 0"
+                        android:textColor="#FF5252"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="6dp"
+                    android:background="#33FFFFFF" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3">
+
+                    <TextView
+                        android:id="@+id/tv_total_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="N: 0"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_total_intervals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="I: 0"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_total_chords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="C: 0"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_quiz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Q: 0"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_complex_chords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CC: 0"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+                </GridLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="8dp">
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_leave_group"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Leave Group"
-                android:layout_marginEnd="4dp"
-                android:backgroundTint="#FF5722"/>
+                android:padding="0dp"
+                android:text="Leave"
+                android:textColor="#FF5252"
+                android:textSize="12sp"
+                app:strokeColor="#FF5252" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delete_group"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_weight="1"
-                android:text="Delete Group"
-                android:layout_marginStart="4dp"
-                android:backgroundTint="#F44336"
-                android:visibility="gone"/>
-
+                android:backgroundTint="#FF5252"
+                android:padding="0dp"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="gone" />
         </LinearLayout>
 
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_show_members"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="4dp"
+            android:text="View Members"
+            android:textColor="@color/secondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:icon="@android:drawable/ic_menu_myplaces"
+            app:iconTint="@color/secondary" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/tv_total_notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notes Correct: 0"
-                android:textColor="#4CAF50"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_total_intervals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Intervals Correct: 0"
-                android:textColor="#4CAF50"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_total_chords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chords Correct: 0"
-                android:textColor="#4CAF50"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_total_quiz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="General Quiz Correct: 0"
-                android:textColor="#4CAF50"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_total_complex_chords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Complex Chords Correct: 0"
-                android:textColor="#4CAF50"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_total_correct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Correct: 0"
-                android:textColor="#4CAF50"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_total_wrong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Wrong: 0"
-                android:textColor="#F44336"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:text="Members:"
+            android:layout_marginBottom="4dp"
+            android:text="Group Chat"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:paddingStart="8dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_users_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            tools:listitem="@layout/item_user" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:text="Chat:"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:paddingStart="8dp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_chat"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.5" />
+            android:layout_weight="1"
+            android:layout_marginBottom="4dp"
+            android:clipToPadding="false"
+            android:paddingBottom="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:background="#26FFFFFF"
+            android:padding="4dp">
 
             <EditText
                 android:id="@+id/et_chat_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Type a message..."
-                android:textColor="@color/white"
-                android:textColorHint="#888888" />
+                android:background="@drawable/edit_text_background"
+                android:hint="Message..."
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="#757575"
+                android:textSize="13sp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_send_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Send" />
-
+                android:layout_marginStart="4dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Send"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="8dp" />
         </LinearLayout>
 
     </LinearLayout>

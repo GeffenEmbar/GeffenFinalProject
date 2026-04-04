@@ -5,62 +5,63 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
+    android:padding="24dp"
     tools:context=".login">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/black"
-        >
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textColor="@color/white"
-            android:textStyle="bold|normal"
-            android:text="Log In"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
             android:gravity="center"
-            android:textSize="30sp"
-            >
-        </TextView>
+            android:text="Log In"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etEmail_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:background="@color/white"
-            android:textSize="25dp"
-            android:layout_marginBottom="2dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edit_text_background"
             android:hint="Email"
-            />
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="#757575" />
 
         <EditText
             android:id="@+id/etPassword_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:background="@color/white"
-            android:textSize="25dp"
-            android:layout_marginBottom="2dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/edit_text_background"
             android:hint="Password"
-            />
+            android:inputType="textPassword"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="#757575" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_primary"
             android:text="Log In"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#4CAF50"
-            app:cornerRadius="0dp"
-            android:textSize="35dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold"
-            />
-
+            app:backgroundTint="@null"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 
