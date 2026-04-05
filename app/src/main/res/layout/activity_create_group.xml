@@ -35,7 +35,8 @@
             android:hint="Group Name"
             android:inputType="text"
             android:paddingHorizontal="16dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorHint="#757575" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateGroup"

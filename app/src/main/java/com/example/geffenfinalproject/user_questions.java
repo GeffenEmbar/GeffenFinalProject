@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +26,10 @@ public class user_questions extends BaseActivity implements View.OnClickListener
 
     private TextView tvQuestion, tvScore;
     private Button answer1, answer2, answer3, answer4, btnOut;
+    private Spinner difficultySelector;
     DatabaseService databaseService;
     private FirebaseAuth mAuth;
+    private ArrayList<Question> masterList = new ArrayList<>();
     private ArrayList<Question> questions = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private Question currentQuestion;
@@ -50,33 +54,79 @@ public class user_questions extends BaseActivity implements View.OnClickListener
         tvScore = findViewById(R.id.tvScore);
         tvScore.setText("Correct: " + 0 + " | Wrong: " + 0);
         answer1 = findViewById(R.id.answer1);
-        answer1.setOnClickListener(this);
         answer2 = findViewById(R.id.answer2);
-        answer2.setOnClickListener(this);
         answer3 = findViewById(R.id.answer3);
-        answer3.setOnClickListener(this);
         answer4 = findViewById(R.id.answer4);
-        answer4.setOnClickListener(this);
-
         btnOut = findViewById(R.id.btnOut);
         btnOut.setOnClickListener(this);
 
+        difficultySelector = findViewById(R.id.difficultySelector);
+        difficultySelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filterQuestions();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
         databaseService=DatabaseService.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
         loadQuestions();
+    }
 
+    private void filterQuestions() {
+        String selectedDifficulty = difficultySelector.getSelectedItem().toString();
+        questions.clear();
 
+        if (selectedDifficulty.equals("Enter difficulty")) {
+            questions.addAll(masterList);
+        } else {
+            for (Question q : masterList) {
+                if (q.getDifficulty().equalsIgnoreCase(selectedDifficulty)) {
+                    questions.add(q);
+                }
+            }
+        }
+        
+        resetQuiz();
+    }
 
+    private void resetQuiz() {
+        currentQuestionIndex = 0;
+        correctCount = 0;
+        wrongCount = 0;
+        updateScore();
+        btnOut.setVisibility(View.GONE);
+        answer1.setEnabled(true);
+        answer2.setEnabled(true);
+        answer3.setEnabled(true);
+        answer4.setEnabled(true);
+        
+        if (questions.isEmpty()) {
+            tvQuestion.setText("No questions found for this difficulty.");
+            answer1.setVisibility(View.INVISIBLE);
+            answer2.setVisibility(View.INVISIBLE);
+            answer3.setVisibility(View.INVISIBLE);
+            answer4.setVisibility(View.INVISIBLE);
+        } else {
+            answer1.setVisibility(View.VISIBLE);
+            answer2.setVisibility(View.VISIBLE);
+            answer3.setVisibility(View.VISIBLE);
+            answer4.setVisibility(View.VISIBLE);
+            showNextQuestion();
+        }
     }
 
     private void loadQuestions() {
         DatabaseService.getInstance().getQuestionList(new DatabaseService.DatabaseCallback<List<Question>>() {
             @Override
             public void onCompleted(List<Question> challenges) {
-                questions.addAll(challenges);
-                showNextQuestion();
+                masterList.clear();
+                masterList.addAll(challenges);
+                filterQuestions();
             }
 
             @Override

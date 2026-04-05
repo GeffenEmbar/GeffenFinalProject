@@ -36,7 +36,8 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="Enter question"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/correct"
@@ -46,7 +47,8 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="Enter correct answer"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/wrong1"
@@ -56,7 +58,8 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="Enter first wrong answer"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/wrong2"
@@ -66,7 +69,8 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="Enter second wrong answer"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/wrong3"
@@ -76,7 +80,8 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="Enter third wrong answer"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <TextView
                 android:layout_width="wrap_content"

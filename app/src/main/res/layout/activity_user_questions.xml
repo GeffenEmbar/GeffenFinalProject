@@ -18,12 +18,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="Admin's Questions"
             android:gravity="center"
             android:textSize="28sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose difficulty:"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_margin="5dp"
+            android:textStyle="bold"
+            >
+
+
+        </TextView>
+
+        <Spinner
+            android:id="@+id/difficultySelector"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edit_text_background"
+            android:entries="@array/spin" />
 
         <TextView
             android:id="@+id/tvQuestion"

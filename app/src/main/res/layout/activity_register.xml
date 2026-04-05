@@ -38,7 +38,8 @@
                 android:hint="First Name"
                 android:inputType="textPersonName"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/etLname"
@@ -49,7 +50,8 @@
                 android:hint="Last Name"
                 android:inputType="textPersonName"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -60,7 +62,8 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/etPhone"
@@ -71,7 +74,8 @@
                 android:hint="Phone Number"
                 android:inputType="phone"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <EditText
                 android:id="@+id/etPassword"
@@ -82,7 +86,8 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/register"
