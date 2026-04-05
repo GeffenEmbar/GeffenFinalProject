@@ -30,6 +30,29 @@
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPlayChord"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/button_primary"
+                android:text="Play Random Chord"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"
+                app:cornerRadius="12dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReplay"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="24dp"
+                android:text="Replay Chord"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:strokeColor="@color/white" />
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,29 +89,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPlayChord"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/button_primary"
-                android:text="Play Random Chord"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                app:backgroundTint="@null"
-                app:cornerRadius="12dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnReplay"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="24dp"
-                android:text="Replay Chord"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                app:strokeColor="@color/white" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="12dp"
                 android:columnCount="4">
 
                 <com.google.android.material.button.MaterialButton
@@ -111,7 +111,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="C"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootCSharp"
@@ -120,7 +124,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="C#"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootD"
@@ -129,7 +137,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="D"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootDSharp"
@@ -138,7 +150,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="D#"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootE"
@@ -147,7 +163,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="E"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootF"
@@ -156,7 +176,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="F"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootFSharp"
@@ -165,7 +189,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="F#"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootG"
@@ -174,7 +202,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="G"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootGSharp"
@@ -183,7 +215,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="G#"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootA"
@@ -192,7 +228,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="A"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootASharp"
@@ -201,7 +241,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="A#"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRootB"
@@ -210,7 +254,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="B"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="2dp"
+                    />
 
             </GridLayout>
 

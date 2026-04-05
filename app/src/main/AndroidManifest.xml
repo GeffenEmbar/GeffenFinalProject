@@ -50,9 +50,6 @@
             android:name=".user_leaderboard"
             android:exported="false" />
         <activity
-            android:name=".user_visual_piano"
-            android:exported="false" />
-        <activity
             android:name=".user_intervals_quiz"
             android:exported="false" />
         <activity

@@ -67,7 +67,7 @@
                 android:id="@+id/tv_group_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Score: 0"
+                android:text="Corrects: 0"
                 android:textSize="14sp"
                 android:textColor="#BDBDBD"
                 android:layout_marginHorizontal="8dp"

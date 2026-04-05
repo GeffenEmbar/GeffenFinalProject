@@ -69,7 +69,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="C: 0"
+                        android:text="Correct answers: 0"
                         android:textColor="#4CAF50"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -79,7 +79,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="W: 0"
+                        android:text="Wrong answers: 0"
                         android:textColor="#FF5252"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -100,43 +100,43 @@
                         android:id="@+id/tv_total_notes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="N: 0"
+                        android:text="Notes: 0"
                         android:textColor="@color/white"
-                        android:textSize="11sp"
+                        android:textSize="14sp"
                         android:layout_marginEnd="8dp"/>
 
                     <TextView
                         android:id="@+id/tv_total_intervals"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="I: 0"
+                        android:text="Intervals: 0"
                         android:textColor="@color/white"
-                        android:textSize="11sp"
+                        android:textSize="14sp"
                         android:layout_marginEnd="8dp"/>
 
                     <TextView
                         android:id="@+id/tv_total_chords"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="C: 0"
+                        android:text="Chords: 0"
                         android:textColor="@color/white"
-                        android:textSize="11sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_total_quiz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Q: 0"
+                        android:text="Admin's Quiz: 0"
                         android:textColor="@color/white"
-                        android:textSize="11sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_total_complex_chords"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CC: 0"
+                        android:text="    Complex Chords: 0"
                         android:textColor="@color/white"
-                        android:textSize="11sp" />
+                        android:textSize="14sp" />
                 </GridLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -178,7 +178,6 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_marginBottom="4dp"
             android:text="View Members"
             android:textColor="@color/secondary"
@@ -193,7 +192,7 @@
             android:layout_marginBottom="4dp"
             android:text="Group Chat"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
