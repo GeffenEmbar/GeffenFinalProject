@@ -28,7 +28,8 @@ import java.util.Calendar;
 
 public class user_menu extends BaseActivity implements View.OnClickListener {
 
-    Button btnChordsQuiz, btnComplexChordsQuiz, piano_notes_quiz, questionnaire, btnIntervalsQuiz;
+    Button btnChordsQuiz, btnComplexChordsQuiz, piano_notes_quiz, questionnaire, btnIntervalsQuiz, btnPiano;
+    Button btnGuitarChordsQuiz, btnGuitarComplexChordsQuiz, btnGuitarNotesQuiz, btnGuitarIntervalsQuiz;
 
     private static final int PERMISSION_REQUEST_CODE = 101;
 
@@ -55,6 +56,17 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
         questionnaire.setOnClickListener(this);
         btnIntervalsQuiz = findViewById(R.id.btnIntervalsQuiz);
         btnIntervalsQuiz.setOnClickListener(this);
+        btnPiano = findViewById(R.id.btnPiano);
+        btnPiano.setOnClickListener(this);
+
+        btnGuitarChordsQuiz = findViewById(R.id.btnGuitarChordsQuiz);
+        btnGuitarChordsQuiz.setOnClickListener(this);
+        btnGuitarComplexChordsQuiz = findViewById(R.id.btnGuitarComplexChordsQuiz);
+        btnGuitarComplexChordsQuiz.setOnClickListener(this);
+        btnGuitarNotesQuiz = findViewById(R.id.btnGuitarNotesQuiz);
+        btnGuitarNotesQuiz.setOnClickListener(this);
+        btnGuitarIntervalsQuiz = findViewById(R.id.btnGuitarIntervalsQuiz);
+        btnGuitarIntervalsQuiz.setOnClickListener(this);
     }
 
     @Override
@@ -77,6 +89,26 @@ public class user_menu extends BaseActivity implements View.OnClickListener {
         }
         else if (v.getId() == btnIntervalsQuiz.getId()) {
             Intent intent = new Intent(this, user_intervals_quiz.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == btnPiano.getId()) {
+            Intent intent = new Intent(this, user_piano.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.btnGuitarChordsQuiz) {
+            Intent intent = new Intent(this, user_guitar_chords_quiz.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.btnGuitarComplexChordsQuiz) {
+            Intent intent = new Intent(this, user_guitar_complex_chords_quiz.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.btnGuitarNotesQuiz) {
+            Intent intent = new Intent(this, user_guitar_notes_quiz.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.btnGuitarIntervalsQuiz) {
+            Intent intent = new Intent(this, user_guitar_intervals_quiz.class);
             startActivity(intent);
         }
     }

@@ -24,6 +24,21 @@
         </activity>
 
         <activity
+            android:name=".user_piano"
+            android:exported="false" />
+        <activity
+            android:name=".user_guitar_complex_chords_quiz"
+            android:exported="false" />
+        <activity
+            android:name=".user_guitar_chords_quiz"
+            android:exported="false" />
+        <activity
+            android:name=".user_guitar_intervals_quiz"
+            android:exported="false" />
+        <activity
+            android:name=".user_guitar_notes_quiz"
+            android:exported="false" />
+        <activity
             android:name=".user_complex_chords_quiz"
             android:exported="false" />
         <activity

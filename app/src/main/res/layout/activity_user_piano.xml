@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
+    tools:context=".user_piano">
+
+    <!-- Piano Container on the left -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/piano_container"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="4dp">
+
+        <!-- White Keys (Ordered from Top to Bottom: B5 down to C4) -->
+        <!-- This ensures C4 is at the very bottom -->
+        <Button android:id="@+id/btnB5" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/btnA5" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnA5" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnB5" app:layout_constraintBottom_toTopOf="@+id/btnG5" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnG5" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnA5" app:layout_constraintBottom_toTopOf="@+id/btnF5" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnF5" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnG5" app:layout_constraintBottom_toTopOf="@+id/btnE5" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnE5" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnF5" app:layout_constraintBottom_toTopOf="@+id/btnD5" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnD5" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnE5" app:layout_constraintBottom_toTopOf="@+id/btnC5" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnC5" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnD5" app:layout_constraintBottom_toTopOf="@+id/btnB4" app:layout_constraintVertical_weight="1"/>
+
+        <Button android:id="@+id/btnB4" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnC5" app:layout_constraintBottom_toTopOf="@+id/btnA4" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnA4" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnB4" app:layout_constraintBottom_toTopOf="@+id/btnG4" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnG4" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnA4" app:layout_constraintBottom_toTopOf="@+id/btnF4" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnF4" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnG4" app:layout_constraintBottom_toTopOf="@+id/btnE4" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnE4" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnF4" app:layout_constraintBottom_toTopOf="@+id/btnD4" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnD4" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnE4" app:layout_constraintBottom_toTopOf="@+id/btnC4" app:layout_constraintVertical_weight="1"/>
+        <Button android:id="@+id/btnC4" android:layout_width="match_parent" android:layout_height="0dp" android:backgroundTint="@color/white" android:layout_margin="1dp" app:layout_constraintTop_toBottomOf="@+id/btnD4" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_weight="1"/>
+
+        <!-- Black Keys (Centered on boundaries) -->
+        <!-- Octave 4 -->
+        <Button android:id="@+id/btnCSharp4" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnD4" app:layout_constraintBottom_toTopOf="@+id/btnC4" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+        <Button android:id="@+id/btnDSharp4" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnE4" app:layout_constraintBottom_toTopOf="@+id/btnD4" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+        
+        <Button android:id="@+id/btnFSharp4" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnG4" app:layout_constraintBottom_toTopOf="@+id/btnF4" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+        <Button android:id="@+id/btnGSharp4" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnA4" app:layout_constraintBottom_toTopOf="@+id/btnG4" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+        <Button android:id="@+id/btnASharp4" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnB4" app:layout_constraintBottom_toTopOf="@+id/btnA4" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+
+        <!-- Octave 5 -->
+        <Button android:id="@+id/btnCSharp5" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnD5" app:layout_constraintBottom_toTopOf="@+id/btnC5" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+        <Button android:id="@+id/btnDSharp5" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnE5" app:layout_constraintBottom_toTopOf="@+id/btnD5" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+
+        <Button android:id="@+id/btnFSharp5" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnG5" app:layout_constraintBottom_toTopOf="@+id/btnF5" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+        <Button android:id="@+id/btnGSharp5" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnA5" app:layout_constraintBottom_toTopOf="@+id/btnG5" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+        <Button android:id="@+id/btnASharp5" android:layout_width="180dp" android:layout_height="40dp" android:backgroundTint="@color/black" app:layout_constraintTop_toBottomOf="@+id/btnB5" app:layout_constraintBottom_toTopOf="@+id/btnA5" app:layout_constraintStart_toStartOf="parent" android:elevation="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvPianoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Piano Practice"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:rotation="270"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/piano_container"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
