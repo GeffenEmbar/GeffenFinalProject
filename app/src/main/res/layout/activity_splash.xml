@@ -14,7 +14,7 @@
         android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/icon_piano"
+        android:src="@drawable/appicon"
         android:contentDescription="App logo"
         android:scaleType="fitCenter"
         app:layout_constraintTop_toTopOf="parent"

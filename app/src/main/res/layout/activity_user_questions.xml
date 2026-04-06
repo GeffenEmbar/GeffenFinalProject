@@ -55,7 +55,7 @@
             android:textSize="22sp"
             android:gravity="center"
             android:layout_marginBottom="16dp"
-            tools:text="What is the capital of France?" />
+            tools:text="---Question---" />
 
         <TextView
             android:id="@+id/tvScore"
