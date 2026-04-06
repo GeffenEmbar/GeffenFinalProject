@@ -36,7 +36,7 @@
                 android:layout_height="120dp"
                 app:cardCornerRadius="60dp"
                 app:cardElevation="4dp"
-                android:layout_marginBottom="32dp">
+                android:layout_marginBottom="8dp">
                 <ImageView
                     android:id="@+id/profileImage"
                     android:layout_width="match_parent"
@@ -44,6 +44,17 @@
                     android:scaleType="centerCrop"
                     android:src="@android:drawable/ic_menu_camera" />
             </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRemovePhoto"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="Remove Photo"
+                android:textColor="#FF5252"
+                android:textSize="14sp"
+                android:textAllCaps="false" />
 
             <EditText
                 android:id="@+id/etFirstName"

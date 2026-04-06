@@ -31,9 +31,11 @@ public class user_update_profile extends BaseActivity {
     private EditText etFirstName, etLastName, etPhone;
     private ImageView profileImage;
     private Button btnSave;
+    private com.google.android.material.button.MaterialButton btnRemovePhoto;
 
     private String userUid;
     private DatabaseReference usersRef;
+    private boolean isImageRemoved = false;
 
     private static final int REQUEST_CAMERA = 100;
     private static final int REQUEST_GALLERY = 101;
@@ -61,12 +63,20 @@ public class user_update_profile extends BaseActivity {
 
         profileImage = findViewById(R.id.profileImage);
         btnSave = findViewById(R.id.btnSave);
+        btnRemovePhoto = findViewById(R.id.btnRemovePhoto);
 
         loadUserData();
 
         // PICK IMAGE
         profileImage.setOnClickListener(v -> {
             showImageSourceDialog();
+        });
+
+        // REMOVE IMAGE
+        btnRemovePhoto.setOnClickListener(v -> {
+            isImageRemoved = true;
+            profileImage.setImageResource(android.R.drawable.ic_menu_camera);
+            Toast.makeText(this, "Photo removed. Save to apply.", Toast.LENGTH_SHORT).show();
         });
 
         // SAVE BUTTON
@@ -101,7 +111,7 @@ public class user_update_profile extends BaseActivity {
         String lname = etLastName.getText().toString();
         String phone = etPhone.getText().toString();
 
-        String base64Image = ImageUtil.convertTo64Base(profileImage);
+        String base64Image = isImageRemoved ? null : ImageUtil.convertTo64Base(profileImage);
 
 
         updateUser(fname, lname, phone, base64Image);
@@ -179,12 +189,14 @@ public class user_update_profile extends BaseActivity {
             if (requestCode == REQUEST_CAMERA) {
                 Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                 profileImage.setImageBitmap(bitmap);
+                isImageRemoved = false;
             }
 
             if (requestCode == REQUEST_GALLERY) {
                 Uri imageUri = data.getData();
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                 profileImage.setImageBitmap(bitmap);
+                isImageRemoved = false;
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to load image", e);

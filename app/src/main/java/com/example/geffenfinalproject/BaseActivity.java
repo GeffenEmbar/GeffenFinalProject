@@ -24,7 +24,7 @@ import android.content.Intent;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected Button btnLeaderboard, btnGroups, btn5, btnSignOut;
+    protected Button btnUserMenu, btnLeaderboard, btnGroups, btn5, btnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class BaseActivity extends AppCompatActivity {
         });
 
         // Initialize toolbar buttons
+        btnUserMenu = findViewById(R.id.btnUserMenu);
         btnLeaderboard = findViewById(R.id.btnLeaderboard);
         btnGroups = findViewById(R.id.btnGroups);
         btn5 = findViewById(R.id.btn5);
@@ -60,7 +61,11 @@ public class BaseActivity extends AppCompatActivity {
         // Basic listeners for now
         View.OnClickListener listener = v -> {
             int id = v.getId();
-            if (id == R.id.btnLeaderboard) {
+            if (id == R.id.btnUserMenu) {
+                Intent intent = new Intent(this, user_menu.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.btnLeaderboard) {
                 Intent intent = new Intent(this, user_leaderboard.class);
                 startActivity(intent);
             }
@@ -110,6 +115,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         };
 
+        btnUserMenu.setOnClickListener(listener);
         btnLeaderboard.setOnClickListener(listener);
         btnGroups.setOnClickListener(listener);
         btn5.setOnClickListener(listener);

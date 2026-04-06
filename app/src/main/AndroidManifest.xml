@@ -46,7 +46,8 @@
             android:exported="false" />
         <activity
             android:name=".group_page"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <receiver
             android:name=".services.ReminderReceiver"

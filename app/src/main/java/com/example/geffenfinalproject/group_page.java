@@ -1,8 +1,10 @@
 package com.example.geffenfinalproject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -51,9 +53,24 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_group_page);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        // Use the base root view if available, otherwise fallback to main
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) View root = findViewById(R.id.base_root);
+        if (root == null) root = findViewById(R.id.main);
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) View toolbar = findViewById(R.id.bottom_toolbar);
+
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
+            boolean isKeyboardVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
+
+            // Hide bottom toolbar when keyboard is visible
+            if (toolbar != null) {
+                toolbar.setVisibility(isKeyboardVisible ? View.GONE : View.VISIBLE);
+            }
+
+            // Apply padding for status bar and navigation bar/keyboard
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, Math.max(systemBars.bottom, ime.bottom));
             return insets;
         });
 

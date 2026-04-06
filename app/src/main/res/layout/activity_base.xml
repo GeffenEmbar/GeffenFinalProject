@@ -22,6 +22,22 @@
         android:paddingHorizontal="4dp">
 
         <Button
+            android:id="@+id/btnUserMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="User Menu"
+            android:drawableTop="@drawable/ic_home"
+            android:drawablePadding="0dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:padding="2dp"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/btnLeaderboard"
             android:layout_width="0dp"
             android:layout_height="match_parent"
