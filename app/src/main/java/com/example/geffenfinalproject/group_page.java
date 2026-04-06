@@ -41,8 +41,8 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
     private GroupChatAdapter chatAdapter;
     private DatabaseService databaseService;
     private EditText etChatMessage;
-    private Button btnSendMessage, btnLeaveGroup, btnDeleteGroup, btnShowMembers;
-    private ImageButton btnEditGroupName;
+    private Button btnLeaveGroup, btnDeleteGroup, btnShowMembers;
+    private ImageButton btnSendMessage, btnEditGroupName;
     private String currentGroupId;
     private User currentUser;
 

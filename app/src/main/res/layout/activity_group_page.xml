@@ -227,38 +227,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="#26FFFFFF"
-            android:padding="4dp">
+            android:padding="0dp">
 
             <EditText
                 android:id="@+id/et_chat_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/edit_text_background"
+                android:background="@null"
                 android:hint="Message..."
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
                 android:textColor="@color/black"
                 android:textColorHint="#757575"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/btn_send_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:text="Send"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:backgroundTint="@color/primary"
-                app:cornerRadius="8dp" />
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="12dp"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_send"
+                app:tint="@color/primary" />
         </LinearLayout>
 
     </LinearLayout>
