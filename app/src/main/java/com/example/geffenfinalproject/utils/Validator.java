@@ -3,8 +3,23 @@ package com.example.geffenfinalproject.utils;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Validator {
+
+    public static boolean isSpinnerValid(Spinner spinner, String defaultText) {
+        if (spinner.getSelectedItem() == null || spinner.getSelectedItem().toString().equals(defaultText)) {
+            TextView errorText = (TextView) spinner.getSelectedView();
+            if (errorText != null) {
+                errorText.setError("");
+                errorText.setTextColor(android.graphics.Color.RED);
+                errorText.setText("Please select a valid option");
+            }
+            return false;
+        }
+        return true;
+    }
 
     public static boolean isEmailValid(EditText editText) {
         String email = editText.getText().toString().trim();

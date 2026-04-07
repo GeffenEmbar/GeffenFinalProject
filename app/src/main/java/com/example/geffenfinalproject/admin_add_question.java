@@ -108,6 +108,9 @@ public class admin_add_question extends BaseActivity implements View.OnClickList
         if (!Validator.isNotEmpty(wrong3, "Wrong Answer 3")) {
             isValid = false;
         }
+        if (!Validator.isSpinnerValid(difficulty, "Enter difficulty")) {
+            isValid = false;
+        }
 
         return isValid;
     }
