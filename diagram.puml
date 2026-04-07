@@ -1,0 +1,190 @@
+@startuml
+skinparam classFontSize 12
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam wrapWidth 200
+
+hide empty members
+left to right direction
+
+package "com.example.geffenfinalproject.models" {
+  class User {
+    - String id
+    - String fname
+    - String lname
+    - String email
+    - String phone
+    - boolean admin
+    - int correct_answers
+    - int wrong_answers
+    - String groupId
+    - String profileImage
+  }
+  class Group {
+    - String groupId
+    - String groupName
+    - String ownerUid
+    - Map<String, Boolean> members
+    - int totalQuestions
+  }
+  class GroupMessage {
+    - String messageId
+    - String senderId
+    - String senderName
+    - String message
+    - long timestamp
+  }
+  class Question {
+    - String question
+    - String correct
+    - String wrong1
+    - String wrong2
+    - String wrong3
+    - String difficulty
+    - String id
+  }
+  class Note {
+    - String noteName
+    - int audioResId
+  }
+  class ImageSourceOption {
+    - String title
+    - String description
+    - int iconResource
+  }
+}
+
+package "com.example.geffenfinalproject.services" {
+  class DatabaseService <<Singleton>> {
+    + {static} DatabaseService getInstance()
+    + void createNewUser(User user)
+    + void getUser(String uid)
+    + void createNewGroup(Group group)
+    + void sendGroupMessage(String groupId, GroupMessage msg)
+    + void createNewQuestion(Question question)
+  }
+  class ReminderReceiver <<BroadcastReceiver>> {
+    + void onReceive(Context context, Intent intent)
+  }
+}
+
+package "com.example.geffenfinalproject.adapters" {
+  class GroupAdapter <<RecyclerView.Adapter>>
+  class GroupChatAdapter <<RecyclerView.Adapter>>
+  class ImageSourceAdapter <<ArrayAdapter>>
+  class LeaderboardAdapter <<RecyclerView.Adapter>>
+  class UserAdapter <<RecyclerView.Adapter>>
+}
+
+package "com.example.geffenfinalproject.utils" {
+  class ImageUtil {
+    + {static} String convertTo64Base(ImageView postImage)
+    + {static} Bitmap convertFrom64base(String base64Code)
+  }
+  class SharedPreferencesUtil {
+    + {static} void saveUser(Context context, User user)
+    + {static} User getUser(Context context)
+  }
+}
+
+package "com.example.geffenfinalproject" {
+  class BaseActivity <<AppCompatActivity>> {
+    # void onCreate(Bundle savedInstanceState)
+  }
+  
+  class Splash <<AppCompatActivity>>
+  class MainActivity <<AppCompatActivity>>
+  class login <<AppCompatActivity>>
+  class register <<AppCompatActivity>>
+
+  package "Quiz & Games" {
+    class user_chords_quiz
+    class user_complex_chords_quiz
+    class user_guitar_chords_quiz
+    class user_guitar_complex_chords_quiz
+    class user_guitar_intervals_quiz
+    class user_guitar_notes_quiz
+    class user_intervals_quiz
+    class user_notes_quiz
+    class user_piano
+    class user_questions
+    class user_menu
+  }
+
+  package "Admin" {
+    class admin_add_question
+    class admin_menu
+    class admin_user_table
+  }
+
+  package "User & Group" {
+    class user_profile
+    class user_update_profile
+    class user_group
+    class user_leaderboard
+    class create_group
+    class group_page
+    class group_table
+  }
+}
+
+' Inheritance
+BaseActivity -up-|> AppCompatActivity
+Splash -up-|> AppCompatActivity
+MainActivity -up-|> AppCompatActivity
+login -up-|> AppCompatActivity
+register -up-|> AppCompatActivity
+
+user_chords_quiz -up-|> BaseActivity
+user_complex_chords_quiz -up-|> BaseActivity
+user_guitar_chords_quiz -up-|> BaseActivity
+user_guitar_complex_chords_quiz -up-|> BaseActivity
+user_guitar_intervals_quiz -up-|> BaseActivity
+user_guitar_notes_quiz -up-|> BaseActivity
+user_intervals_quiz -up-|> BaseActivity
+user_notes_quiz -up-|> BaseActivity
+user_piano -up-|> BaseActivity
+user_questions -up-|> BaseActivity
+user_menu -up-|> BaseActivity
+
+admin_add_question -up-|> BaseActivity
+admin_menu -up-|> BaseActivity
+admin_user_table -up-|> BaseActivity
+
+user_profile -up-|> BaseActivity
+user_update_profile -up-|> BaseActivity
+user_group -up-|> BaseActivity
+user_leaderboard -up-|> BaseActivity
+create_group -up-|> BaseActivity
+group_page -up-|> BaseActivity
+group_table -up-|> BaseActivity
+
+' Adapters
+GroupAdapter ..> Group : uses
+GroupChatAdapter ..> GroupMessage : uses
+ImageSourceAdapter ..> ImageSourceOption : uses
+LeaderboardAdapter ..> User : uses
+UserAdapter ..> User : uses
+
+group_table o-- GroupAdapter
+group_page o-- GroupChatAdapter
+group_page o-- UserAdapter
+admin_user_table o-- UserAdapter
+user_leaderboard o-- LeaderboardAdapter
+user_profile o-- ImageSourceAdapter
+user_update_profile o-- ImageSourceAdapter
+
+' Models usage
+DatabaseService ..> User : manages
+DatabaseService ..> Group : manages
+DatabaseService ..> Question : manages
+DatabaseService ..> GroupMessage : manages
+
+' Services & Utils
+BaseActivity ..> DatabaseService : uses
+user_menu ..> ReminderReceiver : schedules
+user_update_profile ..> ImageUtil : uses
+BaseActivity ..> SharedPreferencesUtil : uses
+
+@enduml
