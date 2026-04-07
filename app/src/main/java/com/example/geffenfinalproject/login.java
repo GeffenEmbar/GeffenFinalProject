@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.example.geffenfinalproject.utils.Validator;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
@@ -51,6 +52,10 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Log.d(TAG, "onClick: Login button clicked");
+
+        if (!Validator.isEmailValid(etEmail) || !Validator.isPasswordValid(etPassword)) {
+            return;
+        }
 
         /// get the email and password entered by the user
         String email = etEmail.getText().toString();

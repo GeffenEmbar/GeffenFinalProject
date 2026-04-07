@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.example.geffenfinalproject.utils.Validator;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
@@ -61,6 +62,10 @@ public class register extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         if (v.getId() == register.getId())
         {
+            if (!validateForm()) {
+                return;
+            }
+
             fName = etFname.getText().toString();
             lName = etLname.getText().toString();
             email = etEmail.getText().toString();
@@ -73,6 +78,28 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         {
             finish();
         }
+    }
+
+    private boolean validateForm() {
+        boolean isValid = true;
+
+        if (!Validator.isNameValid(etFname, "First Name")) {
+            isValid = false;
+        }
+        if (!Validator.isNameValid(etLname, "Last Name")) {
+            isValid = false;
+        }
+        if (!Validator.isEmailValid(etEmail)) {
+            isValid = false;
+        }
+        if (!Validator.isPhoneValid(etPhone)) {
+            isValid = false;
+        }
+        if (!Validator.isPasswordValid(etPassword)) {
+            isValid = false;
+        }
+
+        return isValid;
     }
 
 

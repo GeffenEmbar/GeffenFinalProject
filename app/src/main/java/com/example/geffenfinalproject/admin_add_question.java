@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.geffenfinalproject.models.Question;
 import com.example.geffenfinalproject.services.DatabaseService;
+import com.example.geffenfinalproject.utils.Validator;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class admin_add_question extends BaseActivity implements View.OnClickListener {
@@ -60,6 +61,10 @@ public class admin_add_question extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         if (v.getId() == add.getId())
         {
+            if (!validateForm()) {
+                return;
+            }
+
             questionString = question.getText().toString();
             correctString = correct.getText().toString();
             wrong1String = wrong1.getText().toString();
@@ -83,5 +88,27 @@ public class admin_add_question extends BaseActivity implements View.OnClickList
             });
 
         }
+    }
+
+    private boolean validateForm() {
+        boolean isValid = true;
+
+        if (!Validator.isNotEmpty(question, "Question")) {
+            isValid = false;
+        }
+        if (!Validator.isNotEmpty(correct, "Correct Answer")) {
+            isValid = false;
+        }
+        if (!Validator.isNotEmpty(wrong1, "Wrong Answer 1")) {
+            isValid = false;
+        }
+        if (!Validator.isNotEmpty(wrong2, "Wrong Answer 2")) {
+            isValid = false;
+        }
+        if (!Validator.isNotEmpty(wrong3, "Wrong Answer 3")) {
+            isValid = false;
+        }
+
+        return isValid;
     }
 }

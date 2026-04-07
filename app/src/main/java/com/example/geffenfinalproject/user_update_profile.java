@@ -20,6 +20,7 @@ import com.example.geffenfinalproject.models.ImageSourceOption;
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.ImageUtil;
+import com.example.geffenfinalproject.utils.Validator;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
@@ -107,6 +108,12 @@ public class user_update_profile extends BaseActivity {
     }
 
     private void saveUser() {
+        if (!Validator.isNameValid(etFirstName, "First Name") ||
+            !Validator.isNameValid(etLastName, "Last Name") ||
+            !Validator.isPhoneValid(etPhone)) {
+            return;
+        }
+
         String fname = etFirstName.getText().toString();
         String lname = etLastName.getText().toString();
         String phone = etPhone.getText().toString();

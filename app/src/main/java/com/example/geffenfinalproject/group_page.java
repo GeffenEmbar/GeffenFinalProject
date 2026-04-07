@@ -26,6 +26,7 @@ import com.example.geffenfinalproject.models.GroupMessage;
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.example.geffenfinalproject.utils.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -132,11 +133,9 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
         builder.setView(input);
 
         builder.setPositiveButton("Change", (dialog, which) -> {
-            String newName = input.getText().toString().trim();
-            if (!newName.isEmpty()) {
+            if (Validator.isNotEmpty(input, "Group name")) {
+                String newName = input.getText().toString().trim();
                 confirmGroupNameChange(newName);
-            } else {
-                Toast.makeText(this, "Group name cannot be empty", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
@@ -358,8 +357,9 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
     }
 
     private void sendMessage() {
+        if (!Validator.isNotEmpty(etChatMessage, "Message")) return;
+
         String messageText = etChatMessage.getText().toString().trim();
-        if (messageText.isEmpty()) return;
 
         if (currentUser == null || currentGroupId == null) {
             Toast.makeText(this, "Error sending message", Toast.LENGTH_SHORT).show();

@@ -14,6 +14,7 @@ import com.example.geffenfinalproject.models.Group;
 import com.example.geffenfinalproject.models.User;
 import com.example.geffenfinalproject.services.DatabaseService;
 import com.example.geffenfinalproject.utils.SharedPreferencesUtil;
+import com.example.geffenfinalproject.utils.Validator;
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.content.Intent;
@@ -49,12 +50,11 @@ public class create_group extends BaseActivity {
 
     private void createGroup() {
 
-        String groupName = editGroupName.getText().toString().trim();
-
-        if (groupName.isEmpty()) {
-            Toast.makeText(this, "Enter group name", Toast.LENGTH_SHORT).show();
+        if (!Validator.isNotEmpty(editGroupName, "Group Name")) {
             return;
         }
+
+        String groupName = editGroupName.getText().toString().trim();
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() == null) {
