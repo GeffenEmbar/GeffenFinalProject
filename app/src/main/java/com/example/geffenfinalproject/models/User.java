@@ -34,6 +34,54 @@ public class User {
         this.correct_answers = correct_answers;
         this.wrong_answers = wrong_answers;
     }
+
+    public User(String id, String fname, String lname, String email, String phone, String password, boolean admin, int correct_answers, int wrong_answers, String profileImage) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.admin = admin;
+        this.correct_answers = correct_answers;
+        this.wrong_answers = wrong_answers;
+        this.profileImage = profileImage;
+    }
+
+    public User(boolean admin, int chordsCorrect, int chordsStreak, int chordsWrong, int complexChordsCorrect, int complexChordsStreak, int complexChordsWrong, int correct_answers, String email, String fname, String groupId, String id, int intervalsCorrect, int intervalsStreak, int intervalsWrong, String lname, int maxChordsStreak, int maxComplexChordsStreak, int maxIntervalsStreak, int maxNotesStreak, int maxQuizStreak, int notesCorrect, int notesStreak, int notesWrong, String password, String phone, String profileImage, int quizCorrect, int quizStreak, int quizWrong, int wrong_answers) {
+        this.admin = admin;
+        this.chordsCorrect = chordsCorrect;
+        this.chordsStreak = chordsStreak;
+        this.chordsWrong = chordsWrong;
+        this.complexChordsCorrect = complexChordsCorrect;
+        this.complexChordsStreak = complexChordsStreak;
+        this.complexChordsWrong = complexChordsWrong;
+        this.correct_answers = correct_answers;
+        this.email = email;
+        this.fname = fname;
+        this.groupId = groupId;
+        this.id = id;
+        this.intervalsCorrect = intervalsCorrect;
+        this.intervalsStreak = intervalsStreak;
+        this.intervalsWrong = intervalsWrong;
+        this.lname = lname;
+        this.maxChordsStreak = maxChordsStreak;
+        this.maxComplexChordsStreak = maxComplexChordsStreak;
+        this.maxIntervalsStreak = maxIntervalsStreak;
+        this.maxNotesStreak = maxNotesStreak;
+        this.maxQuizStreak = maxQuizStreak;
+        this.notesCorrect = notesCorrect;
+        this.notesStreak = notesStreak;
+        this.notesWrong = notesWrong;
+        this.password = password;
+        this.phone = phone;
+        this.profileImage = profileImage;
+        this.quizCorrect = quizCorrect;
+        this.quizStreak = quizStreak;
+        this.quizWrong = quizWrong;
+        this.wrong_answers = wrong_answers;
+    }
+
     public User ()
     {
 

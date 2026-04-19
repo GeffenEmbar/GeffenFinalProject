@@ -162,10 +162,10 @@ public class user_questions extends BaseActivity implements View.OnClickListener
 
         Collections.shuffle(answers);
 
-        answer1.setText(answers.get(0));
-        answer2.setText(answers.get(1));
-        answer3.setText(answers.get(2));
-        answer4.setText(answers.get(3));
+        answer1.setText(answers.get(0)+"");
+        answer2.setText(answers.get(1)+"");
+        answer3.setText(answers.get(2)+"");
+        answer4.setText(answers.get(3)+"");
 
         answer1.setOnClickListener(v -> checkAnswer(answer1.getText().toString()));
         answer2.setOnClickListener(v -> checkAnswer(answer2.getText().toString()));

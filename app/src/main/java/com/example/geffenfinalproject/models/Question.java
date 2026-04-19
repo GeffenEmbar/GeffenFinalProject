@@ -18,7 +18,7 @@ public class Question {
     }
 
     public String getQuestion() {
-        return question;
+        return question+"";
     }
 
     public void setQuestion(String question) {
@@ -26,7 +26,7 @@ public class Question {
     }
 
     public String getCorrect() {
-        return correct;
+        return correct+"";
     }
 
     public void setCorrect(String correct) {
@@ -34,7 +34,7 @@ public class Question {
     }
 
     public String getWrong1() {
-        return wrong1;
+        return wrong1+"";
     }
 
     public void setWrong1(String wrong1) {
@@ -42,7 +42,7 @@ public class Question {
     }
 
     public String getWrong2() {
-        return wrong2;
+        return wrong2+"";
     }
 
     public void setWrong2(String wrong2) {
@@ -50,7 +50,7 @@ public class Question {
     }
 
     public String getWrong3() {
-        return wrong3;
+        return wrong3+"";
     }
 
     public void setWrong3(String wrong3) {
@@ -58,7 +58,7 @@ public class Question {
     }
 
     public String getDifficulty() {
-        return difficulty;
+        return difficulty+"";
     }
 
     public void setDifficulty(String difficulty) {
@@ -66,7 +66,7 @@ public class Question {
     }
 
     public String getId() {
-        return id;
+        return id+"";
     }
 
     public void setId(String id) {
@@ -75,7 +75,7 @@ public class Question {
 
 
     public boolean checkAnswer(String userAnswer) {
-        return userAnswer.equals(correct);
+        return userAnswer.equals(correct+"");
     }
 
 
