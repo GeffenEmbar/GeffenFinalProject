@@ -86,12 +86,13 @@ public class user_chords_quiz extends BaseActivity {
             R.id.btnRootE, R.id.btnRootF, R.id.btnRootFSharp, R.id.btnRootG,
             R.id.btnRootGSharp, R.id.btnRootA, R.id.btnRootASharp, R.id.btnRootB
         };
-
+        // עוברים תו תו עד שמגיעים לתו הנבחר
         for (int i = 0; i < 12; i++) {
             final int index = i;
             rootButtons[i] = findViewById(resIds[i]);
             rootButtons[i].setOnClickListener(v -> {
                 selectedRootIndex = index;
+                // הכפתור שנבחר מודגש
                 highlightSelectedRoot();
             });
         }
@@ -112,8 +113,11 @@ public class user_chords_quiz extends BaseActivity {
     }
 
     private void generateAndPlayChord() {
+        // בוחר תו שורש רנדומלי
         correctRootIndex = random.nextInt(12);
+        // באופן רנדומלי בוחר אם זה מז'ור או מינור
         correctIsMinor = random.nextBoolean();
+
         currentOctave = 3 + random.nextInt(2); // Store octave for replay
         questionActive = true;
         
@@ -123,8 +127,9 @@ public class user_chords_quiz extends BaseActivity {
     private void playChord(int rootIdx, boolean isMinor, int octave) {
         stopAudio();
 
+        // משיגים את השם המתאים של תו השורש
         int rootRes = getNoteResId(rootIdx, octave);
-        
+        // אם זה מינור, טרו, אז תוסיף שלושה חצאי טון, אם פולס אז תוסיף 4
         int thirdIdx = rootIdx + (isMinor ? 3 : 4);
         int thirdOctave = octave;
         if (thirdIdx >= 12) {
@@ -151,6 +156,7 @@ public class user_chords_quiz extends BaseActivity {
         if (mpFifth != null) mpFifth.start();
     }
 
+    // ממיר את התו לצורה של שם ומספר כמו בתיקיה
     private int getNoteResId(int noteIdx, int octave) {
         String prefix = notePrefixes[noteIdx];
         int resId = getResources().getIdentifier(prefix + octave, "raw", getPackageName());

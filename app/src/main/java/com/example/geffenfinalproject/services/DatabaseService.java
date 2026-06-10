@@ -290,7 +290,7 @@ public class DatabaseService {
                     }
                 });
     }
-
+    // ככה הדאטאבייס מבדיל בין כל המשחקים ומסוגל לשנות את המידע בצורה מתאימה
     public enum GameType {
         NOTES, INTERVALS, QUIZ, CHORDS, COMPLEX_CHORDS
     }
@@ -305,7 +305,7 @@ public class DatabaseService {
 
             @Override
             public Transaction.Result doTransaction(MutableData currentData) {
-
+                // הפעולה מקבלת תמונת מצב של המידע של המשתמש, לוקחת אותו ומוסיפה אחד איפה שצריך
                 User user = currentData.getValue(User.class);
 
                 if(user == null)

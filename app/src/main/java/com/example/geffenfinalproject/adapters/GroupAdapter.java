@@ -64,6 +64,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         });
     }
 
+
     @Override
     public int getItemCount() {
         return groupList.size();
