@@ -58,7 +58,7 @@ public class user_notes_quiz extends BaseActivity {
         wrongText = findViewById(R.id.wrongText);
 
         mAuth = FirebaseAuth.getInstance();
-        databaseService = DatabaseService.getInstance(); // ⭐ GROUP SCORE UPDATE CHANGE
+        databaseService = DatabaseService.getInstance();
 
         int[] buttonIds = {
                 R.id.btnC,R.id.btnCSharp,R.id.btnD,R.id.btnDSharp,R.id.btnE,
@@ -144,14 +144,14 @@ public class user_notes_quiz extends BaseActivity {
 
             score++;
 
-            // ⭐ GROUP SCORE UPDATE CHANGE
+            // GROUP SCORE UPDATE CHANGE
             databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.NOTES);
 
             Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show();
         }
         else{
             wrong++;
-            // ⭐ NEW – update user wrong score
+            // NEW – update user wrong score
             if (mAuth.getCurrentUser() != null) {
                 databaseService.userAnsweredWrongly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.NOTES);
             }
@@ -168,6 +168,7 @@ public class user_notes_quiz extends BaseActivity {
 
     @Override
     protected void onDestroy(){
+        // מנקה את הצליל גם מהזיכרון של הטלפון כך האפליקציה לא תופסת הרבה זיכרון בגלל קבצי שמע
         if(mp != null) mp.release();
         super.onDestroy();
     }

@@ -85,6 +85,7 @@ public class user_questions extends BaseActivity implements View.OnClickListener
             questions.addAll(masterList);
         } else {
             for (Question q : masterList) {
+                // אם הרמה של השאלה תואמת לרמה שביקש המשתמש אז תוסיף אותה לרשימת השאלות
                 if (q.getDifficulty().equalsIgnoreCase(selectedDifficulty)) {
                     questions.add(q);
                 }
@@ -181,7 +182,7 @@ public class user_questions extends BaseActivity implements View.OnClickListener
 
             correctCount++;
 
-            // ⭐ NEW – update user + group score
+            // update user + group score
             databaseService.userAnsweredCorrectly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.QUIZ);
 
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
@@ -189,7 +190,7 @@ public class user_questions extends BaseActivity implements View.OnClickListener
         } else {
 
             wrongCount++;
-            // ⭐ NEW – update user wrong score
+            // update user wrong score
             if (mAuth.getCurrentUser() != null) {
                 databaseService.userAnsweredWrongly(mAuth.getCurrentUser().getUid(), DatabaseService.GameType.QUIZ);
             }

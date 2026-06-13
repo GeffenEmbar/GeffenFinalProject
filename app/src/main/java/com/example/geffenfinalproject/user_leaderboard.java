@@ -107,6 +107,7 @@ public class user_leaderboard extends BaseActivity {
         if (allUsers == null || allUsers.isEmpty()) return;
 
         // Sort based on current mode
+        // פעולת הסידור של המערכת זקוקה רק לקבוצה של שני משתמשים ומסדרת את כל הרשימה מהגבוה ביותר במקום הראשון לנמוך ביותר למקום האחרון
         Collections.sort(allUsers, (u1, u2) -> {
             int s1 = getScoreForMode(u1);
             int s2 = getScoreForMode(u2);
@@ -119,6 +120,7 @@ public class user_leaderboard extends BaseActivity {
         // Remaining players
         adapter.setMode(currentMode);
         if (allUsers.size() > 3) {
+            // יש פה פילטר בגלל שלוקחים רק משתתפים באפליקציה שהראנק שלהם ארבע ומעלה
             adapter.setStartRank(4);
             adapter.setUserList(new ArrayList<>(allUsers.subList(3, allUsers.size())));
         } else {

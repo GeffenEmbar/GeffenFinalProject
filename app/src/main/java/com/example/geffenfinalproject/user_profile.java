@@ -35,7 +35,7 @@ public class user_profile extends BaseActivity {
     private TextView tvNotesStats, tvIntervalsStats, tvChordsStats, tvQuizStats, tvComplexChordsStats, tvTotalStats;
     private TextView tvGroupName, tvNotesRank, tvIntervalsRank, tvChordsRank, tvQuizRank, tvComplexChordsRank;
     private ImageView profileImage;
-    private Button btnUpdate;
+    private Button btnUpdate, btnAdminMenu;
 
     private String userUid;
     private DatabaseReference usersRef;
@@ -77,6 +77,7 @@ public class user_profile extends BaseActivity {
 
         profileImage = findViewById(R.id.profileImage);
         btnUpdate = findViewById(R.id.btnGoToUpdate);
+        btnAdminMenu = findViewById(R.id.btnAdminMenu);
 
         // Only show the update button if the viewing user is the profile owner
         String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -86,6 +87,23 @@ public class user_profile extends BaseActivity {
             btnUpdate.setVisibility(View.GONE);
         }
 
+        // Show Admin Menu button if current user is admin
+        DatabaseService.getInstance().getUser(currentUid, new DatabaseService.DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User user) {
+                if (user != null && user.isAdmin()) {
+                    btnAdminMenu.setVisibility(View.VISIBLE);
+                } else {
+                    btnAdminMenu.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                btnAdminMenu.setVisibility(View.GONE);
+            }
+        });
+
         loadUserData();
 
         // UPDATE BUTTON
@@ -93,6 +111,13 @@ public class user_profile extends BaseActivity {
             Intent intent = new Intent(this, user_update_profile.class);
             intent.putExtra("USER_UID", userUid);
             startActivity(intent);
+        });
+
+        // ADMIN MENU BUTTON
+        btnAdminMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(this, admin_menu.class);
+            startActivity(intent);
+            finish();
         });
     }
 

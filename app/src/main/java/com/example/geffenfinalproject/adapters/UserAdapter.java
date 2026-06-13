@@ -47,12 +47,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // לוקח את העיצוב המקורי מהאייטם
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
         return new ViewHolder(view);
     }
 
+
+    // ריסייקל וויו קורא לפעולה הזו כאשר צריך עוד שורה של משתמש בשביל הרשימה
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // לוקח את הרשימה ממסד הנתונים ושם את הנתןנים במקומות הנכונים לפי הid
         User user = userList.get(position);
         if (user == null) return;
 
@@ -119,7 +123,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         });
 
     }
-
+    // הראה בתמונה רק את הראשי תיבות
     private void showInitials(ViewHolder holder, User user) {
         holder.ivProfile.setVisibility(View.GONE);
         holder.tvInitials.setVisibility(View.VISIBLE);
@@ -145,7 +149,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         userList.addAll(users);
         notifyDataSetChanged();
     }
-
+    /*
     public void addUser(User user) {
         userList.add(user);
         notifyItemInserted(userList.size() - 1);
@@ -174,7 +178,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         if (index == -1) return;
         userList.remove(index);
         notifyItemRemoved(index);
-    }
+    }*/
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvEmail, tvPhone, tvInitials, chipRole, tvRank;

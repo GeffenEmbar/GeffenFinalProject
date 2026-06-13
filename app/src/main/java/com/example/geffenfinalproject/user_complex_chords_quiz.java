@@ -34,7 +34,7 @@ public class user_complex_chords_quiz extends BaseActivity {
     private int selectedRootIndex = -1;
 
     private boolean questionActive = false;
-
+    // שמות התווים כמו שהם רשומים בתיקיית רו
     private final String[] notePrefixes = {"c", "csharp", "d", "dsharp", "e", "f", "fsharp", "g", "gsharp", "a", "asharp", "b"};
     private final String[] noteNames = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     
@@ -80,6 +80,7 @@ public class user_complex_chords_quiz extends BaseActivity {
     }
 
     private void setupRootButtons() {
+        // ממספרים את הכפתורים כדי שנוכל להריץ לולאת פור ולמצוא את הכפתור שהמשתמש סימן ביעילות יותר
         int[] resIds = {
             R.id.btnRootC, R.id.btnRootCSharp, R.id.btnRootD, R.id.btnRootDSharp,
             R.id.btnRootE, R.id.btnRootF, R.id.btnRootFSharp, R.id.btnRootG,
@@ -89,6 +90,7 @@ public class user_complex_chords_quiz extends BaseActivity {
         for (int i = 0; i < 12; i++) {
             final int index = i;
             rootButtons[i] = findViewById(resIds[i]);
+            // כאשר משתמש לוחץ על כפתור מסוים אז תדגיש את הכפתור
             rootButtons[i].setOnClickListener(v -> {
                 selectedRootIndex = index;
                 highlightSelectedRoot();
@@ -98,11 +100,14 @@ public class user_complex_chords_quiz extends BaseActivity {
 
     private void highlightSelectedRoot() {
         for (int i = 0; i < 12; i++) {
+            // תדגיש את המסומן
             if (i == selectedRootIndex) {
                 rootButtons[i].setStrokeWidth(5);
                 rootButtons[i].setStrokeColor(getColorStateList(R.color.white));
                 rootButtons[i].setBackgroundColor(getColor(R.color.black));
-            } else {
+            }
+            // אל תדגיש את כל השאר
+            else {
                 rootButtons[i].setStrokeWidth(1);
                 rootButtons[i].setStrokeColor(getColorStateList(R.color.white));
                 rootButtons[i].setBackgroundColor(getColor(android.R.color.transparent));
@@ -113,7 +118,8 @@ public class user_complex_chords_quiz extends BaseActivity {
     private void generateAndPlayChord() {
         correctRootIndex = random.nextInt(12);
         correctIsAugmented = random.nextBoolean();
-        currentOctave = 3 + random.nextInt(2); // Store octave for replay
+        // בוחר אוקטבה או שלישית או רביעית תמיד!
+        currentOctave = 3 + random.nextInt(2);
         questionActive = true;
         
         playChord(correctRootIndex, correctIsAugmented, currentOctave);
@@ -132,6 +138,7 @@ public class user_complex_chords_quiz extends BaseActivity {
             thirdIdx -= 12;
             thirdOctave++;
         }
+        //
         int thirdRes = getNoteResId(thirdIdx, thirdOctave);
         
         int fifthIdx = rootIdx + (isAugmented ? 8 : 6);
@@ -151,10 +158,12 @@ public class user_complex_chords_quiz extends BaseActivity {
         if (mpThird != null) mpThird.start();
         if (mpFifth != null) mpFifth.start();
     }
-
+    // הפעולה הזאת נועדה לקחת את התו ולתרגם את השם שלו למשהו שאנדרואיד יוכל להבין ולהשמיע
     private int getNoteResId(int noteIdx, int octave) {
         String prefix = notePrefixes[noteIdx];
+        // האנדרואיד מחפש את האיי די של התו המסוים עם האות והאוקטבה הנכונה ומחפש רק בתיקיית רו
         int resId = getResources().getIdentifier(prefix + octave, "raw", getPackageName());
+        // fallback למקרה של תקלה
         if (resId == 0) {
             resId = getResources().getIdentifier(prefix + "4", "raw", getPackageName());
         }
@@ -174,6 +183,7 @@ public class user_complex_chords_quiz extends BaseActivity {
 
         boolean userIsAugmented = switchType.isChecked();
 
+        // עדכון במסד הנתוים בעזרת הפעולה שנמצאת בservice
         if (selectedRootIndex == correctRootIndex && userIsAugmented == correctIsAugmented) {
             score++;
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
@@ -192,6 +202,7 @@ public class user_complex_chords_quiz extends BaseActivity {
         updateScoreUI();
         questionActive = false;
         selectedRootIndex = -1;
+        // מפעילים את ההדגשה עם selected ששווה למינוס אחד ולכן זה לא ידגיש אף כפתור כמו שצריך
         highlightSelectedRoot();
     }
 

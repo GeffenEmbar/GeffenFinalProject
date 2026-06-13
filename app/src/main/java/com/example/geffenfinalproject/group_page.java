@@ -293,6 +293,9 @@ public class group_page extends BaseActivity implements UserAdapter.OnUserClickL
         });
     }
 
+    // פה מתרחש פילטר של המשתתפים באפליקציה
+    // הפעולה לוקחת את הרשימה של כל המשתמשים באפליקציה עוברת על כולם ובודקת את הgroupid שלהם ובודקת האם אותו id של הקבוצה העכשווית
+
     private void loadMembers(String groupId) {
         databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {
             @Override
